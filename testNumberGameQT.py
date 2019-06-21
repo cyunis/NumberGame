@@ -16,17 +16,18 @@ while Talk.get_num_connections() == 0:
 
 #researcher will toggle some of these, some are scripted to toggle as game is played
 #introduction set
-intro_set = ['Nice to meet you, I\'m QT! What\'s your name? Want to play a game?', 
-		'Nice to meet you, I\'m QT! Let\'s play a game! Think of a number between 1 and 100',
-        'Hi I\'m QT! I think we\'ll have fun together. Can you think of a number between 1 and 100?', 
-	    'Remember I can talk but I don\'t understand what you are saying.']
-#to encourage play during game
+intro_set = ['Nice to meet you, I\'m QT! What\'s your name? Want to play a game? Always do max effort with your motions!', 
+		'Nice to meet you, I\'m QT! Let\'s play a game! Think of a number between 1 and 100. Always do max effort with your motions!',
+        'Hi I\'m QT! I think we\'ll have fun together. Can you think of a number between 1 and 100? Always do max effort with your motions!', 
+	    'Remember I can talk but I don\'t understand what you are saying. Always do max effort with your motions!']
+#to encourage play during game 
 encourage_set = ['Good job!', 'Hooray! Let\'s play again!', 'Wow you\'re good at this!',
 		'You\'re doing a great job!','Wow this is hard you\'re good at this!']
 #researcher can use this if participant not paying attention - needs button or researcher needs computer
 distraction_set = ['Hi please focus on me', 'Do you like to play games?',
 		'Let\'s keep playing.', 'I am sad when you ignore me.', 
-		'Why won\'t you play with me?','Don\'t touch me!'] 
+		'Why won\'t you play with me?','Don\'t touch me!',
+		'Want to hear a joke? Show me yes or no with your hand.'] 
 #for when partipicant makes an unclear gesture - needs button or researcher needs computer
 confustion_set = ['I don’t think I understand could you repeat that motion?',
 		'Let\'s try again so I can be sure.', 'No talking just show me with your motions.']
