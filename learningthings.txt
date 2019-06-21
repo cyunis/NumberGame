@@ -20,6 +20,7 @@ then in catkin_ws/devel run source ~/.bashrc)
 cd out to catkin_ws
 catkin_make
 (roscd pkgname) to see if pkgname is in catkin ws
+(first time - cd into pkgname/scripts, run: chmod +x script.py)
 rosrun pkgname script.py
 
 >>>QT Stuff:
