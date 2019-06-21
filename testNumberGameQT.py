@@ -7,8 +7,10 @@ import sys
 import rospy
 from std_msgs.msg import String
 rospy.init_node('qt_robot_interface1') #unique mode name
-Talk1 = rospy.Publisher('/qt_robot/behavior/talkText', String, queue_size = 10)
-while Talk1.get_num_connections() == 0:
+Talk = rospy.Publisher('/qt_robot/behavior/talkText', String, queue_size = 10)
+Emotion = rospy.Publisher('/qt_robot/emotion/show', String)
+Gesture = rospy.Publisher('/qt_robot/gesture/play', String)
+while Talk.get_num_connections() == 0:
     rospy.loginfo("Waiting for subscriber to connect")
     rospy.sleep(1) #teaching it to wait
 
@@ -21,32 +23,34 @@ intro_set = ['Nice to meet you, I\'m QT! What\'s your name? Want to play a game?
 #to encourage play during game
 encourage_set = ['Good job!', 'Hooray! Let\'s play again!', 'Wow you\'re good at this!',
 		'You\'re doing a great job!','Wow this is hard you\'re good at this!']
-#researcher can use this if participant not paying attention - needs button
+#researcher can use this if participant not paying attention - needs button or researcher needs computer
 distraction_set = ['Hi please focus on me', 'Do you like to play games?',
 		'Let\'s keep playing.', 'I am sad when you ignore me.', 
 		'Why won\'t you play with me?','Don\'t touch me!'] 
-#for when partipicant makes an unclear gesture - needs button
+#for when partipicant makes an unclear gesture - needs button or researcher needs computer
 confustion_set = ['I don’t think I understand could you repeat that motion?',
 		'Let\'s try again so I can be sure.', 'No talking just show me with your motions.']
-#for when the game is too hard for the participant - needs button
+#for when the game is too hard for the participant - needs button or researcher needs computer
 end_set = ['Hm maybe we should play a different game.', 'Would you like to take a break?',
 		'Let\'s take a break.', 'Don\'t be sad let\'s do something else!']
 
 #step 2: generate strings for first interactions,
 #pull a random phrase from correct set
 random_phrase_ix = random.randrange(0,len(intro_set))
-Talk1.publish(intro_set[random_phrase_ix]) #QT says this
+Talk.publish(intro_set[random_phrase_ix]) #QT says this
+Emotion.publish('ava_happy')
 rospy.sleep(3) #allow QT to finish sentence
 start = input('Let\'s start! ') #type ok
 
 #step 3: ask if guess is correct, use bisection alg
-Talk1.publish('Is this your guess?') 
+Talk.publish('Is this your guess?') 
 rospy.sleep(1)
 guess_list = [-1,101]
 half_guess = int((guess_list[1]-guess_list[0])/2) #next 3 lines = fxn
 guess = bisect.bisect(guess_list, half_guess)+half_guess
 newbound = guess+guess_list[0]
-Talk1.publish(str(newbound)) 
+Talk.publish(str(newbound)) 
+Emotion.publish('ava_confused') #questioning face - needs special programming?
 
 #step 4: read response from participant
 #for now use button press
@@ -54,45 +58,58 @@ Talk1.publish(str(newbound))
 #step 5: repeat - make the game ongoing
 #step 6: include QT - will need gestures and phrases
 while start == 'ok':
-	Talk1.publish('Is my guess correct?')
+	Talk.publish('Is my guess correct?')
 	rospy.sleep(1)
     val = input('Is my guess correct? ') 
     if val == 'no':
 	#QT makes a sad face, or says something
-		Talk1.publish('Is your number higher than my guess?')
+		Emotion.publish('ava_sad')
+		Talk.publish('Is your number higher than my guess?')
+		rospy.sleep(2)
         val2 = input('yes or no? ')
         if val2 == 'yes':
             guess_list = [guess,100]
         if val2 == 'no':
             guess_list = [0,guess]
      #    if val == 'c': #participant is confused, researcher types
-    	# 	Talk1.publish(confusion_set[random_phrase_ix])
+    	# 	Talk.publish(confusion_set[random_phrase_ix])
+    	#	Emotion.publish('ava_confused') #questioning face - needs special programming?
     	# 	rospy.sleep(3)
     	# if val == 'd': #participant is distracted, researcher types
-    	# 	Talk1.publish(distraction_set[random_phrase_ix])
+    	# 	Talk.publish(distraction_set[random_phrase_ix])
+    	#	Emotion.publish('ava_diqust') #disappointed face
     	# 	rospy.sleep(3)
       #   if val == 'e': #game is too hard
-    		# Talk1.publish(end_set[random_phrase_ix])
+    		# Talk.publish(end_set[random_phrase_ix])
+    		# Emotion.publish('ava_sad') #sad face
     		# rospy.sleep(3)
         half_guess = int((guess_list[1]-guess_list[0])/2)
         guess = bisect.bisect(guess_list, half_guess)+half_guess
         newbound = guess+guess_list[0]
-        Talk1.publish('Is your guess' + str(newbound))
+        Talk.publish('Is your guess' + str(newbound))
+        Emotion.publish('ava_confused') #questioning face - needs special programming?
         rospy.sleep(2)
-        Talk1.publish(encourage_set[random_phrase_ix])
+        Talk.publish(encourage_set[random_phrase_ix])
+        Emotion.publish('ava_excited') #or happy, etc
         rospy.sleep(3)
     if val == 'yes':
-        Talk1.publish('I win!')
-	#QT dances happily
+        Talk.publish('I win!')
+        Emotion.publish('ava_happy')
+        Gesture.publish('happy') #dance, victory 
+        rospy.sleep(5)
+        Talk.publish('Bye bye!')
         quit()
     if val == 'c': #participant is confused, researcher types
-    	Talk1.publish(confusion_set[random_phrase_ix])
+    	Talk.publish(confusion_set[random_phrase_ix])
+    	Emotion.publish('ava_confused') #questioning face - needs special programming?
     	rospy.sleep(3)
     if val == 'd': #participant is distracted, researcher types
-    	Talk1.publish(distraction_set[random_phrase_ix])
+    	Talk.publish(distraction_set[random_phrase_ix])
+    	Emotion.publish('ava_diqust') #disappointed face
     	rospy.sleep(3)
     if val == 'e': #game is too hard
-    	Talk1.publish(end_set[random_phrase_ix])
+    	Talk.publish(end_set[random_phrase_ix])
+    	Emotion.publish('ava_sad') #sad face
     	rospy.sleep(3)
         
 
