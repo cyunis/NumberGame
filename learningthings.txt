@@ -1,0 +1,30 @@
+>>>Using Git:
+git pull
+(play around with code)
+git add
+git commit
+git push
+(git status) to check what's going on
+
+>>>Using Catkin WS:
+cd into catkin_ws/src
+create a package: catkin_create_pkg pkgname (lowercase # _)
+cd into pkgname
+mkdir scripts
+cd into scripts
+put all the python/code files in scripts
+(in the ~/.bashrc file add lines at the end:
+source /opt/ros/kinetic/setup.bash
+source ~/catkin_ws/devel/setup.sh
+then in catkin_ws/devel run source ~/.bashrc)
+cd out to catkin_ws
+catkin_make
+(roscd pkgname) to see if pkgname is in catkin ws
+rosrun pkgname script.py
+
+>>>QT Stuff:
+there is a gesture game app @ ~/robot/code/qt_apps/qt_gesturegame_app/src/qt_gesturegame_app.cpp
+in catkin_ws: rosnode list to see node names
+
+
+

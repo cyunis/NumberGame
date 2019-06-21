@@ -20,7 +20,7 @@ print(intro_string)
 print('Is this your guess?') 
 	#QT says this
 	#QT does relevant face/gesture
-guess_list = [0,100]
+guess_list = [-1,101]
 half_guess = int((guess_list[1]-guess_list[0])/2) #next 3 lines = fxn
 guess = bisect.bisect(guess_list, half_guess)+half_guess
 print(guess+guess_list[0]) 
