@@ -31,6 +31,8 @@ when writing scripts use unique node names to avoid overwriting qt gui
 
 >>>ROS:
 in order to play with roscore, new commands need to be run in an new terminal window while roscore is still open in its window
+rosrun rosserial_python serial_node.py /dev/ttyACM#S
+rostopic echo pushed
 
 >>>Arduino
 install rosserial libraries (search on library manager) + restart to see rosserial examples
@@ -38,6 +40,9 @@ or use https://github.com/ros-drivers/rosserial
 if errors with port try running these commands from root:
 ls -l /dev/ttyACM*
 sudo chmod a+rw /dev/ttyACM# (as listed)
-
+possible reasons for issue:
+-arduino cannot communicate with computer when running pam lib
+-look up how libraries work in arduino
+-pam could be interfering with serial communication to computer (maybe air board has serial communication to arduino maybe the computer serial communication is bad at sharing if theres only one serial port)
 
 
