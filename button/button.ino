@@ -51,7 +51,7 @@ void loop() {
     threshold = Pam.getPressure(0);
     if (threshold > 20){ //change to 10 for less pressure
       Pam.setValves(0,u[2]); //hold the pressure
-      delay(5000); ] //for 5 seconds
+      delay(5000); //for 5 seconds
     }
   }
   else{

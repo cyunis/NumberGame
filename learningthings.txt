@@ -5,6 +5,7 @@ git add
 git commit
 git push
 (git status) to check what's going on
+(on qt nuuc) copy/replace updated file in catkin_ws/src to run
 
 >>>Using Catkin WS:
 cd into catkin_ws/src
@@ -26,6 +27,17 @@ rosrun pkgname script.py
 >>>QT Stuff:
 there is a gesture game app @ ~/robot/code/qt_apps/qt_gesturegame_app/src/qt_gesturegame_app.cpp
 in catkin_ws: rosnode list to see node names
+when writing scripts use unique node names to avoid overwriting qt gui
+
+>>>ROS:
+in order to play with roscore, new commands need to be run in an new terminal window while roscore is still open in its window
+
+>>>Arduino
+install rosserial libraries (search on library manager) + restart to see rosserial examples
+or use https://github.com/ros-drivers/rosserial
+if errors with port try running these commands from root:
+ls -l /dev/ttyACM*
+sudo chmod a+rw /dev/ttyACM# (as listed)
 
 
 
