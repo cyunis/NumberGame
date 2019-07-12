@@ -6,9 +6,12 @@ import bisect
 #step 2: generate strings for first interactions,
 #pull a random phrase from correct set
 intro_set = ['Nice to meet you, I\'m QT! Let\'s play a game! Think of a number between 1 and 100',
-             'Guess a number between 1 and 100!']
+             'Guess a number between 1 and 100!'] 
+    #make this a dictionary/set, giving each entry a line break makes it easier to read
+    #i can nest dictionaries
 random_phrase_ix = random.randrange(0,len(intro_set))
 intro_string = intro_set[random_phrase_ix]
+    #use get method for the intro set dict.get(key, set return value)
 start = input('Let\'s start! ') #type ok
 print(intro_string)
 
