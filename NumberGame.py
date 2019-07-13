@@ -16,16 +16,23 @@ start = input('Let\'s start! ') #type ok
 print(intro_string)
 
 #step 3: ask if guess is correct, use bisection alg
+    #identify variables to compare in boolean operations ex: guess, high bound, low bound, random_w_guess
+    #print statements after every line to follow logic flow when debugging
 print('Is this your guess?')
-guess_list = [-1,101]
-half_guess = int((guess_list[1]-guess_list[0])/2) #next 3 lines = fxn
+high = 101
+low = -1
+half_guess = int((high-low)/2)
+random_guess = 
+print(half_guess)
+
 guess = bisect.bisect(guess_list, half_guess)+half_guess
-print(guess+guess_list[0])
+print(guess+low)
 
 #step 4: read response from participant
 #for now use button press
 
 #step 5: repeat - make the game ongoing
+    #use 0/1 or true/false instead of string
 while start == 'ok':
     val = input('Is my guess correct? ')
     if val == 'no':
@@ -34,7 +41,7 @@ while start == 'ok':
             guess_list = [guess,100]
         if val2 == 'lower':
             guess_list = [0,guess]
-        half_guess = int((guess_list[1]-guess_list[0])/2)
+        half_guess = int((high-low)/2)
         guess = bisect.bisect(guess_list, half_guess)+half_guess
         print(guess+guess_list[0])
     if val == 'yes':
