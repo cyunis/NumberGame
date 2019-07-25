@@ -44,7 +44,6 @@ def listener():
     rospy.init_node('listener', anonymous=True)
     rospy.Subscriber('openwearable', String, callback)
     rospy.sleep(3)
-    print(buttons)
 
 #initialize variables, import modules
 import random
