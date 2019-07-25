@@ -62,7 +62,7 @@ print("""In this game I get to ask you questions, and you get to answer yes or n
     Let's practice. Can you show me a thumbs up to say yes?""") #use green button, pull from ow_subscriber.py
 # listener()
 while __name__ == '__main__':
-    listener(3)
+    listener()
     if ow_subscriber.buttons is 1:
         print("Awesome! Now can you show me a thumbs down to say no?")
 # correctup = input('Was it a good thumbs up? ') #replace with line(s) reading button input = 1
