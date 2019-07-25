@@ -9,16 +9,15 @@ from std_msgs.msg import String
 class DataReporter(object):
     def __init__(self, filename):
         self._filename = filename
-        try:
-            # hacky split
-            val = self._filename.split(':')
-            val = val[1].split('\\t');
-            temp = val[0].split('"');
+        # hacky split
+        val = self._filename.split(':')
+        val = val[1].split('\\t');
+        temp = val[0].split('"');
 
-            frame = int(temp[1])
-            state = int(val[1])
-            buttons = int(val[2])
-            #print(frame, state, buttons)
+        frame = int(temp[1])
+        state = int(val[1])
+        buttons = int(val[2])
+        #print(frame, state, buttons)
     def report(self, message):
         open(self._filename).write(message)
     
