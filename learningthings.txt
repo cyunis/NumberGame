@@ -43,6 +43,13 @@ export ROS_IP=10.42.0.149 (my or CK's computer)
 get on slab1 wifi (shared wifi with beaglebone)
 ssh root@beaglebone.local
 export ROS_MASTER_URI=http://localhost:11311
+open 3 terminals - one for roscore, one for the data collection script, one for python
+1) roscore
+2) cd ~/openWearable/apps
+./bin/pam-thumbs-test -r (-r to upload to ros)
+3) cd ~/NumberGame
+git pull (for any updates)
+python NumberGame.py
 
 >>>Arduino
 install rosserial libraries (search on library manager) + restart to see rosserial examples
