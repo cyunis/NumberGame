@@ -3,31 +3,30 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# import rospy
-# from std_msgs.msg import String
+import rospy
+from std_msgs.msg import String
 
-# def callback(data):
-#     strdata = str(data)
+def callback(data):
+    strdata = str(data)
 
-#     # hacky split
-#     val = strdata.split(':')
-#     val = val[1].split('\\t');
-#     temp = val[0].split('"');
+    # hacky split
+    val = strdata.split(':')
+    val = val[1].split('\\t');
+    temp = val[0].split('"');
 
-#     frame = int(temp[1])
-#     state = int(val[1])
-#     buttons = int(val[2])
-#     print(frame, state, buttons)
+    frame = int(temp[1])
+    state = int(val[1])
+    buttons = int(val[2])
+    print(frame, state, buttons)
 
-# def listener():
-#     rospy.init_node('listener', anonymous=True)
-#     rospy.Subscriber('openwearable', String, callback)
-#     rospy.spin()
+def listener():
+    rospy.init_node('listener', anonymous=True)
+    rospy.Subscriber('openwearable', String, callback)
+    rospy.spin()
 
 
 #initialize variables, import modules
 import random
-import ow_subscriber
 nocounter = 0
 yescounter = 0
 high = 101
@@ -63,7 +62,7 @@ print("""In this game I get to ask you questions, and you get to answer yes or n
     Let's practice. Can you show me a thumbs up to say yes?""") #use green button, pull from ow_subscriber.py
 # listener()
 while __name__ == '__main__':
-    #listener()
+    listener(3)
     if ow_subscriber.buttons is 1:
         print("Awesome! Now can you show me a thumbs down to say no?")
 # correctup = input('Was it a good thumbs up? ') #replace with line(s) reading button input = 1
