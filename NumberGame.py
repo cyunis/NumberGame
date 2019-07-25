@@ -8,39 +8,39 @@ yescounter = 0
 high = 101
 low = -1
 
-#setting up phrase dictionaries
-#to guess
-guess_dict = {1: 'Is your number {}?', #2.5 sec
-                2: 'I guess {}. Did I guess your number?', #5.5 sec
-                3: 'Ok I think I know your number. Is it {}?', #5.5 sec
-                4: 'Is {} right?'} #2.5 sec
-#higher or lower
-second_dict = {1: 'Hey {} is your number higher than mine? Show me yes or no.', #7 sec 
-                2: 'Oh no I didn’t get it. Did I guess higher than your number {}?', #7 sec
-                3: 'Hmm is your guess bigger than mine {}?'} #4 sec  
-#to encourage play during game 
-encourage_dict = {1:'Good job {}!', #2.5 sec
-                2:'Hooray! Let\'s play again {}!', #4.5 sec
-                3:'That was your best one so far! Keep up the good work {}!', #7 sec
-                4:'I can tell you are trying really hard {}, nice job!', #5 sec
-                5:'You are getting better at this {}, wow!', #4 sec
-                6:'I know this is hard {}, keep trying!'} #4.5 sec
-clarify_dict = {1: 'I didn’t see that {}, could you repeat that answer for me?', #6 sec
-                2: 'I think that was a {}. If I’m right could you make a thumbs up/down for me?', #6.5 sec
-                3: 'Could you show me that answer again {}?'} #4 sec 
-reward_dict = {1: 'Let’s dance.', #2 sec
-                2: 'I have a joke {}, why did a crocodile marry a chicken? Because crock-o-doodle-doodle is a good last name!', #9.5 sec
-                3: 'What is your favorite color {}? Mine is blue.', #5.5 sec
-                4: 'I like playing games with you {}, you’re very fun. Do you like playing with me?'} #8 sec
+# #setting up phrase dictionaries
+# #to guess
+# guess_dict = {1: 'Is your number {}?', #2.5 sec
+#                 2: 'I guess {}. Did I guess your number?', #5.5 sec
+#                 3: 'Ok I think I know your number. Is it {}?', #5.5 sec
+#                 4: 'Is {} right?'} #2.5 sec
+# #higher or lower
+# second_dict = {1: 'Hey {} is your number higher than mine? Show me yes or no.', #7 sec 
+#                 2: 'Oh no I didn’t get it. Did I guess higher than your number {}?', #7 sec
+#                 3: 'Hmm is your guess bigger than mine {}?'} #4 sec  
+# #to encourage play during game 
+# encourage_dict = {1:'Good job {}!', #2.5 sec
+#                 2:'Hooray! Let\'s play again {}!', #4.5 sec
+#                 3:'That was your best one so far! Keep up the good work {}!', #7 sec
+#                 4:'I can tell you are trying really hard {}, nice job!', #5 sec
+#                 5:'You are getting better at this {}, wow!', #4 sec
+#                 6:'I know this is hard {}, keep trying!'} #4.5 sec
+# clarify_dict = {1: 'I didn’t see that {}, could you repeat that answer for me?', #6 sec
+#                 2: 'I think that was a {}. If I’m right could you make a thumbs up/down for me?', #6.5 sec
+#                 3: 'Could you show me that answer again {}?'} #4 sec 
+# reward_dict = {1: 'Let’s dance.', #2 sec
+#                 2: 'I have a joke {}, why did a crocodile marry a chicken? Because crock-o-doodle-doodle is a good last name!', #9.5 sec
+#                 3: 'What is your favorite color {}? Mine is blue.', #5.5 sec
+#                 4: 'I like playing games with you {}, you’re very fun. Do you like playing with me?'} #8 sec
 #introduction
 print("""In this game I get to ask you questions, and you get to answer yes or no
     only by using a thumbs up or a thumbs down gesture with your right arm.
-    Let's practice. Can you show me a thumbs up to say yes?""")
-correctup = input('Was it a good thumbs up? ')
+    Let's practice. Can you show me a thumbs up to say yes?""") #use green button, pull from ow_subscriber.py
+correctup = input('Was it a good thumbs up? ') #replace with line(s) reading button input = 1
 if correctup is 'yes':
 #we need a time limit they can answer in - 5 sec?
     print("Awesome! Now can you show me a thumbs down to say no?")
-correctdown = input('Was it a good thumbs down? ')
+correctdown = input('Was it a good thumbs down? ') #same by with -1 for red button
 if correctdown is 'yes':
     print("""Cool! During the game, please keep your hand in the 
         middle until I ask you a question. That means your thumb is pointing sideways, 
