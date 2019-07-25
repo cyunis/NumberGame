@@ -346,13 +346,30 @@ def dictionary_set():
     return guess_dict,second_dict,encourage_dict,clarify_dict,reward_dict
 
 
-def feedback_function():
-    #camera angle, function to determine yes or no
-    #GAS 
-    #GAS over time - compare to previous attempts
-    #how do we initialize probability?
-    #how to build in case for unpredictability?
-    pass
+def feedback_function(thumb_angle, time):
+    
+    #give each item weights and combine weights to make a %
+    #want reward to be 80-50% and encourage >80% always
+    #camera angle, GAS (fatigue), history of gestures, # of prompts
+    
+    #camera angles should be matched to buckets on the GAS - need to see lit if standard #s for this (10% is 1, 20% is 2)
+        #these should be the most important factors to weight
+    
+    #increase the encouragement when GAS, camera angle is worse and increase more if history shows a pattern of worsening
+    
+    #if high number of rewards maybe dont need to increase encouragement as much
+    
+    #if a lot of clarification is needed, and bad history of gestures, more encouragement and more reward for lower GAS
+    
+    #if history of gestures is bad but shows one good case give a reward
+
+    #50 degrees is the threshold, determined by GAS
+    if abs(thumb_angle) < 50:
+        encourage_prob = 0.85 -abs(thumb_angle/100.0) + time/300.0 #smaller angle, worse performance/ longer time, more tired, more enc
+        return encourage_prob
+    else:
+        reward_prob = 0.5 + abs(thumb_angle/100.0) + time/300.0 #larger angle, better performance/ longer the time playing, more reward
+        return reward_prob
 
 
 
