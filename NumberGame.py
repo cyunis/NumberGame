@@ -1,5 +1,31 @@
 #!/usr/local/bin/python
+#!/usr/bin/env python
 # coding: utf-8
+
+import rospy
+from std_msgs.msg import String
+
+def callback(data):
+    strdata = str(data)
+
+    # hacky split
+    val = strdata.split(':')
+    val = val[1].split('\\t');
+    temp = val[0].split('"');
+
+    frame = int(temp[1])
+    state = int(val[1])
+    buttons = int(val[2])
+    #print(frame, state, buttons)
+
+def listener():
+    rospy.init_node('listener', anonymous=True)
+    rospy.Subscriber('openwearable', String, callback)
+    rospy.spin()
+
+if __name__ == '__main__':
+    listener()
+
 
 #initialize variables, import modules
 import random
@@ -36,10 +62,12 @@ low = -1
 print("""In this game I get to ask you questions, and you get to answer yes or no
     only by using a thumbs up or a thumbs down gesture with your right arm.
     Let's practice. Can you show me a thumbs up to say yes?""") #use green button, pull from ow_subscriber.py
-correctup = input('Was it a good thumbs up? ') #replace with line(s) reading button input = 1
-if correctup is 'yes':
-#we need a time limit they can answer in - 5 sec?
+if buttons is 1:
     print("Awesome! Now can you show me a thumbs down to say no?")
+# correctup = input('Was it a good thumbs up? ') #replace with line(s) reading button input = 1
+# if correctup is 'yes':
+# #we need a time limit they can answer in - 5 sec?
+#     print("Awesome! Now can you show me a thumbs down to say no?")
 correctdown = input('Was it a good thumbs down? ') #same by with -1 for red button
 if correctdown is 'yes':
     print("""Cool! During the game, please keep your hand in the 
