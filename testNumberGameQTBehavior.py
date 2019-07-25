@@ -286,6 +286,21 @@ def callback(data):
 #behavior feedback function
 def feedback_function(wrist_angle, encourage_level, probability,tracking_var):
     abc=1
+    #give each item weights and combine weights to make a %
+    #want reward to be 80-50% and encourage >80% always
+    #camera angle, GAS (fatigue), history of gestures, # of prompts
+    
+    #camera angles should be matched to buckets on the GAS - need to see lit if standard #s for this (10% is 1, 20% is 2)
+        #these should be the most important factors to weight
+    
+    #increase the encouragement when GAS, camera angle is worse and increase more if history shows a pattern of worsening
+    
+    #if high number of rewards maybe dont need to increase encouragement as much
+    
+    #if a lot of clarification is needed, and bad history of gestures, more encouragement and more reward for lower GAS
+    
+    #if history of gestures is bad but shows one good case give a reward
+    
     #track feedback over course of game
         #rosbag this data: 
             #behavior and string
@@ -298,8 +313,7 @@ def feedback_function(wrist_angle, encourage_level, probability,tracking_var):
             # # wrong gesture (button)
             #experimenter interventions
             #button state?
-        #write to disk
-#button/orthosis function? ask jonathan
+            #air pressure
 
 #initialize publishers
 rospy.init_node('qt_robot_interface1') #unique node name
