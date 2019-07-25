@@ -6,24 +6,39 @@
 import rospy
 from std_msgs.msg import String
 
-def callback(data):
-    strdata = str(data)
+class DataReporter(object):
+    def __init__(self, filename):
+        self._filename = filename
+        try:
+            # hacky split
+            val = self._filename.split(':')
+            val = val[1].split('\\t');
+            temp = val[0].split('"');
 
-    # hacky split
-    val = strdata.split(':')
-    val = val[1].split('\\t');
-    temp = val[0].split('"');
+            frame = int(temp[1])
+            state = int(val[1])
+            buttons = int(val[2])
+            #print(frame, state, buttons)
+    
+# def callback(data):
+#     strdata = str(data)
 
-    frame = int(temp[1])
-    state = int(val[1])
-    buttons = int(val[2])
-    #print(frame, state, buttons)
+#     # hacky split
+#     val = strdata.split(':')
+#     val = val[1].split('\\t');
+#     temp = val[0].split('"');
+
+#     frame = int(temp[1])
+#     state = int(val[1])
+#     buttons = int(val[2])
+#     #print(frame, state, buttons)
 
 def listener():
     rospy.init_node('listener', anonymous=True)
-    rospy.Subscriber('openwearable', String, callback)
-    rospy.sleep(5)
-
+    rospy.Subscriber('openwearable', String)
+    rospy.sleep(3)
+    
+data_reporter = DataReporter(data)
 
 #initialize variables, import modules
 import random
