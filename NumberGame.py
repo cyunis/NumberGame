@@ -49,7 +49,6 @@ if correctdown is 'yes':
         is going the wrong way, just push the red button to move it back to the 
         middle. Remember to keep your hands in the middle when you are not answering 
         a question.  And just do your best. Can you show me yes if that’s ok?""")
-rospy.sleep(2)
 print("Let's play now! Please think of a number between 1 and 100.") #6.5 sec
 print("I'm thinking of your number.")
 
