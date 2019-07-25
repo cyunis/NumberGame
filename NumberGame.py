@@ -52,38 +52,38 @@ if correctdown is 'yes':
 print("Let's play now! Please think of a number between 1 and 100.") #6.5 sec
 print("I'm thinking of your number.")
 
-#game play - use 0/1 or true/false instead of string
-start = input('What is your number? ') #type 'ok'
-while start == 'ok':
-    half_range = int((high-low)/2)
-    current = half_range+low
-    random_add = random.randrange(-half_range,half_range) #never add on outside of the guessing range
-    QT = current+random_add
-    random_guess = random.randrange(1,len(guess_dict))
-    random_talk = random.randrange(1,5)
-    random_listen = random.randrange(5,9)
-    random_encourage = random.randrange(9,12)
-    random_other = random.randrange(13,17)
-    #print("QT Guess is: "+str(QT))
-    #print("Current is {} and random addition is {}.".format(current,random_add))
-    #print("High is {} and low is {}.".format(high,low))
-    print(guess_dict[random_guess].format(QT))
-    val = input('Is my guess correct? (0 no, 1 yes) ')
-    if val is 0:
-        print(second_dict[random_guess].format(name))
-        val2 = input('higher(1) or lower(0)? ')
-        nocounter += 1
-        if val2 is 1:
-            low = QT
-            yescounter += 1
-        if val2 is 0:
-            high = QT
-            nocounter += 1
-    else:
-        print('Hooray I got it! Thanks for playing with me. Let’s play again!')
-        yescounter += 1
-        print("Number of yes: "+str(yescounter)+". Number of no: "+str(nocounter))
-        quit()
+# #game play - use 0/1 or true/false instead of string
+# start = input('What is your number? ') #type 'ok'
+# while start == 'ok':
+#     half_range = int((high-low)/2)
+#     current = half_range+low
+#     random_add = random.randrange(-half_range,half_range) #never add on outside of the guessing range
+#     QT = current+random_add
+#     random_guess = random.randrange(1,len(guess_dict))
+#     random_talk = random.randrange(1,5)
+#     random_listen = random.randrange(5,9)
+#     random_encourage = random.randrange(9,12)
+#     random_other = random.randrange(13,17)
+#     #print("QT Guess is: "+str(QT))
+#     #print("Current is {} and random addition is {}.".format(current,random_add))
+#     #print("High is {} and low is {}.".format(high,low))
+#     print(guess_dict[random_guess].format(QT))
+#     val = input('Is my guess correct? (0 no, 1 yes) ')
+#     if val is 0:
+#         print(second_dict[random_guess].format(name))
+#         val2 = input('higher(1) or lower(0)? ')
+#         nocounter += 1
+#         if val2 is 1:
+#             low = QT
+#             yescounter += 1
+#         if val2 is 0:
+#             high = QT
+#             nocounter += 1
+#     else:
+#         print('Hooray I got it! Thanks for playing with me. Let’s play again!')
+#         yescounter += 1
+#         print("Number of yes: "+str(yescounter)+". Number of no: "+str(nocounter))
+#         quit()
         
 
 
