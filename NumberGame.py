@@ -30,7 +30,7 @@ def callback(data):
 def listener():
     rospy.init_node('listener', anonymous=True)
     rospy.Subscriber('openwearable', String, callback)
-    rospy.sleep(3)
+    rospy.sleep(1) #change sleep value to be amount of time to answer (5 sec?)
 
 #initialize variables, import modules
 import random
@@ -70,24 +70,21 @@ print("""In this game I get to ask you questions, and you get to answer yes or n
 # listener()
 if __name__ == '__main__':
     listener()
-    #guess1 = GlobalCallback()
     if buttons is 1:
         print("Awesome! Now can you show me a thumbs down to say no?")
-# correctup = input('Was it a good thumbs up? ') #replace with line(s) reading button input = 1
-# if correctup is 'yes':
-# #we need a time limit they can answer in - 5 sec?
-#     print("Awesome! Now can you show me a thumbs down to say no?")
-correctdown = input('Was it a good thumbs down? ') #same by with -1 for red button
-if correctdown is 'yes':
-    print("""Cool! During the game, please keep your hand in the 
+        listener()
+        if buttons is -1:
+            print("""Cool! During the game, please keep your hand in the 
         middle until I ask you a question. That means your thumb is pointing sideways, 
         not up or down! Remember to try as hard as you can to show me thumbs up 
         or thumbs down, so I can understand if you mean yes or no! If your thumb 
         is going the wrong way, just push the red button to move it back to the 
         middle. Remember to keep your hands in the middle when you are not answering 
         a question.  And just do your best. Can you show me yes if that’s ok?""")
-print("Let's play now! Please think of a number between 1 and 100.") #6.5 sec
-print("I'm thinking of your number.")
+            listener()
+            if buttons is 1:
+                print("Let's play now! Please think of a number between 1 and 100.") #6.5 sec
+                print("I'm thinking of your number.")
 
 # #game play - use 0/1 or true/false instead of string
 # start = input('What is your number? ') #type 'ok'
