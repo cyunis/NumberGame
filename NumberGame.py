@@ -17,7 +17,7 @@ def callback(data):
     frame = int(temp[1])
     state = int(val[1])
     buttons = int(val[2])
-    print(frame, state, buttons)
+    #print(frame, state, buttons)
 
 def listener():
     rospy.init_node('listener', anonymous=True)
