@@ -19,8 +19,12 @@ class DataReporter(object):
             state = int(val[1])
             buttons = int(val[2])
             #print(frame, state, buttons)
+    def report(self, message):
+        open(self._filename).write(message)
     
-# def callback(data):
+def callback(reporter):
+    reporter.report()
+#def callback(data):
 #     strdata = str(data)
 
 #     # hacky split
@@ -35,10 +39,11 @@ class DataReporter(object):
 
 def listener():
     rospy.init_node('listener', anonymous=True)
-    rospy.Subscriber('openwearable', String)
+    rospy.Subscriber('openwearable', String, callback)
     rospy.sleep(3)
     
 data_reporter = DataReporter(data)
+callback(data_reporter)
 
 #initialize variables, import modules
 import random
