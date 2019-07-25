@@ -63,7 +63,7 @@ print("""In this game I get to ask you questions, and you get to answer yes or n
 # listener()
 while __name__ == '__main__':
     listener()
-    if ow_subscriber.buttons is 1:
+    if buttons is 1:
         print("Awesome! Now can you show me a thumbs down to say no?")
 # correctup = input('Was it a good thumbs up? ') #replace with line(s) reading button input = 1
 # if correctup is 'yes':
