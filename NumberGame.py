@@ -40,9 +40,8 @@ def listener():
     rospy.init_node('listener', anonymous=True)
     rospy.Subscriber('openwearable', String, callback)
     rospy.sleep(3)
-    
-data_reporter = DataReporter(data)
-callback(data_reporter)
+    data_reporter = DataReporter(data)
+#callback(data_reporter)
 
 #initialize variables, import modules
 import random
