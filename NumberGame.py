@@ -19,12 +19,12 @@ def callback(data):
     buttons = int(val[2])
     #print(frame, state, buttons)
 
-class globalCallback:
-    callback()
-    gbuttons = callback().buttons
-    def checking(self):
-        if 1 in gbuttons:
-            return 2
+# class globalCallback:
+#     callback()
+#     gbuttons = callback().buttons
+#     def checking(self):
+#         if 1 in gbuttons:
+#             return 2
     
 #     def __init__(self, filename):
 #         self._filename = filename
@@ -84,7 +84,7 @@ print("""In this game I get to ask you questions, and you get to answer yes or n
 # listener()
 if __name__ == '__main__':
     listener()
-    guess1 = GlobalCallback()
+    #guess1 = GlobalCallback()
     if guess1 is 2:
         print("Awesome! Now can you show me a thumbs down to say no?")
 # correctup = input('Was it a good thumbs up? ') #replace with line(s) reading button input = 1
