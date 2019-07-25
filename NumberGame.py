@@ -3,30 +3,31 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-import rospy
-from std_msgs.msg import String
+# import rospy
+# from std_msgs.msg import String
 
-def callback(data):
-    strdata = str(data)
+# def callback(data):
+#     strdata = str(data)
 
-    # hacky split
-    val = strdata.split(':')
-    val = val[1].split('\\t');
-    temp = val[0].split('"');
+#     # hacky split
+#     val = strdata.split(':')
+#     val = val[1].split('\\t');
+#     temp = val[0].split('"');
 
-    frame = int(temp[1])
-    state = int(val[1])
-    buttons = int(val[2])
-    print(frame, state, buttons)
+#     frame = int(temp[1])
+#     state = int(val[1])
+#     buttons = int(val[2])
+#     print(frame, state, buttons)
 
-def listener():
-    rospy.init_node('listener', anonymous=True)
-    rospy.Subscriber('openwearable', String, callback)
-    rospy.spin()
+# def listener():
+#     rospy.init_node('listener', anonymous=True)
+#     rospy.Subscriber('openwearable', String, callback)
+#     rospy.spin()
 
 
 #initialize variables, import modules
 import random
+import ow_subscriber
 nocounter = 0
 yescounter = 0
 high = 101
