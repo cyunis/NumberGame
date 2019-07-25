@@ -22,7 +22,7 @@ def callback(data):
 def listener():
     rospy.init_node('listener', anonymous=True)
     rospy.Subscriber('openwearable', String, callback)
-    rospy.spin()
+    rospy.sleep(5)
 
 
 #initialize variables, import modules
@@ -61,7 +61,7 @@ print("""In this game I get to ask you questions, and you get to answer yes or n
     only by using a thumbs up or a thumbs down gesture with your right arm.
     Let's practice. Can you show me a thumbs up to say yes?""") #use green button, pull from ow_subscriber.py
 # listener()
-while __name__ == '__main__':
+if __name__ == '__main__':
     listener()
     if buttons is 1:
         print("Awesome! Now can you show me a thumbs down to say no?")
