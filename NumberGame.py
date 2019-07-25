@@ -1,3 +1,6 @@
+#!/usr/local/bin/python
+# coding: utf-8
+
 #initialize variables, import modules
 import random
 nocounter = 0
