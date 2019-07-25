@@ -6,6 +6,10 @@
 import rospy
 from std_msgs.msg import String
 
+frame = 0
+state = 0
+buttons = 0
+
 def callback(data):
     strdata = str(data)
 
@@ -13,32 +17,15 @@ def callback(data):
     val = strdata.split(':')
     val = val[1].split('\\t');
     temp = val[0].split('"');
-
+    
+    global frame
+    global state
+    global buttons
+    
     frame = int(temp[1])
     state = int(val[1])
     buttons = int(val[2])
     #print(frame, state, buttons)
-
-# class globalCallback:
-#     callback()
-#     gbuttons = callback().buttons
-#     def checking(self):
-#         if 1 in gbuttons:
-#             return 2
-    
-#     def __init__(self, filename):
-#         self._filename = filename
-#         # hacky split
-#         val = self._filename.split(':')
-#         val = val[1].split('\\t');
-#         temp = val[0].split('"');
-
-#         frame = int(temp[1])
-#         state = int(val[1])
-#         buttons = int(val[2])
-#         #print(frame, state, buttons)
-#     def report(self, message):
-#         open(self._filename).write(message)
     
 def listener():
     rospy.init_node('listener', anonymous=True)
@@ -84,7 +71,7 @@ print("""In this game I get to ask you questions, and you get to answer yes or n
 if __name__ == '__main__':
     listener()
     #guess1 = GlobalCallback()
-    if guess1 is 2:
+    if buttons is 1:
         print("Awesome! Now can you show me a thumbs down to say no?")
 # correctup = input('Was it a good thumbs up? ') #replace with line(s) reading button input = 1
 # if correctup is 'yes':
