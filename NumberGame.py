@@ -17,7 +17,7 @@ def callback(data):
     frame = int(temp[1])
     state = int(val[1])
     buttons = int(val[2])
-    print(frame, state, buttons)
+    #print(frame, state, buttons)
 
 class globalCallback:
     callback()
@@ -44,6 +44,7 @@ def listener():
     rospy.init_node('listener', anonymous=True)
     rospy.Subscriber('openwearable', String, callback)
     rospy.sleep(3)
+    print(buttons)
 
 #initialize variables, import modules
 import random
