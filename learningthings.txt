@@ -35,6 +35,15 @@ in order to play with roscore, new commands need to be run in an new terminal wi
 rosrun rosserial_python serial_node.py /dev/ttyACM#S
 rostopic echo pushed
 
+>>Camera
+export ROS_MASTER_URI=http://192.168.100.1:11311 (QT master uri)
+export ROS_IP=10.42.0.149 (my or CK's computer)
+
+>>Beaglebone
+get on slab1 wifi (shared wifi with beaglebone)
+ssh root@beaglebone.local
+export ROS_MASTER_URI=http://localhost:11311
+
 >>>Arduino
 install rosserial libraries (search on library manager) + restart to see rosserial examples
 or use https://github.com/ros-drivers/rosserial
