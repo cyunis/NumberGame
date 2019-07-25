@@ -24,9 +24,6 @@ def listener():
     rospy.Subscriber('openwearable', String, callback)
     rospy.spin()
 
-if __name__ == '__main__':
-    listener()
-
 
 #initialize variables, import modules
 import random
@@ -64,8 +61,10 @@ print("""In this game I get to ask you questions, and you get to answer yes or n
     only by using a thumbs up or a thumbs down gesture with your right arm.
     Let's practice. Can you show me a thumbs up to say yes?""") #use green button, pull from ow_subscriber.py
 # listener()
-# if buttons is 1:
-#     print("Awesome! Now can you show me a thumbs down to say no?")
+while __name__ == '__main__':
+    listener()
+    if buttons is 1:
+        print("Awesome! Now can you show me a thumbs down to say no?")
 # correctup = input('Was it a good thumbs up? ') #replace with line(s) reading button input = 1
 # if correctup is 'yes':
 # #we need a time limit they can answer in - 5 sec?
