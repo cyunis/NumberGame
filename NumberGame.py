@@ -22,7 +22,7 @@ def callback(data):
 def listener():
     rospy.init_node('listener', anonymous=True)
     rospy.Subscriber('openwearable', String, callback)
-    rospy.wait_for_message()
+    rospy.spin()
 
 
 #initialize variables, import modules
