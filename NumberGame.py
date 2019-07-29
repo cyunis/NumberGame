@@ -6,9 +6,11 @@
 import rospy
 from std_msgs.msg import String
 
-frame = 0
+frame = 0 #necessary? 2, 1, 0, -1
 state = 0
-buttons = 0
+button = 0
+statelist = []
+buttonlist = []
 
 def callback(data):
     strdata = str(data)
@@ -21,13 +23,19 @@ def callback(data):
     global frame
     global state
     global buttons
+    global statelist
+    global buttonlist
     
     frame = int(temp[1])
     state = int(val[1])
-    buttons = int(val[2])
+    button = int(val[2])
+    statelist.append(state)
+    buttonlist.append(button)
     #print(frame, state, buttons)
     
 def listener():
+    statelist.clear()
+    buttonlist.clear()
     rospy.init_node('listener', anonymous=True)
     rospy.Subscriber('openwearable', String, callback)
     rospy.sleep(3) #change sleep value to be amount of time to answer (5 sec?)
@@ -72,21 +80,27 @@ print("""In this game I get to ask you questions, and you get to answer yes or n
 # listener()
 if __name__ == '__main__':
     listener()
-    if buttons is 1:
+    if 1 in statelist:
         print("Awesome! Now can you show me a thumbs down to say no?")
         listener()
-        if buttons is -1:
+        if -1 in statelist:
             print("""Cool! During the game, please keep your hand in the 
-        middle until I ask you a question. That means your thumb is pointing sideways, 
-        not up or down! Remember to try as hard as you can to show me thumbs up 
-        or thumbs down, so I can understand if you mean yes or no! If your thumb 
-        is going the wrong way, just push the red button to move it back to the 
-        middle. Remember to keep your hands in the middle when you are not answering 
-        a question.  And just do your best. Can you show me yes if that’s ok?""")
+            middle until I ask you a question. That means your thumb is pointing sideways, 
+            not up or down! Remember to try as hard as you can to show me thumbs up 
+            or thumbs down, so I can understand if you mean yes or no! If your thumb 
+            is going the wrong way, just push the red button to move it back to the 
+            middle. Remember to keep your hands in the middle when you are not answering 
+            a question.  And just do your best. Can you show me yes if that’s ok?""")
             listener()
-            if buttons is 1:
-                print("Let's play now! Please think of a number between 1 and 100.") #6.5 sec
-                print("I'm thinking of your number.")
+                if 1 in statelist:
+                    print("Let's play now! Please think of a number between 1 and 100.") #6.5 sec
+                    print("I'm thinking of your number.")
+                else:
+                    print("Could you try that again?")
+    elif -1 in statelist:
+        print("Could you show me a thumbs up?")
+    else:
+        print("Could you try that again?")
 
 #game play - use 0/1 or true/false instead of string
 start = input('What is your number? ') #type a number <101
