@@ -301,6 +301,12 @@ def feedback_function(thumb_angle, time):
     #if a lot of clarification is needed, and bad history of gestures, more encouragement and more reward for lower GAS
     
     #if history of gestures is bad but shows one good case give a reward
+    
+    #history categories: 1)90% good and then 10% bad(sudden dip) 2)equal mixture of good or bad 3)no improvement 4)getting worse 5)getting better 6)90% bad then good
+    #1, 3, 4 - more encouragement. 2 - varied encouragement (maybe getting bored?). 5, 6 - more reward + encouragement.
+    #1, 6 - high weights.
+    #prompt categories: 1)a lot of clarification 2)a little clarification 3)less encouragement than normal 4)a lot of reward 5)a little reward
+    #1 - more encouragement (maybe tired?). 2 - more reward. 3 - varied encouragement.
 
     #50 degrees is the threshold, determined by GAS
     if abs(thumb_angle) < 50:
