@@ -1,3 +1,9 @@
+>>>GAME:
+every computer needs to be on QT104 wifi
+camera uses depth so keep space clear except for hand gesturing
+best if no table
+
+
 >>>Using Git:
 git pull
 (play around with code)
