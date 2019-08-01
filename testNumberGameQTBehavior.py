@@ -284,8 +284,9 @@ def callback(data):
     rospy.loginfo("%d, %f", data.up_down,data.angle)
     #include IMU here?
 #behavior feedback function
-def feedback_function(wrist_angle, encourage_level, probability,tracking_var):
-    abc=1
+#def feedback_function(wrist_angle, encourage_level, probability,tracking_var):
+def feedback_function(thumb_angle, time):
+    
     #give each item weights and combine weights to make a %
     #want reward to be 80-50% and encourage >80% always
     #camera angle, GAS (fatigue), history of gestures, # of prompts
@@ -300,6 +301,20 @@ def feedback_function(wrist_angle, encourage_level, probability,tracking_var):
     #if a lot of clarification is needed, and bad history of gestures, more encouragement and more reward for lower GAS
     
     #if history of gestures is bad but shows one good case give a reward
+    
+    #history categories: 1)90% good and then 10% bad(sudden dip) 2)equal mixture of good or bad 3)no improvement 4)getting worse 5)getting better 6)90% bad then good
+    #1, 3, 4 - more encouragement. 2 - varied encouragement (maybe getting bored?). 5, 6 - more reward + encouragement.
+    #1, 6 - high weights.
+    #prompt categories: 1)a lot of clarification 2)a little clarification 3)less encouragement than normal 4)a lot of reward 5)a little reward
+    #1 - more encouragement (maybe tired?). 2 - more reward. 3 - varied encouragement.
+
+    #50 degrees is the threshold, determined by GAS
+    if abs(thumb_angle) < 50:
+        encourage_prob = 0.85 -abs(thumb_angle/100.0) + time/300.0 #smaller angle, worse performance/ longer time, more tired, more enc
+        return encourage_prob
+    else:
+        reward_prob = 0.5 + abs(thumb_angle/100.0) + time/300.0 #larger angle, better performance/ longer the time playing, more reward
+        return reward_prob
     
     #track feedback over course of game
         #rosbag this data: 
