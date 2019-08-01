@@ -4,6 +4,7 @@ camera uses depth so keep space clear except for hand gesturing
 best if no table
 
 >>>Using Git:
+EDIT EVERYTHING ON A WEB BROWSER IF POSSIBLE
 (if editing in a separate file on a computer before, skip git pull and copy to git folder NumberGame instead)
 git pull
 (play around with code)
