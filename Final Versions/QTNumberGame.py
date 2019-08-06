@@ -228,24 +228,24 @@ def encourage_score():
 def dictionary_set():
     #setting up phrase dictionaries
     #to guess
-    guess_dict = {1: 'Is your number {}?', #2.5 sec
+    guess_dict = {1: 'Is your number {}? Please show me a thumbs up or down.', #2.5 sec
                     2: 'I guess {}. Did I guess your number?', #5.5 sec
                     3: 'Ok I think I know your number. Is it {}?', #5.5 sec
-                    4: 'Is {} right?'} #2.5 sec
+                    4: 'Is {} right? Please show me yes or no.'} #2.5 sec
     #higher or lower
-    second_dict = {1: 'Hey {} ,is your number higher than mine? Show me yes or no.', #7 sec 
-                    2: 'Oh no I didn’t get it. Is your number higher than my guess {}?', #7 sec
-                    3: 'Hmm is your guess bigger than mine {}?'} #4 sec  
+    second_dict = {1: 'Hey {} is your number larger than {}? Show me yes or no.', #7 sec 
+                    2: 'Oh no I guessed {}. Did I guess bigger than your number {}?', #7 sec
+                    3: 'Hmm is {} bigger than mine {}?'} #4 sec  
     #to encourage play during game 
     encourage_dict = {1:'Good job {}!', #2.5 sec
                     2:'That was your best one so far! Keep up the good work {}!', #7 sec
                     3:'I can tell you are trying really hard {}, nice job!', #5 sec
                     4:'You are getting better at this {}, wow!', #4 sec
                     5:'I know this is hard {}, keep trying!'} #4.5 sec
-    clarify_dict = {1: 'I didn’t see that {}, could you repeat that answer for me?', #6 sec
-                    2: 'I think that was a {}. If I’m right could you make a thumbs up/down for me?', #6.5 sec
-                    3: 'Could you show me that answer again {}?'} #4 sec 
-    reward_dict = {1: 'Let’s dance.', #2 sec
+    clarify_dict = {1: 'Sorry {} I didn’t see that, could you repeat that answer for me please?', #6 sec
+                    2: 'I think that was a {}. If I’m right could you make a thumbs {} for me please?', #6.5 sec
+                    3: 'Could you please show me that answer again {}?'} #4 sec 
+    reward_dict = {1: 'Let’s party!', #2 sec
                     2: 'I have a joke {}, why did a crocodile marry a chicken? Because crock-o-doodle-doodle is a good last name!', #9.5 sec
                     3: 'What is your favorite color {}? Mine is blue.', #5.5 sec
                     4: 'I like playing games with you {}, you’re very fun. Do you like playing with me?'} #8 sec
@@ -286,7 +286,6 @@ def feedback_function(thumb_angle, time, name):
             random_encourage = random.randrange(1,len(encourage_dict))
             speechSay_pub.publish(encourage_dict[random_encourage].format(name))
             print(encourage_dict[random_encourage].format(name))            
-            # rospy.sleep(7)
 
     else:
         reward_prob = 0.5 + abs(thumb_angle/100.0) + time/300.0 #larger angle, better performance/ longer the time playing, more reward
@@ -301,7 +300,6 @@ def feedback_function(thumb_angle, time, name):
             random_rew = random.randrange(1,len(reward_dict))
             speechSay_pub.publish(reward_dict[random_rew].format(name))
             print(reward_dict[random_rew].format(name))
-            # rospy.sleep(9)
 
 
 #camera+button (and feedback) functions
@@ -347,7 +345,7 @@ def isThumbUp_Down():
         print(frame, state, button)
         
         if button == 1:#you have trouble and want to replay
-            print("ok!please do again.")
+            print("Ok! Please try again.")
             i=0
             reses = []
             angles = []
@@ -355,7 +353,7 @@ def isThumbUp_Down():
         if button == -1:
             #quit the game
             #print("Number of yes: "+str(yescounter)+". Number of no: "+str(nocounter)+". Number wrong: "+str(wrongcounter))
-            speechSay_pub.publish("OK! I had a great time with you today. Bye-bye!")
+            speechSay_pub.publish("OK! Thanks for playing with me! Bye-bye!")
             choose_behaviors(17)
             sys.exit()
         i = i+1
@@ -496,12 +494,12 @@ if __name__=="__main__":
                 choose_behaviors(17)
                 name = raw_input('What is your name? ')
                 speechSay_pub.publish("Hi   "+name+""",      I would like to play a guessing game with you. 
-                In the game I get to ask you questions, and you get to answer yes or no
-                only by using a thumbs up or a thumbs down gesture with your right arm.
+                In the game I get to ask you questions, and you get to answer yes or no 
+                by using a thumbs up or a thumbs down with your right arm.
                 Let's practice. Can you show me a thumbs up to say yes?""") #22-25 sec
                 print("Hi   "+name+""",      I would like to play a guessing game with you. 
                 In the game I get to ask you questions, and you get to answer yes or no
-                only by using a thumbs up or a thumbs down gesture with your right arm.
+                by using a thumbs up or a thumbs down with your right arm.
                 Let's practice. Can you show me a thumbs up to say yes?""")
                 gesture_talk(3)
                 #configuration
@@ -519,20 +517,14 @@ if __name__=="__main__":
                 res, the_angle = isThumbUp_Down()
                 if res == -1:
                 # ^ these two lines would be replaced by camera or IMU input, worst case experimenter prompts
-                    speechSay_pub.publish("""Cool!! During the game, please keep your hand in the 
-                        middle until I ask you a question. That means your thumb is pointing sideways, 
-                        not up or down! Remember to try as hard as you can to show me thumbs up 
-                        or thumbs down, so I can understand if you mean yes or no! If your thumb 
-                        is going the wrong way, just push the red button to move it back to the 
-                        middle. Remember to keep your hands in the middle when you are not answering 
-                        a question.  And just do your best. Can you show me yes if that’s ok?""") #40.5 sec
-                    print("""Cool!! During the game, please keep your hand in the 
-                        middle until I ask you a question. That means your thumb is pointing sideways, 
-                        not up or down! Remember to try as hard as you can to show me thumbs up 
-                        or thumbs down, so I can understand if you mean yes or no! If your thumb 
-                        is going the wrong way, just push the red button to move it back to the 
-                        middle. Remember to keep your hands in the middle when you are not answering 
-                        a question.  And just do your best. Can you show me yes if that’s ok?""")
+                    speechSay_pub.publish("""Thanks!! During the game, please keep your hand flat on the 
+                        arm rest until I ask you a question. If your thumb 
+                        is going the wrong way, just push the gren button. And just do your best. 
+                        Can you please show me yes if that’s ok?""") #40.5 sec
+                    print("""Thanks!! During the game, please keep your hand flat on the 
+                        arm rest until I ask you a question. If your thumb 
+                        is going the wrong way, just push the gren button. And just do your best. 
+                        Can you please show me yes if that’s ok?""")
                     gesture_talk(5)
             
             #initialize variables
@@ -542,7 +534,6 @@ if __name__=="__main__":
             high = 51
             low = -1
 
-            print("Please do a thumbs up to say OK!")
             res, the_angle = isThumbUp_Down()
             if res == 1:
                 #play game now
@@ -564,8 +555,8 @@ if __name__=="__main__":
                     speechSay_pub.publish(guess_dict[random_guess].format(QT)) 
                     print(guess_dict[random_guess].format(QT))    
                     choose_behaviors(2)
-                    speechSay_pub.publish("Answer me with a thumbs up or down"+str(name))
-                    print("Answer me with a thumbs up or down"+str(name))
+                    # speechSay_pub.publish("Answer me with a thumbs up or down"+str(name))
+                    # print("Answer me with a thumbs up or down"+str(name))
 
                     res, the_angle = isThumbUp_Down()
 
@@ -578,12 +569,9 @@ if __name__=="__main__":
                             wrongcounter += 1
                         else:
                             #ask if higher or lower                            
-                            speechSay_pub.publish(second_dict[random_guess].format(name))
-                            print(second_dict[random_guess].format(name))
-                            gesture_talk(1)
-                            speechSay_pub.publish("My guess is "+str(QT))
-                            print("My guess is "+str(QT))
-#should kids be reminded of the guess every time? if so needs to be randomized                           
+                            speechSay_pub.publish(second_dict[random_guess].format(name,QT))
+                            print(second_dict[random_guess].format(name,QT))
+                            gesture_talk(1)                        
                             choose_behaviors(2)
                             nocounter += 1
                             while True:
@@ -618,8 +606,8 @@ if __name__=="__main__":
 #what should QT say?
 
                     elif res == 1:
-                        speechSay_pub.publish('Hooray! I got it! Thanks for playing with me. Do you want to play again with me?') #9 sec
-                        print('Hooray! I got it! Thanks for playing with me. Do you want to play again with me?') #9 sec
+                        speechSay_pub.publish('Hooray! I got it! Thanks' + name + 'for playing with me. Do you want to play again with me?') #9 sec
+                        print('Hooray! I got it! Thanks' + name + 'for playing with me. Do you want to play again with me?') #9 sec
 #vary this message. also should they play a minimum of 3 games mandatory, the rest optional? 
                         choose_behaviors(14)
                         yescounter += 1
@@ -627,17 +615,6 @@ if __name__=="__main__":
                         print('I got it!')
                         game_flag = game_flag + 1
                         break
-
-
-                    # else:#child can input something except 'yes' and 'no' to break out the game
-                    #     #game over
-                    #     listener()
-                    #     if 1 in buttonlist:
-                    #         print("I am having trouble.")
-                    #     print("Number of yes: "+str(yescounter)+". Number of no: "+str(nocounter)+". Number wrong: "+str(wrongcounter))
-                    #     speechSay_pub.publish("OK! I had a great time with you today. Bye-bye!")
-                    #     choose_behaviors(16)
-                    #     sys.exit()
         else:
             print("Wrong input! Please input again.")
 #what should QT say?
