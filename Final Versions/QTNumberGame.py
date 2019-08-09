@@ -312,7 +312,7 @@ def isThumbUp_Down():
     angles = []
     feed_flag = 1# to prevent if the child wants to replay
     while(i<20):
-        # print i
+        print i
         #get thumb messages
         msg = rospy.wait_for_message("/thumb_result",String)
         msg = str(msg.data)
@@ -322,40 +322,41 @@ def isThumbUp_Down():
         reses.append(res_msg)
         angles.append(angle_msg)
 
-        #get button messages
-        data = rospy.wait_for_message("/openwearable_new",String)
-        strdata = str(data)
+        # #comment out this section if beaglebone isn't running
+        # #get button messages
+        # data = rospy.wait_for_message("/openwearable_new",String)
+        # strdata = str(data)
 
-        # hacky split
-        val = strdata.split(':')
-        val = val[1].split('\\t')
-        temp = val[0].split('"')
+        # # hacky split
+        # val = strdata.split(':')
+        # val = val[1].split('\\t')
+        # temp = val[0].split('"')
         
-        global frame
-        global state
-        global button
-        global yescounter
-        global nocounter
-        global wrongcounter
+        # global frame
+        # global state
+        # global button
+        # global yescounter
+        # global nocounter
+        # global wrongcounter
         
-        frame = int(temp[1])
-        state = int(val[1])
-        button = int(val[2])
+        # frame = int(temp[1])
+        # state = int(val[1])
+        # button = int(val[2])
         
-        print(frame, state, button)
+        # print(frame, state, button)
         
-        if button == 1:#you have trouble and want to replay
-            print("Ok! Please try again.")
-            i=0
-            reses = []
-            angles = []
-            feed_flag = 0
-        if button == -1:
-            #quit the game
-            #print("Number of yes: "+str(yescounter)+". Number of no: "+str(nocounter)+". Number wrong: "+str(wrongcounter))
-            speechSay_pub.publish("OK! Thanks for playing with me! Bye-bye!")
-            choose_behaviors(17)
-            sys.exit()
+        # if button == 1:#you have trouble and want to replay
+        #     print("Ok! Please try again.")
+        #     i=0
+        #     reses = []
+        #     angles = []
+        #     feed_flag = 0
+        # if button == -1:
+        #     #quit the game
+        #     #print("Number of yes: "+str(yescounter)+". Number of no: "+str(nocounter)+". Number wrong: "+str(wrongcounter))
+        #     speechSay_pub.publish("OK! Thanks for playing with me! Bye-bye!")
+        #     choose_behaviors(17)
+        #     sys.exit()
         i = i+1
         if i ==5 and feed_flag == 1:#do feedback function
             feedback_function(abs(angle_msg),time.time()-start_time,name)
