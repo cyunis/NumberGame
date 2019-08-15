@@ -252,9 +252,13 @@ def dictionary_set():
     return guess_dict,second_dict,encourage_dict,clarify_dict,reward_dict
 
 
-#feedback function
+#feedback function and variables
+feedback_dict = {}
+count = 1
+feedback_dict.setdefault(count,[])
+
 def feedback_function(thumb_angle, time, name):
-    global speechSay_pub, encourage_dict, reward_dict
+    global speechSay_pub, encourage_dict, reward_dict, feedback_dict, count
     #give each item weights and combine weights to make a %
     #want reward to be 80-50% and encourage >80% always
     #camera angle, GAS (fatigue), history of gestures, # of prompts
@@ -271,6 +275,10 @@ def feedback_function(thumb_angle, time, name):
     #1, 6 - high weights.
     #prompt categories: 1)a lot of clarification 2)a little clarification 3)less encouragement than normal 4)a lot of reward 5)a little reward
     #1 - more encouragement (maybe tired?). 2 - more reward. 3 - varied encouragement.
+
+    feedback_dict[count].append(thumb_angle,time)
+    print(feedback_dict[count])
+    count += 1
 
     #50 degrees is the threshold, determined by GAS
     if abs(thumb_angle) < 50:
