@@ -16,27 +16,13 @@ from sensor_msgs.msg import JointState
 from thumb.msg import Res
 import rosbag
 from heapq import nlargest
-<<<<<<< HEAD:QTNumberGame.py
 #gesture choose
-=======
-
-#initialize variables
-frame = 0 #necessary? 2, 1, 0, -1
-state = 0
-button = 0
-statelist = []
-buttonlist = []
-
-
-#gesture functions
->>>>>>> refs/remotes/origin/master:Final Versions/QTNumberGame.py
 def choose_behaviors(number):
     global right_pub, left_pub, head_pub, emotionShow_pub, gesturePlay_pub, speechSay_pub, audioPlay_pub
     #talking:1~6
     if(number == 1):
     #show_both_hands:9s
         emotionShow_pub.publish("QT/talking")
-<<<<<<< HEAD:QTNumberGame.py
         left_arm = Float64MultiArray()
         right_arm = Float64MultiArray()
         left_arm.data = [10, -60, -15]
@@ -50,15 +36,10 @@ def choose_behaviors(number):
         right_arm.data = [-90, -60, -30]
         right_pub.publish(right_arm)
         time.sleep(2.5)    
-=======
-        gesturePlay_pub.publish("numbergame/talking1")
-        rospy.sleep(9)
->>>>>>> refs/remotes/origin/master:Final Versions/QTNumberGame.py
     elif(number == 2):
     #stretch_talk:8s
         gesturePlay_pub.publish("numbergame/talking2")
         emotionShow_pub.publish("QT/talking")
-<<<<<<< HEAD:QTNumberGame.py
         left_arm = Float64MultiArray()
         left_arm.data = [120, -80, -10]
         left_pub.publish(left_arm)
@@ -66,9 +47,6 @@ def choose_behaviors(number):
         left_arm.data = [90, -60, -30]
         left_pub.publish(left_arm)
         time.sleep(3)
-=======
-        rospy.sleep(8)
->>>>>>> refs/remotes/origin/master:Final Versions/QTNumberGame.py
     elif(number == 3):
     #challenge:5s
         gesturePlay_pub.publish("QT/challenge")
@@ -76,7 +54,6 @@ def choose_behaviors(number):
         time.sleep(5)
     elif(number == 4):
     #show left and right:10s
-<<<<<<< HEAD:QTNumberGame.py
         # gesturePlay_pub.publish("QT/show_left")
         # emotionShow_pub.publish("QT/talking")
         # time.sleep(5)
@@ -97,11 +74,6 @@ def choose_behaviors(number):
         right_arm.data = [-90, -60, -30]
         right_pub.publish(right_arm)
         time.sleep(2.5) 
-=======
-        emotionShow_pub.publish("QT/talking")
-        gesturePlay_pub.publish("numbergame/talking3")
-        rospy.sleep(10)
->>>>>>> refs/remotes/origin/master:Final Versions/QTNumberGame.py
     elif(number == 5):
     #teaching,10s
         emotionShow_pub.publish("QT/talking")
@@ -110,7 +82,6 @@ def choose_behaviors(number):
     elif(number == 6):
     #teaching:10s
         emotionShow_pub.publish("QT/talking")
-<<<<<<< HEAD:QTNumberGame.py
         left_arm = Float64MultiArray()
         right_arm = Float64MultiArray()
         left_arm.data = [0, -90, -10]
@@ -134,15 +105,6 @@ def choose_behaviors(number):
         left_arm.data = [90, -60, -30]
         left_pub.publish(left_arm)
         time.sleep(2.5) 
-=======
-        gesturePlay_pub.publish("numbergame/talking5")
-        rospy.sleep(10)
-    elif(number == 7):
-    #show:9s
-        emotionShow_pub.publish("QT/talking")
-        gesturePlay_pub.publish("numbergame/talking6")
-        rospy.sleep(9)
->>>>>>> refs/remotes/origin/master:Final Versions/QTNumberGame.py
 
     #listening:8~9
     elif(number == 8):
@@ -331,12 +293,7 @@ def dictionary_set():
     return guess_dict,second_dict,encourage_dict,clarify_dict,reward_dict
 
 
-<<<<<<< HEAD:QTNumberGame.py
 def feedback_function(thumb_angle, time,name):
-=======
-#feedback function
-def feedback_function(thumb_angle, time, name):
->>>>>>> refs/remotes/origin/master:Final Versions/QTNumberGame.py
     global speechSay_pub, encourage_dict, reward_dict
     #give each item weights and combine weights to make a %
     #want reward to be 80-50% and encourage >80% always
@@ -359,62 +316,36 @@ def feedback_function(thumb_angle, time, name):
     if abs(thumb_angle) < 50:
         encourage_prob = 0.85 -abs(thumb_angle/100.0) + time/300.0 #smaller angle, worse performance/ longer time, more tired, more enc
         if encourage_prob<0:
-<<<<<<< HEAD:QTNumberGame.py
             print("encourage_prob is 0!")
             encourage_prob = 0
         if encourage_prob>1:
             print("encourage_prob is 1!")
-=======
-            print("Error: encourage_prob is 0!")
-            encourage_prob = 0
-        if encourage_prob>1:
-            print("Error: encourage_prob is 1!")
->>>>>>> refs/remotes/origin/master:Final Versions/QTNumberGame.py
             encourage_prob = 1
         enc_flag = random.randrange(1,100)
         if enc_flag<encourage_prob*100:
             random_encourage = random.randrange(1,len(encourage_dict))
             speechSay_pub.publish(encourage_dict[random_encourage].format(name))
-<<<<<<< HEAD:QTNumberGame.py
             rospy.sleep(7)
 
-=======
-            print(encourage_dict[random_encourage].format(name))            
->>>>>>> refs/remotes/origin/master:Final Versions/QTNumberGame.py
 
     else:
         reward_prob = 0.5 + abs(thumb_angle/100.0) + time/300.0 #larger angle, better performance/ longer the time playing, more reward
         if reward_prob<0:
-<<<<<<< HEAD:QTNumberGame.py
             print("reward_prob is 0!")
             reward_prob = 0
         if reward_prob>1:
             print("reward_prob is 1!")
-=======
-            print("Error: reward_prob is 0!")
-            reward_prob = 0
-        if reward_prob>1:
-            print("Error: reward_prob is 1!")
->>>>>>> refs/remotes/origin/master:Final Versions/QTNumberGame.py
             reward_prob = 1
         rew_flag = random.randrange(1,100)
         if rew_flag<reward_prob*100:
             random_rew = random.randrange(1,len(reward_dict))
             speechSay_pub.publish(reward_dict[random_rew].format(name))
-<<<<<<< HEAD:QTNumberGame.py
             rospy.sleep(9)
 
 
 
 def get_thumb_input():
     # print("enter")
-=======
-            print(reward_dict[random_rew].format(name))
-
-
-#camera+button (and feedback) functions
-def isThumbUp_Down():
->>>>>>> refs/remotes/origin/master:Final Versions/QTNumberGame.py
     #wait for 5s to get the best thumb input during 5s, get 50 results totally
     global start_time, name
     
@@ -438,7 +369,6 @@ def isThumbUp_Down():
         # data = rospy.wait_for_message("/openwearable_new",String)
         # strdata = str(data)
 
-<<<<<<< HEAD:QTNumberGame.py
 def isThumbUp_Down():
     #return up or down and the angle
     reses, angles = get_thumb_input()
@@ -465,119 +395,6 @@ def record_data():
     pass
 
 
-=======
-        # # hacky split
-        # val = strdata.split(':')
-        # val = val[1].split('\\t')
-        # temp = val[0].split('"')
-        
-        # global frame
-        # global state
-        # global button
-        # global yescounter
-        # global nocounter
-        # global wrongcounter
-        
-        # frame = int(temp[1])
-        # state = int(val[1])
-        # button = int(val[2])
-        
-        # print(frame, state, button)
-        
-        # if button == 1:#you have trouble and want to replay
-        #     print("Ok! Please try again.")
-        #     i=0
-        #     reses = []
-        #     angles = []
-        #     feed_flag = 0
-        # if button == -1:
-        #     #quit the game
-        #     #print("Number of yes: "+str(yescounter)+". Number of no: "+str(nocounter)+". Number wrong: "+str(wrongcounter))
-        #     speechSay_pub.publish("OK! Thanks for playing with me! Bye-bye!")
-        #     choose_behaviors(17)
-        #     sys.exit()
-        i = i+1
-        if i ==5 and feed_flag == 1:#do feedback function
-            feedback_function(abs(angle_msg),time.time()-start_time,name)
-        time.sleep(0.1)
-
-    print("finished")
-    if reses.count(1) > 10: #if thumbs up more than half the time
-        angles = nlargest(10, angles)
-        res = sum(angles)/len(angles)
-        return 1, res
-    elif reses.count(-1) > 10: #if thumbs down more than half the time
-        angles = [ -x for x in angles]
-        angles = nlargest(10, angles)
-        res = -sum(angles)/len(angles)
-        return -1,res
-    else:
-        return 0,sum(angles)/len(angles)
-    
-    
-#data collection function
-def record_data():
-    #use rosbag to record data:
-    #astra camera data/QT camera data/angle result data/button data/game playing data:sentence said by QT and children response
-    #astra camera data should be recorded on the local computer, use compressed
-    #QT camera just rosbag /image_raw
-    #QT behavior: moter, speech, and emotion topic
-        #parametric position of joints
-    #QT speech string
-    #number of yes, no, button presses (wrong answer)
-    #feedback function measurements - thumb angle, name, time, history of gestures, number of clarification/reward/encouragement
-    #number of games played
-    #any experimenter interventions or errors
-
-    #air pressure, button, orthosis, fram data (done on beaglebone separately)
-    pass
-
-
-#orthosis/button/IMU subscriber function 
-#see openWearable/ros/ow_subscriber.py for original script 
-def callback():
-    i=1
-    while i<20:
-        data = rospy.wait_for_message("/openwearable_new",String)
-        strdata = str(data)
-
-        # hacky split
-        val = strdata.split(':')
-        val = val[1].split('\\t')
-        temp = val[0].split('"')
-        
-        global frame
-        global state
-        global button
-        # global statelist
-        # global buttonlist
-        
-        frame = int(temp[1])
-        state = int(val[1])
-        button = int(val[2])
-        # statelist.append(state)
-        # buttonlist.append(button)
-        print(frame, state, button)
-        i = i+1
-    
-        
-        if button == 1:
-            return 1
-        if button == -1:
-            return -1
-        
-    return 0
-    
-def listener():
-    #global statelist
-    #global buttonlist
-    #statelist = []
-    #buttonlist = []
-    #rospy.init_node('listener', anonymous=True)
-    #rospy.Subscriber('openwearable', String, callback)
-    #rospy.sleep(3) #change sleep value to be amount of time to answer (5 sec?)
-    pass
->>>>>>> refs/remotes/origin/master:Final Versions/QTNumberGame.py
 
 
 if __name__=="__main__":
@@ -613,36 +430,21 @@ if __name__=="__main__":
 
     game_flag = 0 #set to 0 to play intro
     start_time = time.time()
-<<<<<<< HEAD:QTNumberGame.py
-=======
-    #name = 'Catherine'
-    
->>>>>>> refs/remotes/origin/master:Final Versions/QTNumberGame.py
     while 1:
         #game always running, until shutdown by children
         # exit_msg = rospy.wait_for_message()
         # if exit_msg.flag == False:
-<<<<<<< HEAD:QTNumberGame.py
         # once_again = raw_input('Play again? ') #type 'yes' or 'no'
         print("Play again?")
         print("please do thumb up/down!")
         res, the_angle = isThumbUp_Down()
         if res == -1:
         # if once_again == 'no':
-=======
-        print("Do you want to play again? Show me thumbs up/down.")
-#edit ^ to not be the same every time
-        res, the_angle = isThumbUp_Down()
-        if res == -1:
->>>>>>> refs/remotes/origin/master:Final Versions/QTNumberGame.py
             #game over
             speechSay_pub.publish("I had a great time with you today. Bye-bye!")
             choose_behaviors(17)
             break
-<<<<<<< HEAD:QTNumberGame.py
         # elif once_again == 'yes':
-=======
->>>>>>> refs/remotes/origin/master:Final Versions/QTNumberGame.py
         elif res == 1:
             if game_flag == 0:#the first time to play
                 #introduction
@@ -665,14 +467,11 @@ if __name__=="__main__":
                 # if correctup == 'yes':
                 res, the_angle = isThumbUp_Down()
                 if res == 1:
-<<<<<<< HEAD:QTNumberGame.py
                 # maybe need to sleep some time to wait for input
                 # msg = rospy.wait_for_message("/thumb_result", Res)
                 # msg.up_down
                 # ^ these two lines would be replaced by camera or IMU input, worst case experimenter prompts
                 #we need a time limit they can answer in - 5 sec?
-=======
->>>>>>> refs/remotes/origin/master:Final Versions/QTNumberGame.py
                     speechSay_pub.publish("Awesome! Now can you show me a thumbs down to say no?") #6 sec
                     print("Awesome! Now can you show me a thumbs down to say no?")
                     gesture_talk(1)
@@ -698,13 +497,9 @@ if __name__=="__main__":
             wrongcounter = 0
             high = 51
             low = -1
-<<<<<<< HEAD:QTNumberGame.py
             # correctok = raw_input('Was it OK? ')
             print("please do a thumb up to say OK")
             # if correctok == 'yes':
-=======
-
->>>>>>> refs/remotes/origin/master:Final Versions/QTNumberGame.py
             res, the_angle = isThumbUp_Down()
             if res == 1:
                 #play game now
@@ -726,7 +521,6 @@ if __name__=="__main__":
                     speechSay_pub.publish(guess_dict[random_guess].format(QT)) 
                     print(guess_dict[random_guess].format(QT))    
                     choose_behaviors(2)
-<<<<<<< HEAD:QTNumberGame.py
                     #encourage the child - should be timed via feedback function
                     speechSay_pub.publish("Show me through your thumbs up or down"+str(name))
                     
@@ -745,14 +539,6 @@ if __name__=="__main__":
                     rospy.sleep(3)
                     feedback_function(the_angle,time.time()-start_time,name)
                     
-=======
-                    # speechSay_pub.publish("Answer me with a thumbs up or down"+str(name))
-                    # print("Answer me with a thumbs up or down"+str(name))
-
-                    res, the_angle = isThumbUp_Down()
-
-                    # feedback_function(the_angle,time.time()-start_time,name)                  
->>>>>>> refs/remotes/origin/master:Final Versions/QTNumberGame.py
                     if res == -1:
                         if QT == start: #prompt if they make a wrong answer about the correctness of QTs guess
                             speechSay_pub.publish(clarify_dict[random_guess].format(name))
@@ -767,7 +553,6 @@ if __name__=="__main__":
                             choose_behaviors(2)
                             nocounter += 1
                             while True:
-<<<<<<< HEAD:QTNumberGame.py
                                 # val2 = input('yes(1) or no(0)? ')
                                 print("please do a thumb up/down to say higer or lower")
                                 feedback_function(the_angle,time.time()-start_time,name)
@@ -776,11 +561,6 @@ if __name__=="__main__":
                                 # ^ this line would be replaced by camera or IMU input, worst case experimenter prompts
                                     # use # number = sys.stdin.readline() if prompt
                                 # if val2 == 1:
-=======
-                                print("Please do a thumbs up/down to say higher or lower")
-#how many times should kids be reminded of this?
-                                # feedback_function(the_angle,time.time()-start_time,name)
->>>>>>> refs/remotes/origin/master:Final Versions/QTNumberGame.py
                                 res, the_angle = isThumbUp_Down()
                                 if res == 1:
                                     if QT > start:
@@ -793,10 +573,7 @@ if __name__=="__main__":
                                         low = QT
                                         yescounter += 1
                                         break
-<<<<<<< HEAD:QTNumberGame.py
                                 # if val2 == 0:
-=======
->>>>>>> refs/remotes/origin/master:Final Versions/QTNumberGame.py
                                 if res == -1:
                                     if QT < start:
                                         speechSay_pub.publish(clarify_dict[random_guess].format(name))
@@ -812,19 +589,11 @@ if __name__=="__main__":
                                     print("Wrong input! Please input again.")
 #what should QT say?
 
-<<<<<<< HEAD:QTNumberGame.py
                     # elif val == 'yes':
                     elif res == 1:
                         speechSay_pub.publish('Hooray! I got it! Thanks for playing with me. Do you want to play again with me?') #9 sec
                         #should they play a minimum of 3 games mandatory, the rest optional?
                         choose_behaviors(13)
-=======
-                    elif res == 1:
-                        speechSay_pub.publish('Hooray! I got it! Thanks' + name + 'for playing with me. Do you want to play again with me?') #9 sec
-                        print('Hooray! I got it! Thanks' + name + 'for playing with me. Do you want to play again with me?') #9 sec
-#vary this message. also should they play a minimum of 3 games mandatory, the rest optional? 
-                        choose_behaviors(14)
->>>>>>> refs/remotes/origin/master:Final Versions/QTNumberGame.py
                         yescounter += 1
                         print("Number of yes: "+str(yescounter)+". Number of no: "+str(nocounter)+". Number wrong: "+str(wrongcounter))
                         print('I got it!')
