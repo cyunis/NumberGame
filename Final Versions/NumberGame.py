@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# encoding: utf-8
+# encoding=utf8
 
 #import modules
 import random
@@ -9,6 +9,8 @@ import sys
 import time
 import string
 from std_msgs.msg import String
+from qt_robot_interface.srv import *
+from qt_gesture_controller.srv import *
 from std_msgs.msg import Float64MultiArray
 from sensor_msgs.msg import JointState
 from thumb.msg import Res
@@ -21,6 +23,199 @@ state = 0
 button = 0
 statelist = []
 buttonlist = []
+
+
+#gesture functions
+def choose_behaviors(number):
+    global right_pub, left_pub, head_pub, emotionShow_pub, gesturePlay_pub, speechSay_pub, audioPlay_pub
+    #talking:1~6
+    if(number == 1):
+    #show_both_hands:9s
+        emotionShow_pub.publish("QT/talking")
+        gesturePlay_pub.publish("numbergame/talking1")
+        rospy.sleep(9)
+    elif(number == 2):
+    #stretch_talk:8s
+        gesturePlay_pub.publish("numbergame/talking2")
+        emotionShow_pub.publish("QT/talking")
+        rospy.sleep(8)
+    elif(number == 3):
+    #challenge:5s
+        gesturePlay_pub.publish("QT/challenge")
+        emotionShow_pub.publish("QT/talking")
+        time.sleep(5)
+    elif(number == 4):
+    #show left and right:10s
+        emotionShow_pub.publish("QT/talking")
+        gesturePlay_pub.publish("numbergame/talking3")
+        rospy.sleep(10)
+    elif(number == 5):
+    #teaching,10s
+        emotionShow_pub.publish("QT/talking")
+        gesturePlay_pub.publish("numbergame/talking4")
+        rospy.sleep(10)   
+    elif(number == 6):
+    #teaching:10s
+        emotionShow_pub.publish("QT/talking")
+        gesturePlay_pub.publish("numbergame/talking5")
+        rospy.sleep(10)
+    elif(number == 7):
+    #show:9s
+        emotionShow_pub.publish("QT/talking")
+        gesturePlay_pub.publish("numbergame/talking6")
+        rospy.sleep(9)
+
+    #listening:8~9
+    elif(number == 8):
+    #nod:4s
+        head = Float64MultiArray()
+        emotionShow_pub.publish("QT/showing_smile")
+        head.data = [0,-10]
+        head_pub.publish(head)
+        time.sleep(1)
+        head.data = [0,10]
+        head_pub.publish(head)
+        time.sleep(1)
+        head.data = [0,0]
+        head_pub.publish(head)
+        time.sleep(2)
+    elif(number == 9):
+    #arm back smile:7s
+        emotionShow_pub.publish("QT/calming_down")
+        time.sleep(1)
+        gesturePlay_pub.publish("QT/bored")
+        time.sleep(6)    
+
+
+    #guessing:10~12
+    elif(number == 10):
+    #confused:11s
+        emotionShow_pub.publish("QT/confused")
+        gesturePlay_pub.publish("numbergame/thinking1")
+        rospy.sleep(11)
+    elif(number == 11):
+    #touch head:11s
+        emotionShow_pub.publish("QT/confused")
+        gesturePlay_pub.publish("numbergame/thinking2")
+        rospy.sleep(11)
+    elif(number == 12):
+    #thinking:11s
+        emotionShow_pub.publish("QT/confused")
+        gesturePlay_pub.publish("numbergame/thinking3")
+        rospy.sleep(11)
+
+
+    #feedback and encouragement:13~16
+    elif(number == 13):
+    #surprise:5.5s
+        gesturePlay_pub.publish("QT/surprise")
+        emotionShow_pub.publish("QT/surprise")
+        time.sleep(5.5)
+    elif(number == 14):
+    #happy:5s
+        gesturePlay_pub.publish("QT/happy")
+        emotionShow_pub.publish("QT/happy")
+        time.sleep(5)
+    elif(number == 15):
+    #hug:6s
+        left_arm = Float64MultiArray()
+        right_arm = Float64MultiArray()
+        emotionShow_pub.publish("QT/happy")
+        left_arm.data = [-20, -10, -15]
+        left_pub.publish(left_arm)
+        right_arm.data = [20, -10, -15]
+        right_pub.publish(right_arm)
+        time.sleep(3)
+        left_arm.data = [90, -60, -30]
+        left_pub.publish(left_arm)
+        right_arm.data = [-90, -60, -30]
+        right_pub.publish(right_arm)
+        time.sleep(3)
+    elif(number == 16):
+    #hand clap:8.8s
+        left_arm = Float64MultiArray()
+        right_arm = Float64MultiArray()
+        emotionShow_pub.publish("QT/happy")
+        left_arm.data = [10, -90, -30]
+        left_pub.publish(left_arm)
+        right_arm.data = [-10, -90, -30]
+        right_pub.publish(right_arm)
+        time.sleep(1.8)
+        left_arm.data = [10, -90, -90]
+        left_pub.publish(left_arm)
+        right_arm.data = [-10, -90, -90]
+        right_pub.publish(right_arm)
+        time.sleep(1)
+        left_arm.data = [10, -90, -30]
+        left_pub.publish(left_arm)
+        right_arm.data = [-10, -90, -30]
+        right_pub.publish(right_arm)
+        time.sleep(1)
+        left_arm.data = [10, -90, -90]
+        left_pub.publish(left_arm)
+        right_arm.data = [-10, -90, -90]
+        right_pub.publish(right_arm)
+        time.sleep(1)
+        left_arm.data = [10, -90, -30]
+        left_pub.publish(left_arm)
+        right_arm.data = [-10, -90, -30]
+        right_pub.publish(right_arm)
+        time.sleep(1)
+        left_arm.data = [90, -60, -30]
+        left_pub.publish(left_arm)
+        right_arm.data = [-90, -60, -30]
+        right_pub.publish(right_arm)
+        time.sleep(3)
+
+
+    #special_function:17~19
+    elif(number == 17):
+    #hi/bye:7s
+        gesturePlay_pub.publish("QT/hi")
+        emotionShow_pub.publish("QT/happy")
+        time.sleep(7)
+    elif(number == 18):
+    #fly kiss:7.5s
+        gesturePlay_pub.publish("QT/kiss")
+        time.sleep(1)
+        emotionShow_pub.publish("QT/kiss")
+        time.sleep(6.5)
+    elif(number == 19):
+    #yawn:6.8s
+        gesturePlay_pub.publish("QT/yawn")
+        time.sleep(0.8)
+        emotionShow_pub.publish("QT/yawn") 
+        time.sleep(6)
+    
+    #rest
+    elif(number == 20):
+    #
+        abc =1
+        
+    
+    else:
+        print("Please use a correct number!")
+
+def gesture_talk(num):
+    i = 1
+    while i <= num:
+        choose_behaviors(random.randint(1, 7))
+        i = i + 1
+    
+def gesture_listen(num):
+    i = 1
+    while i <= num:
+        choose_behaviors(random.randint(8, 9))
+        i = i + 1
+    
+def gesture_guess(num):
+    i = 1
+    while i <= num:
+        choose_behaviors(random.randint(10, 12))
+        i = i + 1
+
+def gesture_encourage():
+    choose_behaviors(random.randint(13, 16))
 
 
 #encourage decision function
@@ -38,7 +233,7 @@ def dictionary_set():
                     3: 'Ok I think I know your number. Is it {}?', #5.5 sec
                     4: 'Is {} right? Please show me yes or no.'} #2.5 sec
     #higher or lower
-    second_dict = {1: 'Hey {} is your number bigger than {}? Show me yes or no.', #7 sec 
+    second_dict = {1: 'Hey {} is your number larger than {}? Show me yes or no.', #7 sec 
                     2: 'Oh no I guessed {}. Did I guess bigger than your number {}?', #7 sec
                     3: 'Hmm is {} bigger than mine {}?'} #4 sec  
     #to encourage play during game 
@@ -66,11 +261,11 @@ def feedback_function(thumb_angle, time, name):
     
     #camera angles should be matched to buckets on the GAS - need to see lit if standard #s for this (10% is 1, 20% is 2)
         #these should be the most important factors to weight
-    #increase the encouragement when GAS, camera angle is worse and increase more if history shows a pattern of worsening
+    #increase the encouragement when GAS, camera angle is worse and increase more if history shows a pattern of worsening    
     #if high number of rewards maybe dont need to increase encouragement as much
     #if a lot of clarification is needed, and bad history of gestures, more encouragement and more reward for lower GAS
     #if history of gestures is bad but shows one good case give a reward
-
+    
     #history categories: 1)90% good and then 10% bad(sudden dip) 2)equal mixture of good or bad 3)no improvement 4)getting worse 5)getting better 6)90% bad then good
     #1, 3, 4 - more encouragement. 2 - varied encouragement (maybe getting bored?). 5, 6 - more reward + encouragement.
     #1, 6 - high weights.
@@ -89,8 +284,8 @@ def feedback_function(thumb_angle, time, name):
         enc_flag = random.randrange(1,100)
         if enc_flag<encourage_prob*100:
             random_encourage = random.randrange(1,len(encourage_dict))
-            print(encourage_dict[random_encourage].format(name))
-            rospy.sleep(7)
+            speechSay_pub.publish(encourage_dict[random_encourage].format(name))
+            print(encourage_dict[random_encourage].format(name))            
 
     else:
         reward_prob = 0.5 + abs(thumb_angle/100.0) + time/300.0 #larger angle, better performance/ longer the time playing, more reward
@@ -103,30 +298,9 @@ def feedback_function(thumb_angle, time, name):
         rew_flag = random.randrange(1,100)
         if rew_flag<reward_prob*100:
             random_rew = random.randrange(1,len(reward_dict))
+            speechSay_pub.publish(reward_dict[random_rew].format(name))
             print(reward_dict[random_rew].format(name))
-            rospy.sleep(9)
 
-
-#camera functions
-def get_thumb_input():
-    # print("enter")
-    #wait for 5s to get the best thumb input during 5s, get 50 results totally
-    i = 1
-    reses = []
-    angles = []
-    while(i<40):
-        # print i
-        msg = rospy.wait_for_message("/thumb_result",String)
-        msg = str(msg.data)
-        msg_list = msg.split('+')
-        res_msg = int(msg_list[0])
-        angle_msg = float(msg_list[1])
-        reses.append(res_msg)
-        angles.append(angle_msg)
-        i = i+1
-        time.sleep(0.1)
-    print("down")
-    return reses,angles
 
 #camera+button (and feedback) functions
 def isThumbUp_Down():
@@ -138,7 +312,7 @@ def isThumbUp_Down():
     angles = []
     feed_flag = 1# to prevent if the child wants to replay
     while(i<20):
-        # print i
+        print i
         #get thumb messages
         msg = rospy.wait_for_message("/thumb_result",String)
         msg = str(msg.data)
@@ -148,45 +322,60 @@ def isThumbUp_Down():
         reses.append(res_msg)
         angles.append(angle_msg)
 
-        #get button messages
-        data = rospy.wait_for_message("/openwearable_new",String)
-        strdata = str(data)
+        # #comment out this section if beaglebone isn't running
+        # #get button messages
+        # data = rospy.wait_for_message("/openwearable_new",String)
+        # strdata = str(data)
 
-        # hacky split
-        val = strdata.split(':')
-        val = val[1].split('\\t')
-        temp = val[0].split('"')
+        # # hacky split
+        # val = strdata.split(':')
+        # val = val[1].split('\\t')
+        # temp = val[0].split('"')
         
-        global frame
-        global state
-        global button
-        global yescounter
-        global nocounter
-        global wrongcounter
+        # global frame
+        # global state
+        # global button
+        # global yescounter
+        # global nocounter
+        # global wrongcounter
         
-        frame = int(temp[1])
-        state = int(val[1])
-        button = int(val[2])
+        # frame = int(temp[1])
+        # state = int(val[1])
+        # button = int(val[2])
         
-        print(frame, state, button)
+        # print(frame, state, button)
         
-        if button == 1:#you have trouble and want to replay
-            print("Ok! Please try again.")
-            i=0
-            reses = []
-            angles = []
-            feed_flag = 0
-        if button == -1:
-            #quit the game
-            #print("Number of yes: "+str(yescounter)+". Number of no: "+str(nocounter)+". Number wrong: "+str(wrongcounter))
-            speechSay_pub.publish("OK! Thanks for playing with me! Bye-bye!")
-            choose_behaviors(17)
-            sys.exit()
+        # if button == 1:#you have trouble and want to replay
+        #     print("Ok! Please try again.")
+        #     i=0
+        #     reses = []
+        #     angles = []
+        #     feed_flag = 0
+        # if button == -1:
+        #     #quit the game
+        #     #print("Number of yes: "+str(yescounter)+". Number of no: "+str(nocounter)+". Number wrong: "+str(wrongcounter))
+        #     speechSay_pub.publish("OK! Thanks for playing with me! Bye-bye!")
+        #     choose_behaviors(17)
+        #     sys.exit()
         i = i+1
         if i ==5 and feed_flag == 1:#do feedback function
             feedback_function(abs(angle_msg),time.time()-start_time,name)
         time.sleep(0.1)
 
+    print("finished")
+    if reses.count(1) > 10: #if thumbs up more than half the time
+        angles = nlargest(10, angles)
+        res = sum(angles)/len(angles)
+        return 1, res
+    elif reses.count(-1) > 10: #if thumbs down more than half the time
+        angles = [ -x for x in angles]
+        angles = nlargest(10, angles)
+        res = -sum(angles)/len(angles)
+        return -1,res
+    else:
+        return 0,sum(angles)/len(angles)
+    
+    
 #data collection function
 def record_data():
     #use rosbag to record data:
@@ -205,12 +394,12 @@ def record_data():
     pass
 
 
-#orthosis/button/IMU subscriber function
+#orthosis/button/IMU subscriber function 
 #see openWearable/ros/ow_subscriber.py for original script 
 def callback():
     i=1
     while i<20:
-        data = rospy.wait_for_message("/openwearable",String)
+        data = rospy.wait_for_message("/openwearable_new",String)
         strdata = str(data)
 
         # hacky split
@@ -232,11 +421,12 @@ def callback():
         print(frame, state, button)
         i = i+1
     
-        time.sleep(0.1)
+        
         if button == 1:
             return 1
         if button == -1:
             return -1
+        
     return 0
     
 def listener():
@@ -251,54 +441,92 @@ def listener():
 
 
 if __name__=="__main__":
+    name = 'guy'
     #initialize dictionary
     guess_dict,second_dict,encourage_dict,clarify_dict,reward_dict = dictionary_set()
     
+    #initialize publishers
+    rospy.init_node('qt_numbergame')
+    right_pub = rospy.Publisher('/qt_robot/right_arm_position/command', Float64MultiArray, queue_size=1)
+    left_pub = rospy.Publisher('/qt_robot/left_arm_position/command', Float64MultiArray, queue_size=1)
+    head_pub = rospy.Publisher('/qt_robot/head_position/command', Float64MultiArray, queue_size=1)
+    emotionShow_pub = rospy.Publisher('/qt_robot/emotion/show', String, queue_size=10)
+    gesturePlay_pub = rospy.Publisher('/qt_robot/gesture/play', String, queue_size=10)
+    speechSay_pub = rospy.Publisher('/qt_robot/speech/say', String, queue_size=10)
+    audioPlay_pub = rospy.Publisher('/qt_robot/audio/play', String, queue_size=10)
+    
+    #wait for publisher connections
+    wtime_begin = rospy.get_time()
+    while (#audioPlay_pub.get_num_connections() == 0 or
+        #speechSay_pub.get_num_connections() == 0 or
+        gesturePlay_pub.get_num_connections() == 0 or
+        #emotionShow_pub.get_num_connections() == 0 or
+        right_pub.get_num_connections() == 0 or
+        left_pub.get_num_connections() == 0 or
+        head_pub.get_num_connections() == 0 ) :
+        rospy.loginfo("waiting for subscriber connections")
+        if rospy.get_time() - wtime_begin > 5.0:
+            rospy.logerr("Timeout while waiting for subscribers connection!")
+            sys.exit()
+        rospy.sleep(1)
+    # get_thumb_input()
+
     game_flag = 0 #set to 0 to play intro
     start_time = time.time()
     #name = 'Catherine'
-
+    
     while 1:
         #game always running, until shutdown by children
         # exit_msg = rospy.wait_for_message()
         # if exit_msg.flag == False:
-        # once_again = raw_input('Play again? ') #type 'yes' or 'no'
-            # use # number = sys.stdin.readline() if prompt
-                # number.split()[0]
         print("Do you want to play again? Show me thumbs up/down.")
 #edit ^ to not be the same every time
         res, the_angle = isThumbUp_Down()
-        # if once_again == 'no':
         if res == -1:
             #game over
-            print("I had a great time with you today. Bye-bye!")
+            speechSay_pub.publish("I had a great time with you today. Bye-bye!")
+            choose_behaviors(17)
             break
-        # elif once_again == 'yes':
         elif res == 1:
             if game_flag == 0:#the first time to play
                 #introduction
-                print("Hello, my name is T Q Computer. What is your name? ") 
+                speechSay_pub.publish("Hello, my name is Q T Robot. What is your name? ") #6.5 sec
+                print("Hello, my name is Q T Robot. What is your name? ") 
+                choose_behaviors(17)
                 name = raw_input('What is your name? ')
+                speechSay_pub.publish("Hi   "+name+""",      I would like to play a guessing game with you. 
+                In the game I get to ask you questions, and you get to answer yes or no 
+                by using a thumbs up or a thumbs down with your right arm.
+                Let's practice. Can you show me a thumbs up to say yes?""") #22-25 sec
                 print("Hi   "+name+""",      I would like to play a guessing game with you. 
                 In the game I get to ask you questions, and you get to answer yes or no
                 by using a thumbs up or a thumbs down with your right arm.
                 Let's practice. Can you show me a thumbs up to say yes?""")
+                gesture_talk(3)
                 #configuration
-                # correctup = raw_input('Please do a thumb up! ')
+                # correctup = raw_input('Was it a good thumbs up? ')
                 print("Please do a thumbs up!")
+                # if correctup == 'yes':
                 res, the_angle = isThumbUp_Down()
-                # if correctup == 'up':
                 if res == 1:
+                    speechSay_pub.publish("Awesome! Now can you show me a thumbs down to say no?") #6 sec
                     print("Awesome! Now can you show me a thumbs down to say no?")
-                # correctdown = raw_input('Please do a thumb down! ')
+                    gesture_talk(1)
+                # correctdown = raw_input('Was it a good thumbs down? ')
                 print("Please do a thumbs down!")
+                # if correctdown == 'yes':
                 res, the_angle = isThumbUp_Down()
-                # if correctdown == 'down':
                 if res == -1:
+                # ^ these two lines would be replaced by camera or IMU input, worst case experimenter prompts
+                    speechSay_pub.publish("""Thanks!! During the game, please keep your hand flat on the 
+                        arm rest until I ask you a question. If your thumb 
+                        is going the wrong way, just push the gren button. And just do your best. 
+                        Can you please show me yes if that’s ok?""") #40.5 sec
                     print("""Thanks!! During the game, please keep your hand flat on the 
                         arm rest until I ask you a question. If your thumb 
                         is going the wrong way, just push the gren button. And just do your best. 
                         Can you please show me yes if that’s ok?""")
+                    gesture_talk(5)
             
             #initialize variables
             nocounter = 0
@@ -307,15 +535,17 @@ if __name__=="__main__":
             high = 51
             low = -1
 
-            # correctok = raw_input('Please do a thumbs up to say OK! ')
             res, the_angle = isThumbUp_Down()
-            # if correctok == 'OK':
             if res == 1:
                 #play game now
+                speechSay_pub.publish("Let's play now! Please think of a number between 1 and 50.") #6.5 sec
                 print("Let's play now! Please think of a number between 1 and 50.") #6.5 sec
+                gesture_talk(1)
                 start = input('What is your number? ') #type a number - no rospy.sleep because waiting for input
 #we need to input this from camera computer and subscriber to get the number
+                speechSay_pub.publish("I'm thinking of your number.") #3 sec
                 print("I'm thinking of your number.") #3 sec
+                gesture_guess(1)
                 while start < 51:
                     half_range = int((high-low)/2)
                     current = half_range+low
@@ -323,52 +553,51 @@ if __name__=="__main__":
                     QT = current+random_add
                     random_guess = random.randrange(1,len(guess_dict))
                     #ask if correct
+                    speechSay_pub.publish(guess_dict[random_guess].format(QT)) 
                     print(guess_dict[random_guess].format(QT))    
-                    #print("Answer me with a thumbs up or down"+str(name))
-                    #val = input(guess_dict[random_guess].format(QT))
+                    choose_behaviors(2)
+                    # speechSay_pub.publish("Answer me with a thumbs up or down"+str(name))
+                    # print("Answer me with a thumbs up or down"+str(name))
+
                     res, the_angle = isThumbUp_Down()
 
-#remove the following lines for the button state and put in isThumbUp_Down()
-                    button_state = callback()
-                    if button_state == 1:
-                        print("I am having trouble.")
-                        print("Number of yes: "+str(yescounter)+". Number of no: "+str(nocounter)+". Number wrong: "+str(wrongcounter))
-                        speechSay_pub.publish("OK! Thanks for playing with me! Bye-bye!")
-                        choose_behaviors(16)
-                        sys.exit()
-#which loop does sys exit from?
-                    feedback_function(the_angle,time.time()-start_time,name)
-                    # if val == 'no':
+                    # feedback_function(the_angle,time.time()-start_time,name)                  
                     if res == -1:
                         if QT == start: #prompt if they make a wrong answer about the correctness of QTs guess
-                            print(clarify_dict[random_guess].format(name))
+                            speechSay_pub.publish(clarify_dict[random_guess].format(name))
+                            print(clarify_dict[random_guess].format(name))                            
+                            gesture_talk(1)
                             wrongcounter += 1
                         else:
-                            #ask if higher or lower
-                            print(second_dict[random_guess].format(name,QT))                          
+                            #ask if higher or lower                            
+                            speechSay_pub.publish(second_dict[random_guess].format(name,QT))
+                            print(second_dict[random_guess].format(name,QT))
+                            gesture_talk(1)                        
+                            choose_behaviors(2)
                             nocounter += 1
                             while True:
-                                # val2 = input('yes(1) or no(0)? ')
                                 print("Please do a thumbs up/down to say higher or lower")
 #how many times should kids be reminded of this?
-                                feedback_function(the_angle,time.time()-start_time,name)
+                                # feedback_function(the_angle,time.time()-start_time,name)
                                 res, the_angle = isThumbUp_Down()
-                                # if val2 == 1:
                                 if res == 1:
                                     if QT > start:
+                                        speechSay_pub.publish(clarify_dict[random_guess].format(name))
                                         print(clarify_dict[random_guess].format(name))
+                                        choose_behaviors(2)
                                         wrongcounter += 1
-                                        feedback_function(the_angle,time.time()-start_time,name)
+                                        # feedback_function(the_angle,time.time()-start_time,name)
                                     else:
                                         low = QT
                                         yescounter += 1
                                         break
-                                # if val2 == 0:
                                 if res == -1:
                                     if QT < start:
+                                        speechSay_pub.publish(clarify_dict[random_guess].format(name))
                                         print(clarify_dict[random_guess].format(name))
+                                        choose_behaviors(2)
                                         wrongcounter += 1
-                                        feedback_function(the_angle,time.time()-start_time,name)
+                                        # feedback_function(the_angle,time.time()-start_time,name)
                                     else:
                                         high = QT
                                         nocounter += 1
@@ -376,11 +605,12 @@ if __name__=="__main__":
                                 else:
                                     print("Wrong input! Please input again.")
 #what should QT say?
-                           
-                    # elif val == 'yes':
+
                     elif res == 1:
+                        speechSay_pub.publish('Hooray! I got it! Thanks' + name + 'for playing with me. Do you want to play again with me?') #9 sec
                         print('Hooray! I got it! Thanks' + name + 'for playing with me. Do you want to play again with me?') #9 sec
-#vary this message. also should they play a minimum of 3 games mandatory, the rest optional?
+#vary this message. also should they play a minimum of 3 games mandatory, the rest optional? 
+                        choose_behaviors(14)
                         yescounter += 1
                         print("Number of yes: "+str(yescounter)+". Number of no: "+str(nocounter)+". Number wrong: "+str(wrongcounter))
                         print('I got it!')
