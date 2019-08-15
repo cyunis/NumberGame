@@ -1,8 +1,15 @@
+>>>GAME:
+every computer needs to be on QT104 wifi
+camera uses depth so keep space clear except for hand gesturing
+best if no table
+
 >>>Using Git:
+EDIT EVERYTHING ON A WEB BROWSER IF POSSIBLE
+(if editing in a separate file on a computer before, skip git pull and copy to git folder NumberGame instead)
 git pull
 (play around with code)
-git add
-git commit
+git add .
+git commit -m "(a message)"
 git push
 (git status) to check what's going on
 (on qt nuuc) copy/replace updated file in catkin_ws/src to run
