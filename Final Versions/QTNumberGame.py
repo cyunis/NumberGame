@@ -15,6 +15,7 @@ from std_msgs.msg import Float64MultiArray
 from sensor_msgs.msg import JointState
 from thumb.msg import Res
 import rosbag
+import message_filters
 from heapq import nlargest
 #gesture choose
 def choose_behaviors(number):
@@ -443,14 +444,18 @@ def isThumbUp_Down():
         time.sleep(0.1)
 
 
-def record_data():
+def record_data(camera_angle,time,button,script,image_raw,QT_motor):
+    data_list = [camera_angle,time,button,script,image_raw,QT_motor]
     #use rosbag to record data
     #astra camera data/QT camera data/angle result data/button data/game playing data:sentence said by QT and children response
     #astra camera data should be recorded on the local computer, use compressed
     #QT camera just rosbag /image_raw
     #motion and sentences just rosbag moter topic and speech topic
     #button data just rosbag button data
-    pass
+    print data_list
+#export the data to a csv file
+#call these lines in script:   ds = TimeSynchronizer( <all the Subscribers for the data>, queue size (10)) 
+#ds.registerCallback(record_data)
 
 
 
@@ -656,6 +661,7 @@ if __name__=="__main__":
                         print("Number of yes: "+str(yescounter)+". Number of no: "+str(nocounter)+". Number wrong: "+str(wrongcounter))
                         print('I got it!')
                         game_flag = game_flag + 1
+#put the record data call back here (and elsewhere?)
                         break
         else:
             print("Wrong input! Please input again.")
