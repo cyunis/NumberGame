@@ -268,15 +268,20 @@ def encourage_score():
 #script function
 def dictionary_set():
     #setting up phrase dictionaries
+    
+#work on the script in the GOOGLE DOC first!!!!
+#add more phrases with the name in different spots
     #to guess
     guess_dict = {1: 'Is your number {}? Please show me a thumbs up or down.', #2.5 sec
                     2: 'I guess {}. Did I guess your number?', #5.5 sec
                     3: 'Ok I think I know your number. Is it {}?', #5.5 sec
                     4: 'Is {} right? Please show me yes or no.'} #2.5 sec
+#make sure name and number are in the right spot for every phrase
     #higher or lower
     second_dict = {1: 'Hey {} is your number larger than {}? Show me yes or no.', #7 sec 
                     2: 'Oh no I guessed {}. Did I guess bigger than your number {}?', #7 sec
-                    3: 'Hmm is {} bigger than mine {}?'} #4 sec  
+                    3: 'Hmm is {} bigger than mine {}?'} #4 sec
+#add more encouragement and reward phrases, including with the name moved around
     #to encourage play during game 
     encourage_dict = {1:'Good job {}!', #2.5 sec
                     2:'That was your best one so far! Keep up the good work {}!', #7 sec
@@ -321,6 +326,7 @@ def feedback_function(thumb_angle, time, name):
     print(feedback_dict[count])
     count += 1
     
+#make sure the encouragement plays when it should
     #50 degrees is the threshold, determined by GAS
     if abs(thumb_angle) < 50:
         encourage_prob = 0.85 -abs(thumb_angle/100.0) + time/300.0 #smaller angle, worse performance/ longer time, more tired, more enc
@@ -336,7 +342,7 @@ def feedback_function(thumb_angle, time, name):
             speechSay_pub.publish(encourage_dict[random_encourage].format(name))
             rospy.sleep(7)
 
-
+#fix the reward functions to be only at intermittant intervals - should be v selective (include the feedback_dict)
     else:
         reward_prob = 0.5 + abs(thumb_angle/100.0) + time/300.0 #larger angle, better performance/ longer the time playing, more reward
         if reward_prob<0:
