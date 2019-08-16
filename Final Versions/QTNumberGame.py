@@ -269,7 +269,7 @@ def encourage_score():
 def dictionary_set():
     #setting up phrase dictionaries
     
-#work on the script in the GOOGLE DOC first!!!!
+#work on the script in the GOOGLE DOC first!!!! - but go through this code for places to add phrases
 #add more phrases with the name in different spots
     #to guess
     guess_dict = {1: 'Is your number {}? Please show me a thumbs up or down.', #2.5 sec
@@ -326,7 +326,7 @@ def feedback_function(thumb_angle, time, name):
     print(feedback_dict[count])
     count += 1
     
-#make sure the encouragement plays when it should
+#make sure the encouragement plays when it should - include graded cueing?
     #50 degrees is the threshold, determined by GAS
     if abs(thumb_angle) < 50:
         encourage_prob = 0.85 -abs(thumb_angle/100.0) + time/300.0 #smaller angle, worse performance/ longer time, more tired, more enc
