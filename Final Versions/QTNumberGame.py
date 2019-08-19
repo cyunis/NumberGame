@@ -270,19 +270,17 @@ def encourage_score():
 def dictionary_set():
     #setting up phrase dictionaries
     
-#work on the script in the GOOGLE DOC first!!!! - but go through this code for places to add phrases
-#add more phrases with the name in different spots
+#copy over script from GOOGLE DOC
     #to guess
     guess_dict = {1: 'Is your number {}? Please show me a thumbs up or down.', #2.5 sec
                     2: 'I guess {}. Did I guess your number?', #5.5 sec
                     3: 'Ok I think I know your number. Is it {}?', #5.5 sec
                     4: 'Is {} right? Please show me yes or no.'} #2.5 sec
-#make sure name and number are in the right spot for every phrase
+#make sure name and number are in the right spot for every phrase - use 0 or 1 in the brackets to call in order
     #higher or lower
     second_dict = {1: 'Hey {} is your number larger than {}? Show me yes or no.', #7 sec 
                     2: 'Oh no I guessed {}. Did I guess bigger than your number {}?', #7 sec
                     3: 'Hmm is {} bigger than mine {}?'} #4 sec
-#add more encouragement and reward phrases, including with the name moved around - use 0 or 1 in the brackets to call in order
     #to encourage play during game 
     encourage_dict = {1:'Good job {}!', #2.5 sec
                     2:'That was your best one so far! Keep up the good work {}!', #7 sec
@@ -322,9 +320,9 @@ def feedback_function(thumb_angle, time, name):
     #1, 6 - high weights.
     #prompt categories: 1)a lot of clarification 2)a little clarification 3)less encouragement than normal 4)a lot of reward 5)a little reward
     #1 - more encouragement (maybe tired?). 2 - more reward. 3 - varied encouragement.
-
-    feedback_dict[count].append(thumb_angle,time)
-    print(feedback_dict[count])
+    
+    feedback_dict[count] = [thumb_angle,time]
+    print(feedback_dict)
     count += 1
     
 #make sure the encouragement plays when it should - include graded cueing? (feedback @ failure) see stroke lit for affectiveness/optimal challenge
