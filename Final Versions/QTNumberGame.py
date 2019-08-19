@@ -300,10 +300,9 @@ def dictionary_set():
 #feedback function and variables
 feedback_dict = {}
 count = 1
-feedback_dict.setdefault(count,[])
 
 def feedback_function(thumb_angle, time, name):
-    global speechSay_pub, encourage_dict, reward_dict, feedback_dict, count
+    global speechSay_pub, encourage_dict, reward_dict, clarify_dict, feedback_dict, count, wrongcounter
     #give each item weights and combine weights to make a %
     #want reward to be 80-50% and encourage >80% always
     #camera angle, GAS (fatigue), history of gestures, # of prompts
@@ -329,6 +328,7 @@ def feedback_function(thumb_angle, time, name):
     #50 degrees is the threshold, determined by GAS
     if abs(thumb_angle) < 50:
         encourage_prob = 0.85 -abs(thumb_angle/100.0) + time/300.0 #smaller angle, worse performance/ longer time, more tired, more enc
+        print("Encouragement prob: " + str(encourage_prob))
         if encourage_prob<0:
             print("encourage_prob is 0!")
             encourage_prob = 0
@@ -341,9 +341,19 @@ def feedback_function(thumb_angle, time, name):
             speechSay_pub.publish(encourage_dict[random_encourage].format(name))
             rospy.sleep(7)
 
-#fix the reward functions to be only at intermittant intervals - should be v selective (include the feedback_dict)
+#make sure the reward functions to be only at intermittant intervals - should be v selective
     else:
-        reward_prob = 0.5 + abs(thumb_angle/100.0) + time/300.0 #larger angle, better performance/ longer the time playing, more reward
+        for i in range(1, count-1):
+            avg_angle += feedback_dict[i][0]
+        avg_angle /= (count-2)
+        reward_compare = feedback_dict[count-1][0]/avg_angle
+        reward_current = 0.5 + abs(thumb_angle/100.0) + time/300.0 #larger angle, better performance/ longer the time playing, more reward
+        if reward_compare>reward_current:
+            reward_prob = reward_compare
+        if reward_current>reward_compare and reward_compare>0.9: #0.9 is the ratio of how much decline between GAS scores (-10%)
+            reward_prob = reward_current
+        if reward_current>reward_compare:
+            reward_prob = 0.5
         if reward_prob<0:
             print("reward_prob is 0!")
             reward_prob = 0
@@ -351,10 +361,13 @@ def feedback_function(thumb_angle, time, name):
             print("reward_prob is 1!")
             reward_prob = 1
         rew_flag = random.randrange(1,100)
-        if rew_flag<reward_prob*100:
+        if rew_flag<reward_prob*100 and wrongcounter<10:
             random_rew = random.randrange(1,len(reward_dict))
             speechSay_pub.publish(reward_dict[random_rew].format(name))
             rospy.sleep(9)
+#        if wrongcounter>10:
+#            random_clar = random.randrange(1,len(clarify_dict))
+#            speechSay_pub.publish(clarify_dict[random_clar].format(name))
 
 
 
@@ -615,7 +628,7 @@ if __name__=="__main__":
                             nocounter += 1
                             while True:
                                 # val2 = input('yes(1) or no(0)? ')
-                                print("please do a thumb up/down to say higer or lower")
+                                print("please do a thumb up/down to say higher or lower")
                                 feedback_function(the_angle,time.time()-start_time,name)
                                 # random_encourage = random.randrange(1,len(encourage_dict))
                                 # speechSay_pub.publish(encourage_dict[random_encourage].format(name))
@@ -647,8 +660,10 @@ if __name__=="__main__":
                                         nocounter += 1
                                         break #break from inner while loop
                                 else:
-                                    print("Wrong input! Please input again.")
-#what should QT say?
+                                    speechSay_pub.publish(clarify_dict[random_guess].format(name))
+                                    print(clarify_dict[random_guess].format(name))
+                                    choose_behaviors(2)
+                                    wrongcounter += 1
 
                     # elif val == 'yes':
                     elif res == 1:
@@ -662,5 +677,7 @@ if __name__=="__main__":
 #put the record data call back here (and elsewhere?)
                         break
         else:
-            print("Wrong input! Please input again.")
-#what should QT say?
+            speechSay_pub.publish(clarify_dict[random_guess].format(name))
+            print(clarify_dict[random_guess].format(name))
+            choose_behaviors(2)
+            wrongcounter += 1
