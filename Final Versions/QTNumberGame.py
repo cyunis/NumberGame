@@ -282,7 +282,7 @@ def dictionary_set():
     second_dict = {1: 'Hey {} is your number larger than {}? Show me yes or no.', #7 sec 
                     2: 'Oh no I guessed {}. Did I guess bigger than your number {}?', #7 sec
                     3: 'Hmm is {} bigger than mine {}?'} #4 sec
-#add more encouragement and reward phrases, including with the name moved around
+#add more encouragement and reward phrases, including with the name moved around - use 0 or 1 in the brackets to call in order
     #to encourage play during game 
     encourage_dict = {1:'Good job {}!', #2.5 sec
                     2:'That was your best one so far! Keep up the good work {}!', #7 sec
