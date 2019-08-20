@@ -24,6 +24,31 @@ state = 0
 button = 0
 statelist = []
 buttonlist = []
+supinate = 0
+pronate = 0
+#modify these for each subject from GAS interview
+GAS_worst_sup = 
+GAS_bad_sup =
+GAS_normal_sup = 
+GAS_good_sup = 
+GAS_best_sup = 
+GAS_worst_pro = 
+GAS_bad_pro =
+GAS_normal_pro = 
+GAS_good_pro = 
+GAS_best_pro = 
+GAS_worst_suptime = 
+GAS_bad_suptime =
+GAS_normal_suptime = 
+GAS_good_suptime = 
+GAS_best_suptime = 
+GAS_worst_protime = 
+GAS_bad_protime =
+GAS_normal_protime = 
+GAS_good_protime = 
+GAS_best_protime = 
+
+
 #gesture functions
 def choose_behaviors(number):
     global right_pub, left_pub, head_pub, emotionShow_pub, gesturePlay_pub, speechSay_pub, audioPlay_pub
@@ -256,8 +281,8 @@ def dictionary_set():
 feedback_dict = {}
 count = 1
 
-def feedback_function(thumb_angle, time, name):
-    global speechSay_pub, encourage_dict, reward_dict, clarify_dict, feedback_dict, count, wrongcounter
+def feedback_function(thumb_angle, gesture_time, time, name):
+    global speechSay_pub, encourage_dict, reward_dict, clarify_dict, feedback_dict, count, wrongcounter, supinate, pronate
     #give each item weights and combine weights to make a %
     #want reward to be 80-50% and encourage >80% always
     #camera angle, GAS (fatigue), history of gestures, # of prompts
@@ -272,7 +297,19 @@ def feedback_function(thumb_angle, time, name):
     #1, 6 - high weights.
     #prompt categories: 1)a lot of clarification 2)a little clarification 3)less encouragement than normal 4)a lot of reward 5)a little reward
     #1 - more encouragement (maybe tired?). 2 - more reward. 3 - varied encouragement.
-    feedback_dict[count] = [thumb_angle,time]
+    
+    #make the buckets based on the GAS variables
+    
+    #split thumb_angle into pronation or supination
+    if thumb_angle>0:
+        supinate = thumb_angle #thumbs up
+    if thumb_angle<0:
+        pronate = thumb_angle #thumbs down
+    #gesture_time should be set to reses.count(1) or .count(-1) for supination or pronation respectively
+    
+    #categorize the gesture into a bucket based on supinate, pronate, gesture_time, time, etc
+    
+    feedback_dict[count] = [supinate,pronate,gesture_time,time]
     print(feedback_dict)
     count += 1
 #make sure the encouragement plays when it should - include graded cueing? (feedback @ failure) see stroke lit for affectiveness/optimal challenge
@@ -386,12 +423,12 @@ def isThumbUp_Down():
     if reses.count(1) > 10: #if thumbs up more than half the time
         angles = nlargest(10, angles)
         res = sum(angles)/len(angles)
-        return 1, res
+        return 1, res,reses #added reses
     elif reses.count(-1) > 10: #if thumbs down more than half the time
         angles = [ -x for x in angles]
         angles = nlargest(10, angles)
         res = -sum(angles)/len(angles)
-        return -1,res
+        return -1,res,reses #added reses
     else:
         return 0,sum(angles)/len(angles)
 
