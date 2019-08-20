@@ -287,7 +287,7 @@ if __name__=="__main__":
                                 if res == 1:
                                     if QT > start:
                                         random_clar = random.randrange(1,len(clar_dict))
-                                        print(clarify_dict[random_guess].format(name))
+                                        print(clarify_dict[random_clar].format(name))
                                         wrongcounter += 1
                                     else:
                                         low = QT
@@ -296,7 +296,7 @@ if __name__=="__main__":
                                 if res == -1:
                                     if QT < start:
                                         random_clar = random.randrange(1,len(clar_dict))
-                                        print(clarify_dict[random_guess].format(name))
+                                        print(clarify_dict[random_clar].format(name))
                                         wrongcounter += 1
                                     else:
                                         high = QT
