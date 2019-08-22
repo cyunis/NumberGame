@@ -322,6 +322,8 @@ def feedback_function(thumb_angle, gesture_time, time, name):
     #1 - more encouragement (maybe tired?). 2 - more reward. 3 - varied encouragement.
     
     #make the buckets based on the GAS variables
+    gestureis = 0
+    if thumb_angle <
     
     #split thumb_angle into pronation or supination
     if thumb_angle>0:
