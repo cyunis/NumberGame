@@ -26,27 +26,29 @@ statelist = []
 buttonlist = []
 supinate = 0
 pronate = 0
+feedback_dict = {}
+count = 1
 #modify these for each subject from GAS interview
-GAS_worst_sup = 
-GAS_bad_sup =
-GAS_normal_sup = 
-GAS_good_sup = 
-GAS_best_sup = 
-GAS_worst_pro = 
-GAS_bad_pro =
-GAS_normal_pro = 
-GAS_good_pro = 
-GAS_best_pro = 
-GAS_worst_suptime = 
-GAS_bad_suptime =
-GAS_normal_suptime = 
-GAS_good_suptime = 
-GAS_best_suptime = 
-GAS_worst_protime = 
-GAS_bad_protime =
-GAS_normal_protime = 
-GAS_good_protime = 
-GAS_best_protime = 
+GAS_worst_sup = 140 #angle 90-180
+GAS_bad_sup = 130
+GAS_normal_sup = 120 
+GAS_good_sup = 110
+GAS_best_sup = 100
+GAS_worst_pro = 40 #angle 90-0
+GAS_bad_pro = 50
+GAS_normal_pro = 60
+GAS_good_pro = 70
+GAS_best_pro = 80
+GAS_worst_suptime = 1 #time, sec?
+GAS_bad_suptime = 2
+GAS_normal_suptime = 3
+GAS_good_suptime = 4
+GAS_best_suptime = 5
+GAS_worst_protime =  1 #time, sec?
+GAS_bad_protime = 2
+GAS_normal_protime = 3
+GAS_good_protime = 4
+GAS_best_protime = 5
 
 
 #gesture functions
@@ -249,38 +251,59 @@ def encourage_score():
 #script function
 def dictionary_set():
     #setting up phrase dictionaries
-    
 #copy over script from GOOGLE DOC
     #to guess
-    guess_dict = {1: 'Is your number {}? Please show me a thumbs up or down.', #2.5 sec
-                    2: 'I guess {}. Did I guess your number?', #5.5 sec
-                    3: 'Ok I think I know your number. Is it {}?', #5.5 sec
-                    4: 'Is {} right? Please show me yes or no.'} #2.5 sec
+    guess_dict = {1: 'Is {} right? Please show me a thumbs up or down.',
+                    2: 'Ok I think I know your number. Is it {}?',
+                    3: 'Is your number {}? Please show me yes or no.',
+                    4: 'I guess {}. Did I guess your number?',
+                    5: 'Am I wrong if I guess {}?',
+                    6: 'Is {} the wrong guess?',
+                    7: 'Is {} wrong? Please show me yes or no.',
+                    8: 'I guess {} am I wrong?'}
 #make sure name and number are in the right spot for every phrase - use 0 or 1 in the brackets to call in order
     #higher or lower
-    second_dict = {1: 'Hey {} is your number larger than {}? Show me yes or no.', #7 sec 
-                    2: 'Oh no I guessed {}. Did I guess bigger than your number {}?', #7 sec
-                    3: 'Hmm is {} bigger than mine {}?'} #4 sec
+    second_dict = {1: 'Hey {} is your number higher than {}? Show me yes or no.',
+                    2: 'Oh no, I guessed {1}. Did I guess bigger than your number {0}?',
+                    3: 'Hmm is {} bigger than my number {}?',
+                    4: 'Hey is your number higher than {1} {0}? Show me yes or no.',
+                    5: 'Oh no {}, I guessed {}. Did I guess bigger than your number?',
+                    6: 'Hmm {}, is {} bigger than my number?',
+                    7: 'Hey is your number higher than {1}? Show me yes or no please {0}.',
+                    8: 'Oh no, I guessed {1} {0}! Did I guess bigger than your number?',
+                    9: 'Hmm tell me {} is {} bigger than my number?'} 
     #to encourage play during game 
-    encourage_dict = {1:'Good job {}!', #2.5 sec
-                    2:'That was your best one so far! Keep up the good work {}!', #7 sec
-                    3:'I can tell you are trying really hard {}, nice job!', #5 sec
-                    4:'You are getting better at this {}, wow!', #4 sec
-                    5:'I know this is hard {}, keep trying!'} #4.5 sec
-    clarify_dict = {1: 'Sorry {} I didn’t see that, could you repeat that answer for me please?', #6 sec
-                    2: 'I think that was a {}. If I’m right could you make a thumbs {} for me please?', #6.5 sec
-                    3: 'Could you please show me that answer again {}?'} #4 sec 
-    reward_dict = {1: 'Let’s party!', #2 sec
-                    2: 'I have a joke {}, why did a crocodile marry a chicken? Because crock-o-doodle-doodle is a good last name!', #9.5 sec
-                    3: 'What is your favorite color {}? Mine is blue.', #5.5 sec
-                    4: 'I like playing games with you {}, you’re very fun. Do you like playing with me?'} #8 sec
+    encourage_dict = {1: 'Good job {}!',
+                    2: 'That was your best one so far! Keep up the good work {}!',
+                    3: 'I can tell you are trying really hard {}, nice job!',
+                    4: 'You are getting better at this {}, wow!',
+                    5: 'I know this is hard {}, keep trying!',
+                    6: 'Hooray! Let’s play again {}!',
+                    7: 'Hey {}, good job!',
+                    8: 'That was your best one so far {}! Keep up the good work!',
+                    9: 'Hey {} I can tell you are trying really hard, nice job!',
+                    10: 'Everyone, {} is getting better at this!',
+                    11: 'Keep trying, I know this is hard {} but you got it!',
+                    12: 'Hooray you did great {}!'} 
+    clarify_dict = {1: 'Sorry {} I didn’t see that, could you repeat that answer for me please?',
+                    2: 'I think that was a {yes/no} {}. If I’m right/wrong, could you make a thumbs {up/down} for me please?',
+#when this line is called make sure to include the yes/no ^^ (just add more format(name, yes, up) <ex)
+                    3: 'Could you please show me that answer again {}?',
+                    4: 'Sorry I didn’t see that {}, could you repeat that answer for me please?',
+                    5: 'I think that was a {yes/no}. If I’m {right/wrong} {} could you make a thumbs {up/down} for me please',
+#when this line is called make sure to include the yes/no ^^ (just add more format(name, yes, up) <ex)
+                    6: 'Hey {} could you please show me that answer again?'} 
+    reward_dict = {1: 'Let’s party!',
+                    2: 'I have a joke {}, why did a crocodile marry a chicken? Because crock-o-doodle-doodle is a good last name!',
+                    3: 'What is your favorite color {}? Mine is blue.',
+                    4: 'I like playing games with you {}, you’re very fun. Do you like playing with me?',
+                    5: 'Let’s celebrate!',
+                    6: 'I am happy to play games with you {}!'}
+#should i make a reconnect dictionary?
     return guess_dict,second_dict,encourage_dict,clarify_dict,reward_dict
 
 
-#feedback function and variables
-feedback_dict = {}
-count = 1
-
+#feedback function
 def feedback_function(thumb_angle, gesture_time, time, name):
     global speechSay_pub, encourage_dict, reward_dict, clarify_dict, feedback_dict, count, wrongcounter, supinate, pronate
     #give each item weights and combine weights to make a %
