@@ -525,7 +525,7 @@ if __name__=="__main__":
     right_pub = rospy.Publisher('/qt_robot/right_arm_position/command', Float64MultiArray, queue_size=1)
     left_pub = rospy.Publisher('/qt_robot/left_arm_position/command', Float64MultiArray, queue_size=1)
     head_pub = rospy.Publisher('/qt_robot/head_position/command', Float64MultiArray, queue_size=1)
-    emotionShow_pub = rospy.Publisher('/qt_robot/emotion/show', String, queue_size=10)
+    #emotionShow_pub = rospy.Publisher('/qt_robot/emotion/show', String, queue_size=10)
     gesturePlay_pub = rospy.Publisher('/qt_robot/gesture/play', String, queue_size=10)
     speechSay_pub = rospy.Publisher('/qt_robot/speech/say', String, queue_size=10)
     audioPlay_pub = rospy.Publisher('/qt_robot/audio/play', String, queue_size=10)
@@ -535,7 +535,7 @@ if __name__=="__main__":
     while (#audioPlay_pub.get_num_connections() == 0 or
         speechSay_pub.get_num_connections() == 0 or
         gesturePlay_pub.get_num_connections() == 0 or
-        emotionShow_pub.get_num_connections() == 0 or
+        #emotionShow_pub.get_num_connections() == 0 or
         right_pub.get_num_connections() == 0 or
         left_pub.get_num_connections() == 0 or
         head_pub.get_num_connections() == 0 ) :
