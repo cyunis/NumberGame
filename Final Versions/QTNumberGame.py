@@ -252,7 +252,6 @@ def encourage_score():
 #script function
 def dictionary_set():
     #setting up phrase dictionaries
-#copy over script from GOOGLE DOC
     #to guess
     guess_dict = {1: 'Is {} right? Please show me a thumbs up or down.',
                     2: 'Ok I think I know your number. Is it {}?',
@@ -558,12 +557,10 @@ if __name__=="__main__":
         if res == -1:
             #game over
             speechSay_pub.publish(("Thanks for playing with me {}! Bye-bye!").format(name))
-#check transcript ^^
             choose_behaviors(17)
             break
         elif res == 1:
             if game_flag == 0:#the first time to play
-#make sure the script in this intro matches the transcript       
                 #introduction
                 speechSay_pub.publish("Hello, my name is Q T Robot. What is your name? ") #6.5 sec
                 choose_behaviors(17)
@@ -615,26 +612,27 @@ if __name__=="__main__":
                     print(guess_dict[random_guess].format(QT))    
                     choose_behaviors(2)
                     res = isThumbUp_Down()
-            
-                    if res == -1:
+
+                    if random_guess<5: #no means incorrect guess
+                        incorrect = -1
+                        print('no means incorrect')
+                    else: #yes means incorrect guess
+                        incorrect = 1
+                        print('yes means incorrect')
+                    if res == incorrect:
                         if QT == start: #prompt if they make a wrong answer about the correctness of QTs guess
                             random_clar = random.randrange(1,len(clar_dict))
                             speechSay_pub.publish(clarify_dict[random_clar].format(name))                         
                             gesture_talk(1)
                             wrongcounter += 1
-#update this ^^ with the new questions that QT is asking!!!
                         else:
                             #ask if higher or lower
-#update when to ask higher/lower with the new questions that QT is asking for guess_dict!!!
                             random_second = random.randrange(1,len(second_dict))
                             speechSay_pub.publish(second_dict[random_second].format(name,QT))
                             gesture_talk(1)                        
                             choose_behaviors(2)
                             nocounter += 1
                             while True:
-                                print("Please do a thumbs up/down to say higher or lower")
-#how many times should kids be reminded of this?
-#feedback_function(the_angle,time.time()-start_time,name)
                                 res = isThumbUp_Down()
 
                                 if res == 1:
@@ -643,7 +641,6 @@ if __name__=="__main__":
                                         speechSay_pub.publish(clarify_dict[random_clar].format(name))                         
                                         gesture_talk(1)
                                         wrongcounter += 1
-# feedback_function(the_angle,time.time()-start_time,name)
                                     else:
                                         low = QT
                                         yescounter += 1
@@ -655,17 +652,14 @@ if __name__=="__main__":
                                         print(clarify_dict[random_clar].format(name))                            
                                         gesture_talk(1)
                                         wrongcounter += 1
-# feedback_function(the_angle,time.time()-start_time,name)
                                     else:
                                         high = QT
                                         nocounter += 1
                                         break #break from inner while loop
                                 else:
-                                    print("Wrong input! Please input again.")
-#what should QT say?
-                    elif res == 1:
+                                    speechSay_pub.publish("Wrong input! Please input again.")
+                    elif res == -incorrect:
                         speechSay_pub.publish('Hooray! I got it! Thanks' + name + 'for playing with me. Do you want to play again with me?') #9 sec
-                        print('Hooray! I got it! Thanks' + name + 'for playing with me. Do you want to play again with me?') #9 sec
 #vary this message. also should they play a minimum of 3 games mandatory, the rest optional? 
                         choose_behaviors(14)
                         yescounter += 1
@@ -674,5 +668,5 @@ if __name__=="__main__":
 #put the record data call back here (and elsewhere?)
                         break
         else:
-            print("Wrong input! Please input again.")
+            speechSay_pub.publish("Wrong input! Please input again.")
 #what should QT say?
