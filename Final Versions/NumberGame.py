@@ -23,39 +23,70 @@ state = 0
 button = 0
 statelist = []
 buttonlist = []
+supinate = 0
+pronate = 0
+feedback_dict = {}
+count = 1
+#modify these for each subject from GAS interview
+GAS_worst_sup = 10 #angle 0 - 90 
+GAS_bad_sup = 20
+GAS_normal_sup = 30 
+GAS_good_sup = 40
+GAS_best_sup = 50
+GAS_worst_pro = -10 #angle -90 - 0
+GAS_bad_pro = -20
+GAS_normal_pro = -30
+GAS_good_pro = -40
+GAS_best_pro = -50
+GAS_worst_suptime = 1 #time, sec?
+GAS_bad_suptime = 2
+GAS_normal_suptime = 3
+GAS_good_suptime = 4
+GAS_best_suptime = 5
+GAS_worst_protime =  1 #time, sec?
+GAS_bad_protime = 2
+GAS_normal_protime = 3
+GAS_good_protime = 4
+GAS_best_protime = 5
+hand = 'right' #change this if using left hand
 
 
 #script function
 def dictionary_set():
     #setting up phrase dictionaries
-#check GOOGLE DOC
     #to guess
-    guess_dict = {1: 'Is your number {}? Please show me a thumbs up or down.', #2.5 sec
-                    2: 'I guess {}. Did I guess your number?', #5.5 sec
-                    3: 'Ok I think I know your number. Is it {}?', #5.5 sec
-                    4: 'Is {} right? Please show me yes or no.'} #2.5 sec
+    guess_dict = {1: 'Is {} right? Please show me a thumbs up or down.',
+                    2: 'Ok I think I know your number. Is it {}?',
+                    3: 'Is your number {}? Please show me yes or no.',
+                    4: 'I guess {}. Did I guess your number?',
+                    5: 'Am I wrong if I guess {}?',
+                    6: 'Is {} the wrong guess?',
+                    7: 'Is {} wrong? Please show me yes or no.',
+                    8: 'I guess {} am I wrong?'}
+#make sure name and number are in the right spot for every phrase - use 0 or 1 in the brackets to call in order
     #higher or lower
-    second_dict = {1: 'Hey {} is your number larger than {}? Show me yes or no.', #7 sec 
-                    2: 'Oh no I guessed {}. Did I guess bigger than your number {}?', #7 sec
-                    3: 'Hmm is {} bigger than mine {}?'} #4 sec  
-    #to encourage play during game 
-    encourage_dict = {1:'Good job {}!', #2.5 sec
-                    2:'That was your best one so far! Keep up the good work {}!', #7 sec
-                    3:'I can tell you are trying really hard {}, nice job!', #5 sec
-                    4:'You are getting better at this {}, wow!', #4 sec
-                    5:'I know this is hard {}, keep trying!'} #4.5 sec
-    clarify_dict = {1: 'Sorry {} I didn’t see that, could you repeat that answer for me please?', #6 sec
-                    2: 'I think that was a {}. If I’m right could you make a thumbs {} for me please?', #6.5 sec
-                    3: 'Could you please show me that answer again {}?'} #4 sec 
-    reward_dict = {1: 'Let’s party!', #2 sec
-                    2: 'I have a joke {}, why did a crocodile marry a chicken? Because crock-o-doodle-doodle is a good last name!', #9.5 sec
-                    3: 'What is your favorite color {}? Mine is blue.', #5.5 sec
-                    4: 'I like playing games with you {}, you’re very fun. Do you like playing with me?'} #8 sec
-    return guess_dict,second_dict,encourage_dict,clarify_dict,reward_dict
+    second_dict = {1: 'Hey {} is your number higher than {}? Show me yes or no.',
+                    2: 'Oh no, I guessed {1}. Did I guess bigger than your number {0}?',
+                    3: 'Hmm is {} bigger than my number {}?',
+                    4: 'Hey is your number higher than {1} {0}? Show me yes or no.',
+                    5: 'Oh no {}, I guessed {}. Did I guess bigger than your number?',
+                    6: 'Hmm {}, is {} bigger than my number?',
+                    7: 'Hey is your number higher than {1}? Show me yes or no please {0}.',
+                    8: 'Oh no, I guessed {1} {0}! Did I guess bigger than your number?',
+                    9: 'Hmm tell me {} is {} bigger than my number?'} 
+    clarify_dict = {1: 'Sorry {} I didn’t see that, could you repeat that answer for me please?',
+                    2: 'I think that was a {yes/no} {}. If I’m right/wrong, could you make a thumbs {up/down} for me please?',
+#when this line is called make sure to include the yes/no ^^ (just add more format(name, yes, up) <ex)
+                    3: 'Could you please show me that answer again {}?',
+                    4: 'Sorry I didn’t see that {}, could you repeat that answer for me please?',
+                    5: 'I think that was a {yes/no}. If I’m {right/wrong} {} could you make a thumbs {up/down} for me please',
+#when this line is called make sure to include the yes/no ^^ (just add more format(name, yes, up) <ex)
+                    6: 'Hey {} could you please show me that answer again?'} 
+#should i make a reconnect dictionary?
+    return guess_dict,second_dict,clarify_dict
 
 
 #camera+button (and feedback) functions
-def isThumbUp_Down():
 def isThumbUp_Down():
     #wait for 5s to get the best thumb input during 5s, get 50 results totally
     global start_time, name
@@ -112,10 +143,7 @@ def isThumbUp_Down():
             sys.exit()
         ### -------------------- ###
         
-#        i = i+1
-#        if i ==5 and feed_flag == 1:#do feedback function
-#            feedback_function(abs(angle_msg),time.time()-start_time,name)
-#        time.sleep(0.1)
+        time.sleep(0.1)
 
     print("finished")
     if reses.count(1) > 10: #if thumbs up more than half the time
@@ -200,7 +228,7 @@ def listener():
 
 if __name__=="__main__":
     #initialize dictionary
-    guess_dict,second_dict,encourage_dict,clarify_dict,reward_dict = dictionary_set()
+    guess_dict,second_dict,clarify_dict = dictionary_set()
     
     game_flag = 0 #set to 0 to play intro
     start_time = time.time()
@@ -208,11 +236,6 @@ if __name__=="__main__":
     
     while 1:
         #game always running, until shutdown by children
-        # exit_msg = rospy.wait_for_message()
-        # if exit_msg.flag == False:
-        # once_again = raw_input('Play again? ') #type 'yes' or 'no'
-            # use # number = sys.stdin.readline() if prompt
-                # number.split()[0]
         print("Do you want to play again? Show me thumbs up/down.")
 #edit ^ to not be the same every time
         res, the_angle = isThumbUp_Down()
@@ -220,7 +243,6 @@ if __name__=="__main__":
             #game over
             speechSay_pub.publish("I had a great time with you today. Bye-bye!")
 #match with transcript
-            choose_behaviors(17)
             break
         elif res == 1:
             if game_flag == 0:#the first time to play
