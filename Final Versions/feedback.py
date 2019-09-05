@@ -17,61 +17,42 @@ def feedback_function(thumb_angle, gesture_time, time, name):
     #1 - more encouragement (maybe tired?). 2 - more reward. 3 - varied encouragement.
     
     #make the buckets based on the GAS variables
-    gestureis = 0
-    #if thumb_angle <
+    bucket = determine_GAS_bucket(thumb_angle, gesture_time)
     
-    #split thumb_angle into pronation or supination
-    if thumb_angle>0:
-        supinate = thumb_angle #thumbs up
-    if thumb_angle<0:
-        pronate = thumb_angle #thumbs down
-    #gesture_time should be set to reses.count(1) or .count(-1) for supination or pronation respectively
+    historical_case = get_historical_case(bucket)
     
-    #categorize the gesture into a bucket based on supinate, pronate, gesture_time, time, etc
+    # switch between historical cases to determine the increase / decrease
     
-    feedback_dict[count] = [supinate,pronate,gesture_time,time]
-    print(feedback_dict)
-    count += 1
-    #make sure the encouragement plays when it should - include graded cueing? (feedback @ failure) see stroke lit for affectiveness/optimal challenge
-    #50 degrees is the threshold, determined by GAS
-    if abs(thumb_angle) < 50:
-        encourage_prob = 0.85 -abs(thumb_angle/100.0) + time/300.0 #smaller angle, worse performance/ longer time, more tired, more enc
-        print("Encouragement prob: " + str(encourage_prob))
-        if encourage_prob<0:
-            print("Error: encourage_prob is 0!")
-            encourage_prob = 0
-        if encourage_prob>1:
-            print("Error: encourage_prob is 1!")
-            encourage_prob = 1
-        enc_flag = random.randrange(1,100)
-        if enc_flag<encourage_prob*100:
-            random_encourage = random.randrange(1,len(encourage_dict))
-            speechSay_pub.publish(encourage_dict[random_encourage].format(name))
-            print(encourage_dict[random_encourage].format(name))            
-    #make sure the reward functions to be only at intermittant intervals - should be v selective
-    else:
-        for i in range(1, count-1):
-            avg_angle += feedback_dict[i][0]
-        avg_angle /= (count-2)
-        reward_compare = feedback_dict[count-1][0]/avg_angle
-        reward_current = 0.5 + abs(thumb_angle/100.0) + time/300.0 #larger angle, better performance/ longer the time playing, more reward
-        if reward_compare>reward_current:
-            reward_prob = reward_compare
-        if reward_current>reward_compare and reward_compare>0.9: #0.9 is the ratio of how much decline between GAS scores (-10%)
-            reward_prob = reward_current
-        if reward_current>reward_compare:
-            reward_prob = 0.5
-        if reward_prob<0:
-            print("Error: reward_prob is 0!")
-            reward_prob = 0
-        if reward_prob>1:
-            print("Error: reward_prob is 1!")
-            reward_prob = 1
-        rew_flag = random.randrange(1,100)
-        if rew_flag<reward_prob*100 and wrongcounter<10:
-            random_rew = random.randrange(1,len(reward_dict))
-            speechSay_pub.publish(reward_dict[random_rew].format(name))
-            print(reward_dict[random_rew].format(name))
-#        if wrongcounter>10:
-#            random_clar = random.randrange(1,len(clarify_dict))
-#            speechSay_pub.publish(clarify_dict[random_clar].format(name))
+    timeScale = log(time) # get some reasonable quantification of the time
+    
+    #calculate the probability of different feedback
+    feedback_probability = timescale * CONSTANT + bucket * CONSTANT + CONSTANT
+    
+    #grab the specific behavior with the given probability
+    
+    #play the behavior
+    
+    
+    
+    
+    
+    
+    
+def determine_GAS_bucket(thumb_angle, gesture_time):
+    #place the GAS variables in an array and then find the index at which some combo of the thumb and time lies
+    #history depends on the actual angle not the GAS score
+    #do we want a seperate set of buckets for each time and angle ?? YES
+        #if so, how should we handle the "history case" later for things like they have been getting better at the angle, but the time is worse?
+    
+    GAS_scores = [10, 20, 30, 40, 50] # are these upper bounds on the ranges?? (also get these from the global values)
+    
+    for index in range(len(GAS_scores)):
+        if thumb_angle < GAS_scores[index]:
+            return index
+            
+    #if we get here, the thumb angle is higher than the highest GAS score        
+    return len(GAS_scores)
+    
+def get_historical_case(bucket)
+    #do we want this to be based on the bucket? or is it based on the raw thumb angles? or should it be time? some combo of the two?
+    pass
