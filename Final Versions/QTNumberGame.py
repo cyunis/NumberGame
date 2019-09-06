@@ -15,7 +15,8 @@ from std_msgs.msg import Float64MultiArray
 from sensor_msgs.msg import JointState
 from thumb.msg import Res
 import rosbag
-import message_filters
+from message_filters import ApproximateTimeSynchronizer, Subscriber
+import csv
 from heapq import nlargest
 
 #initialize variables
@@ -460,6 +461,8 @@ def isThumbUp_Down():
         return 0 #thumb is horizontal
 
 def record_data(camera_angle,time,button,script,image_raw,QT_motor):
+    assert camera_angle.header.stamp == time.header.stamp == button.header.stamp == script.header.stamp == image_raw.header.stamp == QT_motor.header.stamp
+    print "got all QT data header.stamp matched"
     data_list = [camera_angle,time,button,script,image_raw,QT_motor]
     #use rosbag to record data
     #astra camera data/QT camera data/angle result data/button data/game playing data:sentence said by QT and children response
@@ -467,10 +470,14 @@ def record_data(camera_angle,time,button,script,image_raw,QT_motor):
     #QT camera just rosbag /image_raw
     #motion and sentences just rosbag moter topic and speech topic
     #button data just rosbag button data
-    print data_list
-#export the data to a csv file
-#call these lines in script:   ds = TimeSynchronizer( <all the Subscribers for the data>, queue size (10)) 
-#ds.registerCallback(record_data)
+    #print data_list
+    with open('data_collection_file.csv', mode='w') as data_collection_file:
+        data_writer = csv.writer(data_collection_file, delimiter=',',quotechar='"', quoting=csv.QUOTE_MINIMAL)
+        data_writer.writerow([camera_angle,time,button,script,image_raw,QT_motor])
+
+ds = ApproximateTimeSynchronizer([camera_angle,time,button,script,image_raw,QT_motor], queue_size=5, slop=0.1) #slop is delay for synch in sec
+    #the variables in the list ^^ should be the variable names from the subscriber nodes ex: Subscriber("/wide_stereo/left/image_rect_color", sensor_msgs.msg.Image
+ds.registerCallback(record_data)
 
 
 #orthosis/button/IMU subscriber function 
