@@ -20,12 +20,6 @@
 #------------------------------------------------------------------------------
 
 
-if __name__=="__main__":
-    rospy.init_node("CoRDial_example")
-    rm = RobotManager("DB1")
-    for i in range(1,15):
-        rm.say("statement{}".format(i),wait=True)
-
 #import modules
 import random
 import rospy
@@ -250,27 +244,59 @@ def choose_behaviors(number):
 
     else:
         print("Please use a correct number!")
-
+        
+        
 def gesture_talk(num):
     i = 1
+    previous = []
     while i <= num:
-        choose_behaviors(random.randint(1, 7))
+        a = random.randint(1, 7)
+        if i>1 and a == previous[i-2]:
+            previous.append(a+1)
+            a+=1 #increment the value so it doesn't repeat
+        else:
+            previous.append(a)
+        choose_behaviors(a)
         i = i + 1
     
 def gesture_listen(num):
     i = 1
+    previous = []
     while i <= num:
-        choose_behaviors(random.randint(8, 9))
+        a = random.randint(8, 9)
+        if i>1 and a == previous[i-2]:
+            previous.append(a+1)
+            a+=1 #increment the value so it doesn't repeat
+        else:
+            previous.append(a)
+        choose_behaviors(a)
         i = i + 1
     
 def gesture_guess(num):
     i = 1
+    previous = []
     while i <= num:
-        choose_behaviors(random.randint(10, 12))
+        a = random.randint(10, 12)
+        if i>1 and a == previous[i-2]:
+            previous.append(a+1)
+            a+=1 #increment the value so it doesn't repeat
+        else:
+            previous.append(a)
+        choose_behaviors(a)
         i = i + 1
 
-def gesture_encourage():
-    choose_behaviors(random.randint(13, 16))
+def gesture_encourage(num):
+    i = 1
+    previous = []
+    while i <= num:
+        a = random.randint(13, 16)
+        if i>1 and a == previous[i-2]:
+            previous.append(a+1)
+            a+=1 #increment the value so it doesn't repeat
+        else:
+            previous.append(a)
+        choose_behaviors(a)
+        i = i + 1
 
 
 #encourage decision function
