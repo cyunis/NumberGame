@@ -31,11 +31,11 @@ In the fourth window run your python game script (you can run this on any wifi a
 In order to add new things for QT to say, follow these steps.
 First, find the script file where all text statements are kept. On the QT104 body computer this is located in ~/catkin_ws/src/cordial-public/cordial_example/speech/script.txt. Don't push this to the git repo for cordial if it is modified, make a new file and package instead.
 Every line in script.txt should follow this format:
-
+```
 [statement6]I can also perform with amazon effects!
 [statement7]*loud*You can <prosody volume="x-loud">make my voice loud</prosody>, *quiet*or <amazon:effect name="whispered">soft as a whisper</amazon:effect>.
 [statement8]<prosody rate="fast">I can speak fast when I'm excited</prosody>, <prosody rate="x-slow">or slow down to explain things</prosody>.
-
+```
 The file ~/catkin_ws/src/cordial-public/cordial_example/CoRDial_behaviors.json has timing and names of all the emotions/behaviors that CoRDial can make - these are included between ** in the statements. Any spoken text is written out. Do not put extra line breaks in the file or it will stop speaking at the break.
 
 In the .../speech/ folder send the text through AWS to generate audio files. Do this by running this from the command line:
