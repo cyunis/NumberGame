@@ -12,7 +12,21 @@ In the first terminal window run:
 ```
 > roslaunch cordial_example test_setup.launch
 ```
-
+In the second terminal window run:
+```
+> roscd cordial_face/web
+> http-server
+```
+Look for the number of the available ports - use this port number (it is 8081 in my case) for the third window (first switch to QT's wifi and ssh to QT's head computer):
+```
+> ssh qtrobot@qtrobot
+> luakit -U 192.168.100.2:8081/KiwiLite.html
+```
+This command runs the web browser in private mode using the body computer's processor, the available port and the KiwiLite version of CoRDial.
+In the fourth window run your python game script (you can run this on any wifi and it should be on the body computer):
+```
+> rosrun packagename QTNumberGame.py
+```
 
 ## Instructions
 
