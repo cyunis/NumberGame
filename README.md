@@ -7,6 +7,12 @@ This game is part of the Tommy Thumb system. It is meant to be played on the [QT
 Before running the game a package must be made for the games and the catkin workspace set up. Several functions in the game use ROS publishers developed on QT or through the other subsystems and these must be set up as well (see links for QTRobot wiki, orthosis,  camera and CoRDial). <br><br>
 
 ## Setting up CoRDial
+Git pull from the repository linked above.
+In the first terminal window run:
+```
+> roslaunch cordial_example test_setup.launch
+```
+
 
 ## Instructions
 
