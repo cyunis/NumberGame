@@ -1,6 +1,31 @@
 #!/usr/bin/env python
 # encoding=utf8
 
+#------------------------------------------------------------------------------
+# Example robot use with CoRDial
+# Copyright (C) 2017 Elaine Schaertl Short
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#------------------------------------------------------------------------------
+
+
+if __name__=="__main__":
+    rospy.init_node("CoRDial_example")
+    rm = RobotManager("DB1")
+    for i in range(1,15):
+        rm.say("statement{}".format(i),wait=True)
+
 #import modules
 import random
 import rospy
@@ -18,6 +43,10 @@ import rosbag
 from message_filters import ApproximateTimeSynchronizer, Subscriber
 import csv
 from heapq import nlargest
+import roslib; roslib.load_manifest('cordial_example')
+import rospy
+from cordial_core import RobotManager
+
 
 #initialize variables
 frame = 0 #necessary? 2, 1, 0, -1
@@ -523,7 +552,12 @@ def listener():
 
 
 if __name__=="__main__":
-    name = 'guy'
+    rospy.init_node("CoRDial_example")
+    rm = RobotManager("DB1")
+    rm.say("happy",wait=True) #use list in google docs
+#add rm.say instead of speechSay_pub
+    #name = 'guy'
+    
     #initialize dictionary
     guess_dict,second_dict,encourage_dict,clarify_dict,reward_dict = dictionary_set()
     
