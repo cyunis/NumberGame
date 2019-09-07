@@ -78,41 +78,34 @@ hand = 'right' #change this if using left hand
 
 #gesture functions
 def choose_behaviors(number):
-    global right_pub, left_pub, head_pub, emotionShow_pub, gesturePlay_pub, speechSay_pub, audioPlay_pub
-    #talking:1~6
+    global right_pub, left_pub, head_pub, gesturePlay_pub, speechSay_pub, audioPlay_pub
+    #talking:1~7
     if(number == 1):
     #show_both_hands:9s
-        emotionShow_pub.publish("QT/talking")
         gesturePlay_pub.publish("numbergame/talking1")
         rospy.sleep(9)
     elif(number == 2):
     #stretch_talk:8s
         gesturePlay_pub.publish("numbergame/talking2")
-        emotionShow_pub.publish("QT/talking")
         rospy.sleep(8)
     elif(number == 3):
     #challenge:5s
         gesturePlay_pub.publish("QT/challenge")
-        emotionShow_pub.publish("QT/talking")
         time.sleep(5)
     elif(number == 4):
     #show left and right:10s
-        emotionShow_pub.publish("QT/talking")
         gesturePlay_pub.publish("numbergame/talking3")
         rospy.sleep(10)
     elif(number == 5):
     #teaching,10s
-        emotionShow_pub.publish("QT/talking")
         gesturePlay_pub.publish("numbergame/talking4")
         rospy.sleep(10)   
     elif(number == 6):
     #teaching:10s
-        emotionShow_pub.publish("QT/talking")
         gesturePlay_pub.publish("numbergame/talking5")
         rospy.sleep(10)
     elif(number == 7):
     #show:9s
-        emotionShow_pub.publish("QT/talking")
         gesturePlay_pub.publish("numbergame/talking6")
         rospy.sleep(9)
 
@@ -120,7 +113,7 @@ def choose_behaviors(number):
     elif(number == 8):
     #nod:4s
         head = Float64MultiArray()
-        emotionShow_pub.publish("QT/showing_smile")
+        rm.do("happy") #or loud?
         head.data = [0,-10]
         head_pub.publish(head)
         time.sleep(1)
@@ -132,7 +125,7 @@ def choose_behaviors(number):
         time.sleep(2)
     elif(number == 9):
     #arm back smile:7s
-        emotionShow_pub.publish("QT/calming_down")
+        rm.do("quiet")
         time.sleep(1)
         gesturePlay_pub.publish("QT/bored")
         time.sleep(6)    
@@ -141,17 +134,17 @@ def choose_behaviors(number):
     #guessing:10~12
     elif(number == 10):
     #confused:11s
-        emotionShow_pub.publish("QT/confused")
+        rm.do("question_face")
         gesturePlay_pub.publish("numbergame/thinking1")
         rospy.sleep(11)
     elif(number == 11):
     #touch head:11s
-        emotionShow_pub.publish("QT/confused")
+        rm.do("question3")
         gesturePlay_pub.publish("numbergame/thinking2")
         rospy.sleep(11)
     elif(number == 12):
     #thinking:11s
-        emotionShow_pub.publish("QT/confused")
+        rm.do("leftBrowRaise")
         gesturePlay_pub.publish("numbergame/thinking3")
         rospy.sleep(11)
 
@@ -160,18 +153,20 @@ def choose_behaviors(number):
     elif(number == 13):
     #surprise:5.5s
         gesturePlay_pub.publish("QT/surprise")
-        emotionShow_pub.publish("QT/surprise")
+        rm.do("surprised")
         time.sleep(5.5)
     elif(number == 14):
     #happy:5s
         gesturePlay_pub.publish("QT/happy")
-        emotionShow_pub.publish("QT/happy")
+        rm.do("happy")
+#should be something happier looking that CoRDial can do
         time.sleep(5)
     elif(number == 15):
     #hug:6s
         left_arm = Float64MultiArray()
         right_arm = Float64MultiArray()
-        emotionShow_pub.publish("QT/happy")
+        rm.do("happy")
+#should be something happier looking that CoRDial can do
         left_arm.data = [-20, -10, -15]
         left_pub.publish(left_arm)
         right_arm.data = [20, -10, -15]
@@ -186,7 +181,8 @@ def choose_behaviors(number):
     #hand clap:8.8s
         left_arm = Float64MultiArray()
         right_arm = Float64MultiArray()
-        emotionShow_pub.publish("QT/happy")
+        rm.do("loud")
+#should be something happier looking that CoRDial can do        
         left_arm.data = [10, -90, -30]
         left_pub.publish(left_arm)
         right_arm.data = [-10, -90, -30]
@@ -219,27 +215,63 @@ def choose_behaviors(number):
         time.sleep(3)
 
 
-    #special_function:17~19
+    #small movements:17-25
     elif(number == 17):
+        gesturePlay_pub.publish("numbergame/head2")
+        gesturePlay_pub.publish("numbergame/right2")
+        gesturePlay_pub.publish("numbergame/left2")
+        time.sleep(6)
+    elif(number == 18):
+        gesturePlay_pub.publish("numbergame/right2")
+        rm.do("happy")
+        time.sleep(2)
+    elif(number == 19):
+        gesturePlay_pub.publish("numbergame/left3")
+        time.sleep(2)
+    elif(number == 20):
+        gesturePlay_pub.publish("numbergame/small1")
+        rm.do("breath")
+        time.sleep(2)
+    elif(number == 21):
+        gesturePlay_pub.publish("numbergame/small2")
+        time.sleep(2)
+    elif(number == 22):
+        gesturePlay_pub.publish("numbergame/small3")
+        rm.do("leftBrowRaise")
+        time.sleep(2)
+    elif(number == 23):
+        gesturePlay_pub.publish("numbergame/right1")
+        time.sleep(2)
+    elif(number == 24):
+        gesturePlay_pub.publish("numbergame/left1")
+        time.sleep(2)
+    elif(number == 25):
+        gesturePlay_pub.publish("numbergame/head3")
+        time.sleep(2)
+
+
+    #special_function:26-28
+    elif(number == 26):
     #hi/bye:7s
         gesturePlay_pub.publish("QT/hi")
-        emotionShow_pub.publish("QT/happy")
+        rm.do("happy")
+#should be something happier looking that CoRDial can do        
         time.sleep(7)
-    elif(number == 18):
+    elif(number == 27):
     #fly kiss:7.5s
         gesturePlay_pub.publish("QT/kiss")
         time.sleep(1)
-        emotionShow_pub.publish("QT/kiss")
+        rm.do("breath")
+#should be something happier looking that CoRDial can do        
         time.sleep(6.5)
-    elif(number == 19):
+    elif(number == 28):
     #yawn:6.8s
-        gesturePlay_pub.publish("QT/yawn")
+        gesturePlay_pub.publish("QT/yawn") #is there a cordial yawn rm.do?
         time.sleep(0.8)
-        emotionShow_pub.publish("QT/yawn") 
         time.sleep(6)
     
     #rest
-    elif(number == 20):
+    elif(number == 29):
         abc =1
 
     else:
@@ -258,6 +290,7 @@ def gesture_talk(num):
             previous.append(a)
         choose_behaviors(a)
         i = i + 1
+    print("Just did "+str(num)+" talking gestures")
     
 def gesture_listen(num):
     i = 1
@@ -271,6 +304,7 @@ def gesture_listen(num):
             previous.append(a)
         choose_behaviors(a)
         i = i + 1
+    print("Just did "+str(num)+" listening gestures")
     
 def gesture_guess(num):
     i = 1
@@ -284,6 +318,7 @@ def gesture_guess(num):
             previous.append(a)
         choose_behaviors(a)
         i = i + 1
+    print("Just did "+str(num)+" guessing gestures")
 
 def gesture_encourage(num):
     i = 1
@@ -297,6 +332,21 @@ def gesture_encourage(num):
             previous.append(a)
         choose_behaviors(a)
         i = i + 1
+    print("Just did "+str(num)+" feedback gestures")
+
+def gesture_small(num):
+    i = 1
+    previous = []
+    while i <= num:
+        a = random.randint(17, 25)
+        if i>1 and a == previous[i-2]:
+            previous.append(a+1)
+            a+=1 #increment the value so it doesn't repeat
+        else:
+            previous.append(a)
+        choose_behaviors(a)
+        i = i + 1
+    print("Just did "+str(num)+" small gestures")
 
 
 #encourage decision function
@@ -497,12 +547,12 @@ def isThumbUp_Down():
 #         ### -------------------- ###
             
         i = i+1
-        if i ==5 and feed_flag == 1: #do feedback function
-            feedback_function(abs(angle_msg),time.time()-start_time,name)
+        #if i ==5 and feed_flag == 1: #do feedback function
+            #feedback_function(abs(angle_msg),time.time()-start_time,name)
         time.sleep(0.1)
         
     print("finished")
-    feedback_function(angle_msg,reses,time.time()-start_time,name) #don't abs(angle)
+#    feedback_function(angle_msg,reses,time.time()-start_time,name) #don't abs(angle)
     if reses.count(1) > 10: #if thumbs up more than half the time
         angles = nlargest(10, angles)
         average_angle = sum(angles)/len(angles)
@@ -530,9 +580,9 @@ def record_data(camera_angle,time,button,script,image_raw,QT_motor):
         data_writer = csv.writer(data_collection_file, delimiter=',',quotechar='"', quoting=csv.QUOTE_MINIMAL)
         data_writer.writerow([camera_angle,time,button,script,image_raw,QT_motor])
 
-ds = ApproximateTimeSynchronizer([camera_angle,time,button,script,image_raw,QT_motor], queue_size=5, slop=0.1) #slop is delay for synch in sec
+#ds = ApproximateTimeSynchronizer([camera_angle,time,button,script,image_raw,QT_motor], queue_size=5, slop=0.1) #slop is delay for synch in sec
     #the variables in the list ^^ should be the variable names from the subscriber nodes ex: Subscriber("/wide_stereo/left/image_rect_color", sensor_msgs.msg.Image
-ds.registerCallback(record_data)
+#ds.registerCallback(record_data)
 
 
 #orthosis/button/IMU subscriber function 
@@ -580,15 +630,17 @@ def listener():
 if __name__=="__main__":
     rospy.init_node("CoRDial_example")
     rm = RobotManager("DB1")
-    rm.say("happy",wait=True) #use list in google docs
+    rm.do("happy",wait=True) #use list in google docs
+    rm.say("encourage1",wait=True)
+    rm.say("encourage2",wait=True)
+    print("Just used CoRDial speech service")
 #add rm.say instead of speechSay_pub
-    #name = 'guy'
     
     #initialize dictionary
     guess_dict,second_dict,encourage_dict,clarify_dict,reward_dict = dictionary_set()
     
     #initialize publishers
-    rospy.init_node('qt_numbergame')
+    #rospy.init_node('qt_numbergame')
     right_pub = rospy.Publisher('/qt_robot/right_arm_position/command', Float64MultiArray, queue_size=1)
     left_pub = rospy.Publisher('/qt_robot/left_arm_position/command', Float64MultiArray, queue_size=1)
     head_pub = rospy.Publisher('/qt_robot/head_position/command', Float64MultiArray, queue_size=1)
@@ -614,42 +666,43 @@ if __name__=="__main__":
 
     game_flag = 0 #set to 0 to play intro
     start_time = time.time()
-    #name = 'Catherine'
+    name = 'Catherine'
 
     while 1: #game always running, until shutdown by children
         print("Do you want to play again please? Show me thumbs up/down.")
 #edit ^ to not be the same every time
         res = isThumbUp_Down()
-
+        gesture_listen(2)
         if res == -1:
             #game over
             speechSay_pub.publish(("Thanks for playing with me {}! Bye-bye!").format(name))
-            choose_behaviors(17)
+            choose_behaviors(26)
             break
         elif res == 1:
             if game_flag == 0:#the first time to play
                 #introduction
                 speechSay_pub.publish("Hello, my name is Q T Robot. What is your name? ") #6.5 sec
-                choose_behaviors(17)
+                gesture_talk(1)
+                gesture_small(2)
                 name = raw_input('What is your name? ')
                 speechSay_pub.publish("Hi   "+name+""",      I would like to play a guessing game with you. 
-                In the game  In the game, I ask you questions, and you answer yes or no by using a 
+                In the game, I ask you questions, and you answer yes or no by using a 
                 thumbs up or a thumbs down with your     """ +hand+"""       hand. Let’s practice.  
                 Can you show me a thumbs up to say yes?""") #22-25 sec
-                gesture_talk(3)
+                gesture_talk(6)
                 #configuration
                 res = isThumbUp_Down()
-
+                gesture_small(2)
                 if res == 1:
                     speechSay_pub.publish("Awesome! Now can you show me a thumbs down to say no?") #6 sec
                     gesture_talk(1)
                 res = isThumbUp_Down()
-
+                gesture_small(2)
                 if res == -1:
                     speechSay_pub.publish("""Thanks! During the game, please keep your hand flat on the 
                         arm rest until I ask you a question. If your thumb 
                         is going the wrong way, just push the green button. And just do your best. 
-                        Can you please show me yes if that’s ok?""") #40.5 sec
+                        Can you please show me yes if that’s ok?""") 
                     gesture_talk(5)
             res = isThumbUp_Down()
             
