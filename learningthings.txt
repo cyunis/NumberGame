@@ -3,6 +3,7 @@ every computer needs to be on QT104 wifi
 camera uses depth so keep space clear except for hand gesturing
 best if no table
 when there's no subscriber connections check the rqt_graph to localize issue
+rospy.Publisher('/qt_robot/emotion/show', STring, queue_size=10) will timeout publisher connections when CoRDial is being used
 
 >>>Using Git:
 EDIT EVERYTHING ON A WEB BROWSER IF POSSIBLE
