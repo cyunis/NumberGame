@@ -38,6 +38,7 @@ there is a gesture game app @ ~/robot/code/qt_apps/qt_gesturegame_app/src/qt_ges
 in catkin_ws: rosnode list to see node names
 when writing scripts use unique node names to avoid overwriting qt gui
 QT can use the talkText publisher at a rate of ~10 characters/1 second with rospy.sleep(#) after the publish command
+rosservice call /qt_robot/setting/setVolume "volume: 50"
 
 >>>ROS:
 in order to play with roscore, new commands need to be run in an new terminal window while roscore is still open in its window
