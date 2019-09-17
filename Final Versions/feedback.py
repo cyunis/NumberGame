@@ -9,9 +9,9 @@ class statementRandomizer:
         self.performedBehaviors = [[],[],[],[],[],[]]
 
         self.guessStatements = {
-            1: "guess1",
-            2: "guess2",
-            3: "guess3",
+            1: "guessA",
+            2: "guessB",
+            3: "guessC",
             4: "guess4",
             5: "guess5",
             6: "guess6",
