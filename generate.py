@@ -82,13 +82,13 @@ guess_dict = {1: 'Is {} right? Please show me a thumbs up or down.',
 #higher or lower
 second_dict = {1: 'Hey {} is your number higher than {}? Show me yes or no.',
     2: 'Oh no, I guessed {1}. Did I guess bigger than your number {0}?',
-    3: 'Hmm is {1} bigger than my number {0}?',
+    3: 'Hmm is {1} bigger than your number {0}?',
     4: 'Hey is your number higher than {1} {0}? Show me yes or no.',
     5: 'Oh no {}, I guessed {}. Did I guess bigger than your number?',
-    6: 'Hmm {}, is {} bigger than my number?',
+    6: 'Hmm {}, is {} bigger than your number?',
     7: 'Hey is your number higher than {1}? Show me yes or no please {0}.',
     8: 'Oh no, I guessed {1} {0}! Did I guess bigger than your number?',
-    9: 'Hmm tell me {} is {} bigger than my number?'} 
+    9: 'Hmm tell me {} is {} bigger than your number?'} 
 
 f = open("script.txt",mode = 'a',encoding = 'utf-8')
 
