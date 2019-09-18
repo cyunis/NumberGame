@@ -89,7 +89,7 @@ second_dict = {1: 'Hey {} is your number higher than {}? Show me yes or no.',
     8: 'Oh no, I guessed {1} {0}! Did I guess bigger than your number?',
     9: 'Hmm tell me {} is {} bigger than my number?'} 
 
-f = open("script.txt",mode = 'a',encoding = 'utf-8')
+f = open("script.txt",mode = 'w',encoding = 'utf-8')
 
 for i in range(11):
     i+=1

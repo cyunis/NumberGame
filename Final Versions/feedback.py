@@ -6,103 +6,101 @@ class statementRandomizer:
     def __init__(self):
         self.supinateList = [999] #will hold the 10 most recent values for supination
         self.pronateList = [-999] #will hold the 10 most recent values for pronation
-        self.performedBehaviors = [[],[],[],[],[],[]]
+        self.performedBehaviors = [[],[],[],[],[],[],[]]
 
         self.guessStatements = {
-            1: "guessA",
-            2: "guessB",
-            3: "guessC",
-            4: "guess4",
-            5: "guess5",
-            6: "guess6",
-            7: "guess7",
-            8: "guess8",
-            9: "guess9",
-            10: "guess10",
-            11: "guess11",
-            12: "guess12",
-            13: "guess13"
+            1: "guessB",
+            2: "guessC",
+            3: "guessD",
+            4: "guessE",
+            5: "guessF",
+            6: "guessG",
+            7: "guessH",
+            8: "guessI"
+        }
+        
+        self.higher_lower_statements = {
+            1: "secondB",
+            2: "secondC",
+            3: "secondD",
+            4: "secondE",
+            5: "secondF",
+            6: "secondG",
+            7: "secondH",
+            8: "secondI",
+            9: "secondJ",
+
         }
 
         self.bucket1 = {
-            1: "clarify1",
-            2: "clarify2",
-            3: "clarify3",
-            4: "clarify4",
-            5: "clarify5",
-            6: "clarify6",
-            7: "clarify7",
-            8: "clarify8",
-            9: "clarify9",
-            10: "clarify10",
-            11: "clarify11",
-            12: "clarify12",
-            13: "clarify13"
+            1: "clarifyA",
+            2: "clarifyB",
+            3: "clarifyC",
+            4: "clarifyD",
+            5: "clarifyE",
+            6: "clarifyF",
+            7: "clarifyG",
+            8: "clarifyH",
+            9: "clarifyI",
+            10: "clarifyJ",
+            11: "clarifyK"
         }
 
 
         self.bucket2 = {
-            1: "encourage1",
-            2: "encourage2",
-            3: "encourage3",
-            4: "encourage4",
-            5: "encourage5",
-            6: "encourage6",
-            7: "encourage7",
-            8: "encourage8",
-            9: "encourage9",
-            10: "encourage10",
-            11: "encourage11",
-            12: "encourage12",
-            13: "encourage13"
+            1: "encourageA",
+            2: "encourageB",
+            3: "encourageC",
+            4: "encourageD",
+            5: "encourageE",
+            6: "encourageF",
+            7: "encourageG",
+            8: "encourageH",
+            9: "encourageI",
+            10: "encourageJ",
+            11: "encourageK"
         }
 
         self.bucket3 = {
-            1: "encourageless1",
-            2: "encourageless2",
-            3: "encourageless3",
-            4: "encourageless4",
-            5: "encourageless5",
-            6: "encourageless6",
-            7: "encourageless7",
-            8: "encourageless8",
-            9: "encourageless9",
-            10: "encourageless10",
-            11: "encourageless11",
-            12: "encourageless12",
-            13: "encourageless13"
+            1: "encouragelessA",
+            2: "encouragelessB",
+            3: "encouragelessC",
+            4: "encouragelessD",
+            5: "encouragelessE",
+            6: "encouragelessF",
+            7: "encouragelessG",
+            8: "encouragelessH",
+            9: "encouragelessI",
+            10: "encouragelessJ",
+            11: "encouragelessK"
         }
 
         self.bucket4 = {
-            1: "rewardless1",
-            2: "rewardless2",
-            3: "rewardless3",
-            4: "rewardless4",
-            5: "rewardless5",
-            6: "rewardless6",
-            7: "rewardless7",
-            8: "rewardless8",
-            9: "rewardless9",
-            10: "rewardless10",
-            11: "rewardless11",
-            12: "rewardless12",
-            13: "rewardless13"
+            1: "rewardlessA",
+            2: "rewardlessB",
+            3: "rewardlessC",
+            4: "rewardlessD",
+            5: "rewardlessE",
+            6: "rewardlessF",
+            7: "rewardlessG",
+            8: "rewardlessH",
+            9: "rewardlessI",
+            10: "rewardlessJ",
+            11: "rewardlessK"
         }
 
         self.bucket5 = {
-            1: "reward1",
-            2: "reward2",
-            3: "reward3",
-            4: "reward4",
-            5: "reward5",
-            6: "reward6",
-            7: "reward7",
-            8: "reward8",
-            9: "reward9",
-            10: "reward10",
-            11: "reward11",
-            12: "reward12",
-            13: "reward13"
+            1: "rewardA",
+            2: "rewardB",
+            3: "rewardC",
+            4: "rewardD",
+            5: "rewardE",
+            6: "rewardF",
+            7: "rewardG",
+            8: "rewardH",
+            9: "rewardI",
+            10: "rewardJ",
+            11: "rewardK"
         }
 
     def chooseRandomStatement(self, statementType):
@@ -112,7 +110,8 @@ class statementRandomizer:
             2: self.bucket2,
             3: self.bucket3,
             4: self.bucket4,
-            5: self.bucket5
+            5: self.bucket5,
+            6: self.higher_lower_statements
         }
         #convert statement type to actual dictionary
         behaviorDict = mapping[statementType]
@@ -191,10 +190,10 @@ def determine_angle_GAS_bucket(thumb_angle):
 
 def determine_time_GAS_bucket(gesture_time):
     #TODO: get these from a file!!!
-    GAS_time_scores = [5, 4, 3, 2, 1] # are these upper bounds on the ranges?? (also get these from the global values)
+    GAS_time_scores = [1, 2, 3, 4, 5] # are these upper bounds on the ranges?? (also get these from the global values)
 
     for index in range(len(GAS_time_scores)):
-        if gesture_time > GAS_time_scores[index]:
+        if gesture_time < GAS_time_scores[index]:
             return index
     #if we get here, the thumb angle is higher than the highest GAS score
     return len(GAS_time_scores)

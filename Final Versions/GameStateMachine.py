@@ -90,6 +90,7 @@ class NumberGameInteraction:
         print('Received on beaglebone: ' + str(msg.data))
 
         if(str(msg.data) == 'abort'):
+            self.robotManager.stop_speech()
             self.is_aborted = True
             self.abort()
         
@@ -103,8 +104,9 @@ class NumberGameInteraction:
         #return whether or not the state machine can continue
         return self.ready_to_move_on
 
-    def has_been_aborted(self):
-        return self.is_aborted
+    def check_state_machine_status(self):
+        if(self.is_aborted):
+            raise ValueError('I should not be here')
 
     def reset_ready_to_move_on(self):
         #called after every transition is completed
@@ -115,7 +117,7 @@ class NumberGameInteraction:
 
     def give_feedback(self):
         if(self.use_robot):
-            print(self.statementRandomizer.getResponseBehavior(self.thumb_angle, self.gesture_time))
+            self.robotManager.say(self.statementRandomizer.getResponseBehavior(self.average_thumb_value, self.gesture_time), wait=True)
 
     def get_guess_statement(self):
         print(self.statementRandomizer.chooseRandomStatement(0))
@@ -157,8 +159,8 @@ class NumberGameInteraction:
             angle = supinate_angle_sum / num_below_thresh
             time = (num_below_thresh * duration) / len(values)
 
-        #return angle and time
-        return angle, time
+        self.average_thumb_value = angle
+        self.gesture_time = time
 
 
 
@@ -174,30 +176,39 @@ class NumberGameInteraction:
             self.abort()
 
     def give_instruction(self):
+        #give instruction to the game
         self.robotManager.say('statement3', wait=True)
         print('you will play a simple thumbs up/down game with me!')
 
     def on_enter_practice_thumb_up(self):
+        self.check_state_machine_status()
+        #ask to demonstrate a thumbs up
         self.robotManager.say('statement4', wait=True)
         print('practice thumb up')
-        angle, time = self.get_thumb_data(5)
+        self.get_thumb_data(5)
         print(angle, time)
-        self.ready_to_move_on = angle > 0
+        self.ready_to_move_on = self.average_thumb_value > 0
 
     def practice_doesnt_go_up(self):
+        #ask to try thumbs up again
         self.robotManager.say('statement10', wait=True)
         print('try to put your thumb up again')
 
     def on_enter_practice_thumb_down(self):
+        self.check_state_machine_status()
+        #ask for a thumbs down
         self.robotManager.say('statement1', wait=True)
         print('practicing thumb down')
-        angle, time = self.get_thumb_data(5)
-        self.ready_to_move_on = angle < 0
+        self.get_thumb_data(5)
+        self.ready_to_move_on = self.average_thumb_value < 0
 
     def practice_doesnt_go_down(self):
+        #ask to try to put a thumbs down again
         print('try to put your thumb down again')
 
     def on_enter_input_number(self):
+        #secretly input the number
+        self.check_state_machine_status()
         self.number = input('what is the number being guessed?')
 
     def calculate_guess(self):
@@ -209,17 +220,27 @@ class NumberGameInteraction:
         self.guesses.append(guess)
 
     def on_enter_make_guess(self):
-        # res = input('{}: is {} your number?'.format(self.statementRandomizer.chooseRandomStatement(0),self.guesses[-1]))
-        angle, time = self.get_thumb_data(5)
-        self.ready_to_move_on = angle > 0
+        self.check_state_machine_status()
+
+        #ask if the guessed number is correct
+        self.robotManager.say(self.statementRandomizer.chooseRandomStatement(0) + '{}'.format(self.guesses[-1]), wait=True)
+
+        #get the angle measurements from the camera
+        self.get_thumb_data(5)
+        self.ready_to_move_on = self.average_thumb_value > 0
 
     def incorrect_guess_response(self):
+        #try asking again
+        self.robotManager.say(self.statementRandomizer.chooseRandomStatement(1), wait=True)
         print('actually, let me ask in a different way...')
 
     def on_enter_higher_or_lower(self):
-        print('is your number higher or lower than {}? (number is {})'.format(self.guesses[-1], self.number))
-        # res = input('higher?')
-        angle, time = self.get_thumb_data(5)
+        self.check_state_machine_status()
+        #ask if number is higher than the guess
+        self.robotManager.say(self.statementRandomizer.chooseRandomStatement(6) + '{}'.format(self.guesses[-1]), wait=True)
+
+        #get angle measures from the camera
+        self.get_thumb_data(5)
 
         if(self.guesses[-1] < self.number and angle > 0):
             self.ready_to_move_on = True
@@ -229,26 +250,34 @@ class NumberGameInteraction:
             self.guess_upper_bound = self.guesses[-1]
 
     def incorrect_higher_lower(self):
+        #try asking again
+        self.robotManager.say(self.statementRandomizer.chooseRandomStatement(1), wait=True)
         print('hmmmm are you sure?')
 
     def give_feedback(self):
         if(self.use_robot):
+            #say a random feedback statement
             print(self.statementRandomizer.getResponseBehavior(random.randint(1,60), random.randint(1,60)*0.1))
 
 
     def on_enter_play_again(self):
+        self.check_state_machine_status()
+
+        #say that QT won
+
+
+
         print(self.statementRandomizer.performedBehaviors)
-        angle, time = self.get_thumb_data(5)
+        self.get_thumb_data(5)
         # res = input('woohoo I won, want to play again?')
 
         self.number_of_completed_games += 1
         self.guesses = []
         self.guess_lower_bound = 1
         self.guess_upper_bound = 50
-        self.ready_to_move_on = angle < 0
+        self.ready_to_move_on = self.average_thumb_value < 0
 
     def on_enter_end(self):
-        self.robotManager.stop_speech()
         self.robotManager.say('statement14')
         print('thanks for playing!')
         print('stats: games played: {}\ntime played: {}'.format(self.number_of_completed_games, time.time()-self.start_time))
@@ -259,7 +288,6 @@ class NumberGameInteraction:
 states = ['get_name', 'practice_thumb_up', 'practice_thumb_down', 'input_number', 'make_guess', 'higher_or_lower', 'play_again', 'end']
 transitions = [
                 { 'trigger':'abort', 'source':'*', 'dest':'end'}, #all states go to the end if the button is pressed
-                { 'trigger':'advance', 'source':'[get_name, practice_thumb_up, practice_thumb_down, input_number, make_guess, higher_or_lower, play_again]', 'dest':'end', 'conditions':'has_been_aborted'}, #all states go to the end we have pressed the button
 
                 { 'trigger': 'advance', 'source': 'get_name', 'dest': 'practice_thumb_up', 'prepare':'get_name', 'before':'give_instruction'},
 
@@ -280,9 +308,7 @@ transitions = [
                 { 'trigger': 'advance', 'source': 'higher_or_lower', 'dest': 'higher_or_lower', 'unless':'is_ready_to_move_on', 'before':'incorrect_higher_lower'},
 
                 { 'trigger': 'advance', 'source': 'play_again', 'dest': 'end', 'conditions':'is_ready_to_move_on'},
-                { 'trigger': 'advance', 'source': 'play_again', 'dest': 'input_number', 'unless':'is_ready_to_move_on'}
-
-                
+                { 'trigger': 'advance', 'source': 'play_again', 'dest': 'input_number', 'unless':'is_ready_to_move_on'},
             ]
 
 game = NumberGameInteraction(True)
