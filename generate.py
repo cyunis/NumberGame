@@ -98,9 +98,10 @@ f.writelines('[intro3]'+"Let’s practice.  Can you show me a thumbs up to say y
 f.writelines('[intro4]'+"Awesome! Now can you show me a thumbs down to say no?\n")
 f.writelines('[intro5]'+"Thanks! During the game, please keep your hand flat on the arm rest until I ask you a question. If your thumb is going the wrong way, just push the green button. And just do your best. Can you please show me yes if that’s ok?\n")
 f.writelines('[startgame]'+"Let's play now! Please think of a number between 1 and 50.\n")
-f.writelines('[endgame1]'+"Hooray I got it! Thanks {} for playing with me. Let’s play again!\n".format(name))
-f.writelines('[endgame2]'+"Yay I guessed right! Do you want to play again please?\n")
-f.writelines('[endgame3]'+"Woo hoo that was fun! Do you want to play one more game?\n")
+f.writelines('[another1]'+"Hooray I got it! Thanks {} for playing with me. Let’s play again!\n".format(name))
+f.writelines('[another2]'+"Yay I guessed right! Do you want to play again please?\n")
+f.writelines('[another3]'+"Woo hoo that was fun! Do you want to play one more game?\n")
+f.writelines('[endgame]'+'Thanks for playing with me {}! Bye-bye!\n'.format(name))
 
 for i in clarify_dict.keys():
     f.writelines("[clarify" + letters[i-1] + "]" + clarify_dict[i].format(name)+'\n')
