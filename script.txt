@@ -1,0 +1,922 @@
+[clarifyA]Sorry Nathan I didn’t see that, could you repeat that answer for me please?
+[clarifyB]I think that was a yes Nathan. Could you make a thumbs up again for me please?
+[clarifyC]I think that was a no Nathan. Could you make a thumbs down again for me please?
+[clarifyD]Could you please show me that answer again Nathan?
+[clarifyE]Sorry I didn’t see that Nathan, could you repeat that answer for me please?
+[clarifyF]Hey Nathan could you please show me that answer again?
+[clarifyG]I didn’t understand Nathan I need you to show me again please!
+[clarifyH]Nathan I didn’t see that can you please show me again!
+[clarifyI]Was that a thumbs up? Can you show me again please?
+[clarifyJ]Was that a thumbs down? Can you show me again please?
+[clarifyK]Nathan please show me what you did again I missed it.
+[encourageA]Good job Nathan!
+[encourageB]That was your best one so far! Keep up the good work Nathan!
+[encourageC]I can tell you are trying really hard Nathan, nice job!
+[encourageD]You are getting better at this Nathan, wow!
+[encourageE]I know this is hard Nathan, keep trying!
+[encourageF]Hooray! Let’s play again Nathan!
+[encourageG]Hey Nathan, good job!
+[encourageH]That was your best one so far Nathan! Keep up the good work!
+[encourageI]Hey Nathan I can tell you are trying really hard, nice job!
+[encourageJ]Everyone, Nathan is getting better at this!
+[encourageK]Keep trying, I know this is hard Nathan but you got it!
+[encouragelessA]That was good Nathan.
+[encouragelessB]Hey Nathan keep it up.
+[encouragelessC]Nice job Nathan.
+[encouragelessD]Hey Nathan nice job.
+[encouragelessE]Keep it up Nathan.
+[encouragelessF]You’re doing well Nathan.
+[encouragelessG]Nathan you’re doing well.
+[encouragelessH]Cool you got it Nathan.
+[encouragelessI]Nathan you got it.
+[encouragelessJ]That was pretty good Nathan.
+[encouragelessK]That was a good one Nathan.
+[rewardlessA]You’re good at this Nathan!
+[rewardlessB]I think Nathan is great at this game.
+[rewardlessC]You must work your thumbs out Nathan you’re good!
+[rewardlessD]Yay keep it up Nathan!
+[rewardlessE]Nathan you made me smile.
+[rewardlessF]I think that Nathan made one of the best gestures I’ve ever seen!
+[rewardlessG]That was a good gesture!
+[rewardlessH]Nathan is very good at this game.
+[rewardlessI]Keep showing me what you got!
+[rewardlessJ]This game is fun to play with you Nathan.
+[rewardlessK]You are playing well Nathan!
+[rewardA]Let’s party!
+[rewardB]I have a joke Nathan, why did a crocodile marry a chicken? Because crock-o-doodle-doodle is a good last name!
+[rewardC]Who has a thumb and plays really well? Nathan does!
+[rewardD]I like playing games with you Nathan, you’re very fun. Do you like playing with me?
+[rewardE]Let’s celebrate!
+[rewardF]I am happy to play games with you Nathan!
+[rewardG]That was the best gesture I’ve seen!
+[rewardH]Nathan is the best at this game!
+[rewardI]You are playing so well keep it up!
+[rewardJ]That was a great gesture Nathan!
+[rewardK]You must be a superhero you’re so strong.
+[guessB0]Is 0 right? Please show me a thumbs up or down.
+[guessB1]Is 1 right? Please show me a thumbs up or down.
+[guessB2]Is 2 right? Please show me a thumbs up or down.
+[guessB3]Is 3 right? Please show me a thumbs up or down.
+[guessB4]Is 4 right? Please show me a thumbs up or down.
+[guessB5]Is 5 right? Please show me a thumbs up or down.
+[guessB6]Is 6 right? Please show me a thumbs up or down.
+[guessB7]Is 7 right? Please show me a thumbs up or down.
+[guessB8]Is 8 right? Please show me a thumbs up or down.
+[guessB9]Is 9 right? Please show me a thumbs up or down.
+[guessB10]Is 10 right? Please show me a thumbs up or down.
+[guessB11]Is 11 right? Please show me a thumbs up or down.
+[guessB12]Is 12 right? Please show me a thumbs up or down.
+[guessB13]Is 13 right? Please show me a thumbs up or down.
+[guessB14]Is 14 right? Please show me a thumbs up or down.
+[guessB15]Is 15 right? Please show me a thumbs up or down.
+[guessB16]Is 16 right? Please show me a thumbs up or down.
+[guessB17]Is 17 right? Please show me a thumbs up or down.
+[guessB18]Is 18 right? Please show me a thumbs up or down.
+[guessB19]Is 19 right? Please show me a thumbs up or down.
+[guessB20]Is 20 right? Please show me a thumbs up or down.
+[guessB21]Is 21 right? Please show me a thumbs up or down.
+[guessB22]Is 22 right? Please show me a thumbs up or down.
+[guessB23]Is 23 right? Please show me a thumbs up or down.
+[guessB24]Is 24 right? Please show me a thumbs up or down.
+[guessB25]Is 25 right? Please show me a thumbs up or down.
+[guessB26]Is 26 right? Please show me a thumbs up or down.
+[guessB27]Is 27 right? Please show me a thumbs up or down.
+[guessB28]Is 28 right? Please show me a thumbs up or down.
+[guessB29]Is 29 right? Please show me a thumbs up or down.
+[guessB30]Is 30 right? Please show me a thumbs up or down.
+[guessB31]Is 31 right? Please show me a thumbs up or down.
+[guessB32]Is 32 right? Please show me a thumbs up or down.
+[guessB33]Is 33 right? Please show me a thumbs up or down.
+[guessB34]Is 34 right? Please show me a thumbs up or down.
+[guessB35]Is 35 right? Please show me a thumbs up or down.
+[guessB36]Is 36 right? Please show me a thumbs up or down.
+[guessB37]Is 37 right? Please show me a thumbs up or down.
+[guessB38]Is 38 right? Please show me a thumbs up or down.
+[guessB39]Is 39 right? Please show me a thumbs up or down.
+[guessB40]Is 40 right? Please show me a thumbs up or down.
+[guessB41]Is 41 right? Please show me a thumbs up or down.
+[guessB42]Is 42 right? Please show me a thumbs up or down.
+[guessB43]Is 43 right? Please show me a thumbs up or down.
+[guessB44]Is 44 right? Please show me a thumbs up or down.
+[guessB45]Is 45 right? Please show me a thumbs up or down.
+[guessB46]Is 46 right? Please show me a thumbs up or down.
+[guessB47]Is 47 right? Please show me a thumbs up or down.
+[guessB48]Is 48 right? Please show me a thumbs up or down.
+[guessB49]Is 49 right? Please show me a thumbs up or down.
+[guessB50]Is 50 right? Please show me a thumbs up or down.
+[guessC0]Ok I think I know your number. Is it 0?
+[guessC1]Ok I think I know your number. Is it 1?
+[guessC2]Ok I think I know your number. Is it 2?
+[guessC3]Ok I think I know your number. Is it 3?
+[guessC4]Ok I think I know your number. Is it 4?
+[guessC5]Ok I think I know your number. Is it 5?
+[guessC6]Ok I think I know your number. Is it 6?
+[guessC7]Ok I think I know your number. Is it 7?
+[guessC8]Ok I think I know your number. Is it 8?
+[guessC9]Ok I think I know your number. Is it 9?
+[guessC10]Ok I think I know your number. Is it 10?
+[guessC11]Ok I think I know your number. Is it 11?
+[guessC12]Ok I think I know your number. Is it 12?
+[guessC13]Ok I think I know your number. Is it 13?
+[guessC14]Ok I think I know your number. Is it 14?
+[guessC15]Ok I think I know your number. Is it 15?
+[guessC16]Ok I think I know your number. Is it 16?
+[guessC17]Ok I think I know your number. Is it 17?
+[guessC18]Ok I think I know your number. Is it 18?
+[guessC19]Ok I think I know your number. Is it 19?
+[guessC20]Ok I think I know your number. Is it 20?
+[guessC21]Ok I think I know your number. Is it 21?
+[guessC22]Ok I think I know your number. Is it 22?
+[guessC23]Ok I think I know your number. Is it 23?
+[guessC24]Ok I think I know your number. Is it 24?
+[guessC25]Ok I think I know your number. Is it 25?
+[guessC26]Ok I think I know your number. Is it 26?
+[guessC27]Ok I think I know your number. Is it 27?
+[guessC28]Ok I think I know your number. Is it 28?
+[guessC29]Ok I think I know your number. Is it 29?
+[guessC30]Ok I think I know your number. Is it 30?
+[guessC31]Ok I think I know your number. Is it 31?
+[guessC32]Ok I think I know your number. Is it 32?
+[guessC33]Ok I think I know your number. Is it 33?
+[guessC34]Ok I think I know your number. Is it 34?
+[guessC35]Ok I think I know your number. Is it 35?
+[guessC36]Ok I think I know your number. Is it 36?
+[guessC37]Ok I think I know your number. Is it 37?
+[guessC38]Ok I think I know your number. Is it 38?
+[guessC39]Ok I think I know your number. Is it 39?
+[guessC40]Ok I think I know your number. Is it 40?
+[guessC41]Ok I think I know your number. Is it 41?
+[guessC42]Ok I think I know your number. Is it 42?
+[guessC43]Ok I think I know your number. Is it 43?
+[guessC44]Ok I think I know your number. Is it 44?
+[guessC45]Ok I think I know your number. Is it 45?
+[guessC46]Ok I think I know your number. Is it 46?
+[guessC47]Ok I think I know your number. Is it 47?
+[guessC48]Ok I think I know your number. Is it 48?
+[guessC49]Ok I think I know your number. Is it 49?
+[guessC50]Ok I think I know your number. Is it 50?
+[guessD0]Is your number 0? Please show me yes or no.
+[guessD1]Is your number 1? Please show me yes or no.
+[guessD2]Is your number 2? Please show me yes or no.
+[guessD3]Is your number 3? Please show me yes or no.
+[guessD4]Is your number 4? Please show me yes or no.
+[guessD5]Is your number 5? Please show me yes or no.
+[guessD6]Is your number 6? Please show me yes or no.
+[guessD7]Is your number 7? Please show me yes or no.
+[guessD8]Is your number 8? Please show me yes or no.
+[guessD9]Is your number 9? Please show me yes or no.
+[guessD10]Is your number 10? Please show me yes or no.
+[guessD11]Is your number 11? Please show me yes or no.
+[guessD12]Is your number 12? Please show me yes or no.
+[guessD13]Is your number 13? Please show me yes or no.
+[guessD14]Is your number 14? Please show me yes or no.
+[guessD15]Is your number 15? Please show me yes or no.
+[guessD16]Is your number 16? Please show me yes or no.
+[guessD17]Is your number 17? Please show me yes or no.
+[guessD18]Is your number 18? Please show me yes or no.
+[guessD19]Is your number 19? Please show me yes or no.
+[guessD20]Is your number 20? Please show me yes or no.
+[guessD21]Is your number 21? Please show me yes or no.
+[guessD22]Is your number 22? Please show me yes or no.
+[guessD23]Is your number 23? Please show me yes or no.
+[guessD24]Is your number 24? Please show me yes or no.
+[guessD25]Is your number 25? Please show me yes or no.
+[guessD26]Is your number 26? Please show me yes or no.
+[guessD27]Is your number 27? Please show me yes or no.
+[guessD28]Is your number 28? Please show me yes or no.
+[guessD29]Is your number 29? Please show me yes or no.
+[guessD30]Is your number 30? Please show me yes or no.
+[guessD31]Is your number 31? Please show me yes or no.
+[guessD32]Is your number 32? Please show me yes or no.
+[guessD33]Is your number 33? Please show me yes or no.
+[guessD34]Is your number 34? Please show me yes or no.
+[guessD35]Is your number 35? Please show me yes or no.
+[guessD36]Is your number 36? Please show me yes or no.
+[guessD37]Is your number 37? Please show me yes or no.
+[guessD38]Is your number 38? Please show me yes or no.
+[guessD39]Is your number 39? Please show me yes or no.
+[guessD40]Is your number 40? Please show me yes or no.
+[guessD41]Is your number 41? Please show me yes or no.
+[guessD42]Is your number 42? Please show me yes or no.
+[guessD43]Is your number 43? Please show me yes or no.
+[guessD44]Is your number 44? Please show me yes or no.
+[guessD45]Is your number 45? Please show me yes or no.
+[guessD46]Is your number 46? Please show me yes or no.
+[guessD47]Is your number 47? Please show me yes or no.
+[guessD48]Is your number 48? Please show me yes or no.
+[guessD49]Is your number 49? Please show me yes or no.
+[guessD50]Is your number 50? Please show me yes or no.
+[guessE0]I guess 0. Did I guess your number?
+[guessE1]I guess 1. Did I guess your number?
+[guessE2]I guess 2. Did I guess your number?
+[guessE3]I guess 3. Did I guess your number?
+[guessE4]I guess 4. Did I guess your number?
+[guessE5]I guess 5. Did I guess your number?
+[guessE6]I guess 6. Did I guess your number?
+[guessE7]I guess 7. Did I guess your number?
+[guessE8]I guess 8. Did I guess your number?
+[guessE9]I guess 9. Did I guess your number?
+[guessE10]I guess 10. Did I guess your number?
+[guessE11]I guess 11. Did I guess your number?
+[guessE12]I guess 12. Did I guess your number?
+[guessE13]I guess 13. Did I guess your number?
+[guessE14]I guess 14. Did I guess your number?
+[guessE15]I guess 15. Did I guess your number?
+[guessE16]I guess 16. Did I guess your number?
+[guessE17]I guess 17. Did I guess your number?
+[guessE18]I guess 18. Did I guess your number?
+[guessE19]I guess 19. Did I guess your number?
+[guessE20]I guess 20. Did I guess your number?
+[guessE21]I guess 21. Did I guess your number?
+[guessE22]I guess 22. Did I guess your number?
+[guessE23]I guess 23. Did I guess your number?
+[guessE24]I guess 24. Did I guess your number?
+[guessE25]I guess 25. Did I guess your number?
+[guessE26]I guess 26. Did I guess your number?
+[guessE27]I guess 27. Did I guess your number?
+[guessE28]I guess 28. Did I guess your number?
+[guessE29]I guess 29. Did I guess your number?
+[guessE30]I guess 30. Did I guess your number?
+[guessE31]I guess 31. Did I guess your number?
+[guessE32]I guess 32. Did I guess your number?
+[guessE33]I guess 33. Did I guess your number?
+[guessE34]I guess 34. Did I guess your number?
+[guessE35]I guess 35. Did I guess your number?
+[guessE36]I guess 36. Did I guess your number?
+[guessE37]I guess 37. Did I guess your number?
+[guessE38]I guess 38. Did I guess your number?
+[guessE39]I guess 39. Did I guess your number?
+[guessE40]I guess 40. Did I guess your number?
+[guessE41]I guess 41. Did I guess your number?
+[guessE42]I guess 42. Did I guess your number?
+[guessE43]I guess 43. Did I guess your number?
+[guessE44]I guess 44. Did I guess your number?
+[guessE45]I guess 45. Did I guess your number?
+[guessE46]I guess 46. Did I guess your number?
+[guessE47]I guess 47. Did I guess your number?
+[guessE48]I guess 48. Did I guess your number?
+[guessE49]I guess 49. Did I guess your number?
+[guessE50]I guess 50. Did I guess your number?
+[guessF0]Am I wrong if I guess 0?
+[guessF1]Am I wrong if I guess 1?
+[guessF2]Am I wrong if I guess 2?
+[guessF3]Am I wrong if I guess 3?
+[guessF4]Am I wrong if I guess 4?
+[guessF5]Am I wrong if I guess 5?
+[guessF6]Am I wrong if I guess 6?
+[guessF7]Am I wrong if I guess 7?
+[guessF8]Am I wrong if I guess 8?
+[guessF9]Am I wrong if I guess 9?
+[guessF10]Am I wrong if I guess 10?
+[guessF11]Am I wrong if I guess 11?
+[guessF12]Am I wrong if I guess 12?
+[guessF13]Am I wrong if I guess 13?
+[guessF14]Am I wrong if I guess 14?
+[guessF15]Am I wrong if I guess 15?
+[guessF16]Am I wrong if I guess 16?
+[guessF17]Am I wrong if I guess 17?
+[guessF18]Am I wrong if I guess 18?
+[guessF19]Am I wrong if I guess 19?
+[guessF20]Am I wrong if I guess 20?
+[guessF21]Am I wrong if I guess 21?
+[guessF22]Am I wrong if I guess 22?
+[guessF23]Am I wrong if I guess 23?
+[guessF24]Am I wrong if I guess 24?
+[guessF25]Am I wrong if I guess 25?
+[guessF26]Am I wrong if I guess 26?
+[guessF27]Am I wrong if I guess 27?
+[guessF28]Am I wrong if I guess 28?
+[guessF29]Am I wrong if I guess 29?
+[guessF30]Am I wrong if I guess 30?
+[guessF31]Am I wrong if I guess 31?
+[guessF32]Am I wrong if I guess 32?
+[guessF33]Am I wrong if I guess 33?
+[guessF34]Am I wrong if I guess 34?
+[guessF35]Am I wrong if I guess 35?
+[guessF36]Am I wrong if I guess 36?
+[guessF37]Am I wrong if I guess 37?
+[guessF38]Am I wrong if I guess 38?
+[guessF39]Am I wrong if I guess 39?
+[guessF40]Am I wrong if I guess 40?
+[guessF41]Am I wrong if I guess 41?
+[guessF42]Am I wrong if I guess 42?
+[guessF43]Am I wrong if I guess 43?
+[guessF44]Am I wrong if I guess 44?
+[guessF45]Am I wrong if I guess 45?
+[guessF46]Am I wrong if I guess 46?
+[guessF47]Am I wrong if I guess 47?
+[guessF48]Am I wrong if I guess 48?
+[guessF49]Am I wrong if I guess 49?
+[guessF50]Am I wrong if I guess 50?
+[guessG0]Is 0 the wrong guess?
+[guessG1]Is 1 the wrong guess?
+[guessG2]Is 2 the wrong guess?
+[guessG3]Is 3 the wrong guess?
+[guessG4]Is 4 the wrong guess?
+[guessG5]Is 5 the wrong guess?
+[guessG6]Is 6 the wrong guess?
+[guessG7]Is 7 the wrong guess?
+[guessG8]Is 8 the wrong guess?
+[guessG9]Is 9 the wrong guess?
+[guessG10]Is 10 the wrong guess?
+[guessG11]Is 11 the wrong guess?
+[guessG12]Is 12 the wrong guess?
+[guessG13]Is 13 the wrong guess?
+[guessG14]Is 14 the wrong guess?
+[guessG15]Is 15 the wrong guess?
+[guessG16]Is 16 the wrong guess?
+[guessG17]Is 17 the wrong guess?
+[guessG18]Is 18 the wrong guess?
+[guessG19]Is 19 the wrong guess?
+[guessG20]Is 20 the wrong guess?
+[guessG21]Is 21 the wrong guess?
+[guessG22]Is 22 the wrong guess?
+[guessG23]Is 23 the wrong guess?
+[guessG24]Is 24 the wrong guess?
+[guessG25]Is 25 the wrong guess?
+[guessG26]Is 26 the wrong guess?
+[guessG27]Is 27 the wrong guess?
+[guessG28]Is 28 the wrong guess?
+[guessG29]Is 29 the wrong guess?
+[guessG30]Is 30 the wrong guess?
+[guessG31]Is 31 the wrong guess?
+[guessG32]Is 32 the wrong guess?
+[guessG33]Is 33 the wrong guess?
+[guessG34]Is 34 the wrong guess?
+[guessG35]Is 35 the wrong guess?
+[guessG36]Is 36 the wrong guess?
+[guessG37]Is 37 the wrong guess?
+[guessG38]Is 38 the wrong guess?
+[guessG39]Is 39 the wrong guess?
+[guessG40]Is 40 the wrong guess?
+[guessG41]Is 41 the wrong guess?
+[guessG42]Is 42 the wrong guess?
+[guessG43]Is 43 the wrong guess?
+[guessG44]Is 44 the wrong guess?
+[guessG45]Is 45 the wrong guess?
+[guessG46]Is 46 the wrong guess?
+[guessG47]Is 47 the wrong guess?
+[guessG48]Is 48 the wrong guess?
+[guessG49]Is 49 the wrong guess?
+[guessG50]Is 50 the wrong guess?
+[guessH0]Is 0 wrong? Please show me yes or no.
+[guessH1]Is 1 wrong? Please show me yes or no.
+[guessH2]Is 2 wrong? Please show me yes or no.
+[guessH3]Is 3 wrong? Please show me yes or no.
+[guessH4]Is 4 wrong? Please show me yes or no.
+[guessH5]Is 5 wrong? Please show me yes or no.
+[guessH6]Is 6 wrong? Please show me yes or no.
+[guessH7]Is 7 wrong? Please show me yes or no.
+[guessH8]Is 8 wrong? Please show me yes or no.
+[guessH9]Is 9 wrong? Please show me yes or no.
+[guessH10]Is 10 wrong? Please show me yes or no.
+[guessH11]Is 11 wrong? Please show me yes or no.
+[guessH12]Is 12 wrong? Please show me yes or no.
+[guessH13]Is 13 wrong? Please show me yes or no.
+[guessH14]Is 14 wrong? Please show me yes or no.
+[guessH15]Is 15 wrong? Please show me yes or no.
+[guessH16]Is 16 wrong? Please show me yes or no.
+[guessH17]Is 17 wrong? Please show me yes or no.
+[guessH18]Is 18 wrong? Please show me yes or no.
+[guessH19]Is 19 wrong? Please show me yes or no.
+[guessH20]Is 20 wrong? Please show me yes or no.
+[guessH21]Is 21 wrong? Please show me yes or no.
+[guessH22]Is 22 wrong? Please show me yes or no.
+[guessH23]Is 23 wrong? Please show me yes or no.
+[guessH24]Is 24 wrong? Please show me yes or no.
+[guessH25]Is 25 wrong? Please show me yes or no.
+[guessH26]Is 26 wrong? Please show me yes or no.
+[guessH27]Is 27 wrong? Please show me yes or no.
+[guessH28]Is 28 wrong? Please show me yes or no.
+[guessH29]Is 29 wrong? Please show me yes or no.
+[guessH30]Is 30 wrong? Please show me yes or no.
+[guessH31]Is 31 wrong? Please show me yes or no.
+[guessH32]Is 32 wrong? Please show me yes or no.
+[guessH33]Is 33 wrong? Please show me yes or no.
+[guessH34]Is 34 wrong? Please show me yes or no.
+[guessH35]Is 35 wrong? Please show me yes or no.
+[guessH36]Is 36 wrong? Please show me yes or no.
+[guessH37]Is 37 wrong? Please show me yes or no.
+[guessH38]Is 38 wrong? Please show me yes or no.
+[guessH39]Is 39 wrong? Please show me yes or no.
+[guessH40]Is 40 wrong? Please show me yes or no.
+[guessH41]Is 41 wrong? Please show me yes or no.
+[guessH42]Is 42 wrong? Please show me yes or no.
+[guessH43]Is 43 wrong? Please show me yes or no.
+[guessH44]Is 44 wrong? Please show me yes or no.
+[guessH45]Is 45 wrong? Please show me yes or no.
+[guessH46]Is 46 wrong? Please show me yes or no.
+[guessH47]Is 47 wrong? Please show me yes or no.
+[guessH48]Is 48 wrong? Please show me yes or no.
+[guessH49]Is 49 wrong? Please show me yes or no.
+[guessH50]Is 50 wrong? Please show me yes or no.
+[guessI0]I guess 0 am I wrong?
+[guessI1]I guess 1 am I wrong?
+[guessI2]I guess 2 am I wrong?
+[guessI3]I guess 3 am I wrong?
+[guessI4]I guess 4 am I wrong?
+[guessI5]I guess 5 am I wrong?
+[guessI6]I guess 6 am I wrong?
+[guessI7]I guess 7 am I wrong?
+[guessI8]I guess 8 am I wrong?
+[guessI9]I guess 9 am I wrong?
+[guessI10]I guess 10 am I wrong?
+[guessI11]I guess 11 am I wrong?
+[guessI12]I guess 12 am I wrong?
+[guessI13]I guess 13 am I wrong?
+[guessI14]I guess 14 am I wrong?
+[guessI15]I guess 15 am I wrong?
+[guessI16]I guess 16 am I wrong?
+[guessI17]I guess 17 am I wrong?
+[guessI18]I guess 18 am I wrong?
+[guessI19]I guess 19 am I wrong?
+[guessI20]I guess 20 am I wrong?
+[guessI21]I guess 21 am I wrong?
+[guessI22]I guess 22 am I wrong?
+[guessI23]I guess 23 am I wrong?
+[guessI24]I guess 24 am I wrong?
+[guessI25]I guess 25 am I wrong?
+[guessI26]I guess 26 am I wrong?
+[guessI27]I guess 27 am I wrong?
+[guessI28]I guess 28 am I wrong?
+[guessI29]I guess 29 am I wrong?
+[guessI30]I guess 30 am I wrong?
+[guessI31]I guess 31 am I wrong?
+[guessI32]I guess 32 am I wrong?
+[guessI33]I guess 33 am I wrong?
+[guessI34]I guess 34 am I wrong?
+[guessI35]I guess 35 am I wrong?
+[guessI36]I guess 36 am I wrong?
+[guessI37]I guess 37 am I wrong?
+[guessI38]I guess 38 am I wrong?
+[guessI39]I guess 39 am I wrong?
+[guessI40]I guess 40 am I wrong?
+[guessI41]I guess 41 am I wrong?
+[guessI42]I guess 42 am I wrong?
+[guessI43]I guess 43 am I wrong?
+[guessI44]I guess 44 am I wrong?
+[guessI45]I guess 45 am I wrong?
+[guessI46]I guess 46 am I wrong?
+[guessI47]I guess 47 am I wrong?
+[guessI48]I guess 48 am I wrong?
+[guessI49]I guess 49 am I wrong?
+[guessI50]I guess 50 am I wrong?
+[secondB0]Hey Nathan is your number higher than 0? Show me yes or no.
+[secondB1]Hey Nathan is your number higher than 1? Show me yes or no.
+[secondB2]Hey Nathan is your number higher than 2? Show me yes or no.
+[secondB3]Hey Nathan is your number higher than 3? Show me yes or no.
+[secondB4]Hey Nathan is your number higher than 4? Show me yes or no.
+[secondB5]Hey Nathan is your number higher than 5? Show me yes or no.
+[secondB6]Hey Nathan is your number higher than 6? Show me yes or no.
+[secondB7]Hey Nathan is your number higher than 7? Show me yes or no.
+[secondB8]Hey Nathan is your number higher than 8? Show me yes or no.
+[secondB9]Hey Nathan is your number higher than 9? Show me yes or no.
+[secondB10]Hey Nathan is your number higher than 10? Show me yes or no.
+[secondB11]Hey Nathan is your number higher than 11? Show me yes or no.
+[secondB12]Hey Nathan is your number higher than 12? Show me yes or no.
+[secondB13]Hey Nathan is your number higher than 13? Show me yes or no.
+[secondB14]Hey Nathan is your number higher than 14? Show me yes or no.
+[secondB15]Hey Nathan is your number higher than 15? Show me yes or no.
+[secondB16]Hey Nathan is your number higher than 16? Show me yes or no.
+[secondB17]Hey Nathan is your number higher than 17? Show me yes or no.
+[secondB18]Hey Nathan is your number higher than 18? Show me yes or no.
+[secondB19]Hey Nathan is your number higher than 19? Show me yes or no.
+[secondB20]Hey Nathan is your number higher than 20? Show me yes or no.
+[secondB21]Hey Nathan is your number higher than 21? Show me yes or no.
+[secondB22]Hey Nathan is your number higher than 22? Show me yes or no.
+[secondB23]Hey Nathan is your number higher than 23? Show me yes or no.
+[secondB24]Hey Nathan is your number higher than 24? Show me yes or no.
+[secondB25]Hey Nathan is your number higher than 25? Show me yes or no.
+[secondB26]Hey Nathan is your number higher than 26? Show me yes or no.
+[secondB27]Hey Nathan is your number higher than 27? Show me yes or no.
+[secondB28]Hey Nathan is your number higher than 28? Show me yes or no.
+[secondB29]Hey Nathan is your number higher than 29? Show me yes or no.
+[secondB30]Hey Nathan is your number higher than 30? Show me yes or no.
+[secondB31]Hey Nathan is your number higher than 31? Show me yes or no.
+[secondB32]Hey Nathan is your number higher than 32? Show me yes or no.
+[secondB33]Hey Nathan is your number higher than 33? Show me yes or no.
+[secondB34]Hey Nathan is your number higher than 34? Show me yes or no.
+[secondB35]Hey Nathan is your number higher than 35? Show me yes or no.
+[secondB36]Hey Nathan is your number higher than 36? Show me yes or no.
+[secondB37]Hey Nathan is your number higher than 37? Show me yes or no.
+[secondB38]Hey Nathan is your number higher than 38? Show me yes or no.
+[secondB39]Hey Nathan is your number higher than 39? Show me yes or no.
+[secondB40]Hey Nathan is your number higher than 40? Show me yes or no.
+[secondB41]Hey Nathan is your number higher than 41? Show me yes or no.
+[secondB42]Hey Nathan is your number higher than 42? Show me yes or no.
+[secondB43]Hey Nathan is your number higher than 43? Show me yes or no.
+[secondB44]Hey Nathan is your number higher than 44? Show me yes or no.
+[secondB45]Hey Nathan is your number higher than 45? Show me yes or no.
+[secondB46]Hey Nathan is your number higher than 46? Show me yes or no.
+[secondB47]Hey Nathan is your number higher than 47? Show me yes or no.
+[secondB48]Hey Nathan is your number higher than 48? Show me yes or no.
+[secondB49]Hey Nathan is your number higher than 49? Show me yes or no.
+[secondB50]Hey Nathan is your number higher than 50? Show me yes or no.
+[secondC0]Oh no, I guessed 0. Did I guess bigger than your number Nathan?
+[secondC1]Oh no, I guessed 1. Did I guess bigger than your number Nathan?
+[secondC2]Oh no, I guessed 2. Did I guess bigger than your number Nathan?
+[secondC3]Oh no, I guessed 3. Did I guess bigger than your number Nathan?
+[secondC4]Oh no, I guessed 4. Did I guess bigger than your number Nathan?
+[secondC5]Oh no, I guessed 5. Did I guess bigger than your number Nathan?
+[secondC6]Oh no, I guessed 6. Did I guess bigger than your number Nathan?
+[secondC7]Oh no, I guessed 7. Did I guess bigger than your number Nathan?
+[secondC8]Oh no, I guessed 8. Did I guess bigger than your number Nathan?
+[secondC9]Oh no, I guessed 9. Did I guess bigger than your number Nathan?
+[secondC10]Oh no, I guessed 10. Did I guess bigger than your number Nathan?
+[secondC11]Oh no, I guessed 11. Did I guess bigger than your number Nathan?
+[secondC12]Oh no, I guessed 12. Did I guess bigger than your number Nathan?
+[secondC13]Oh no, I guessed 13. Did I guess bigger than your number Nathan?
+[secondC14]Oh no, I guessed 14. Did I guess bigger than your number Nathan?
+[secondC15]Oh no, I guessed 15. Did I guess bigger than your number Nathan?
+[secondC16]Oh no, I guessed 16. Did I guess bigger than your number Nathan?
+[secondC17]Oh no, I guessed 17. Did I guess bigger than your number Nathan?
+[secondC18]Oh no, I guessed 18. Did I guess bigger than your number Nathan?
+[secondC19]Oh no, I guessed 19. Did I guess bigger than your number Nathan?
+[secondC20]Oh no, I guessed 20. Did I guess bigger than your number Nathan?
+[secondC21]Oh no, I guessed 21. Did I guess bigger than your number Nathan?
+[secondC22]Oh no, I guessed 22. Did I guess bigger than your number Nathan?
+[secondC23]Oh no, I guessed 23. Did I guess bigger than your number Nathan?
+[secondC24]Oh no, I guessed 24. Did I guess bigger than your number Nathan?
+[secondC25]Oh no, I guessed 25. Did I guess bigger than your number Nathan?
+[secondC26]Oh no, I guessed 26. Did I guess bigger than your number Nathan?
+[secondC27]Oh no, I guessed 27. Did I guess bigger than your number Nathan?
+[secondC28]Oh no, I guessed 28. Did I guess bigger than your number Nathan?
+[secondC29]Oh no, I guessed 29. Did I guess bigger than your number Nathan?
+[secondC30]Oh no, I guessed 30. Did I guess bigger than your number Nathan?
+[secondC31]Oh no, I guessed 31. Did I guess bigger than your number Nathan?
+[secondC32]Oh no, I guessed 32. Did I guess bigger than your number Nathan?
+[secondC33]Oh no, I guessed 33. Did I guess bigger than your number Nathan?
+[secondC34]Oh no, I guessed 34. Did I guess bigger than your number Nathan?
+[secondC35]Oh no, I guessed 35. Did I guess bigger than your number Nathan?
+[secondC36]Oh no, I guessed 36. Did I guess bigger than your number Nathan?
+[secondC37]Oh no, I guessed 37. Did I guess bigger than your number Nathan?
+[secondC38]Oh no, I guessed 38. Did I guess bigger than your number Nathan?
+[secondC39]Oh no, I guessed 39. Did I guess bigger than your number Nathan?
+[secondC40]Oh no, I guessed 40. Did I guess bigger than your number Nathan?
+[secondC41]Oh no, I guessed 41. Did I guess bigger than your number Nathan?
+[secondC42]Oh no, I guessed 42. Did I guess bigger than your number Nathan?
+[secondC43]Oh no, I guessed 43. Did I guess bigger than your number Nathan?
+[secondC44]Oh no, I guessed 44. Did I guess bigger than your number Nathan?
+[secondC45]Oh no, I guessed 45. Did I guess bigger than your number Nathan?
+[secondC46]Oh no, I guessed 46. Did I guess bigger than your number Nathan?
+[secondC47]Oh no, I guessed 47. Did I guess bigger than your number Nathan?
+[secondC48]Oh no, I guessed 48. Did I guess bigger than your number Nathan?
+[secondC49]Oh no, I guessed 49. Did I guess bigger than your number Nathan?
+[secondC50]Oh no, I guessed 50. Did I guess bigger than your number Nathan?
+[secondD0]Hmm is 0 bigger than my number Nathan?
+[secondD1]Hmm is 1 bigger than my number Nathan?
+[secondD2]Hmm is 2 bigger than my number Nathan?
+[secondD3]Hmm is 3 bigger than my number Nathan?
+[secondD4]Hmm is 4 bigger than my number Nathan?
+[secondD5]Hmm is 5 bigger than my number Nathan?
+[secondD6]Hmm is 6 bigger than my number Nathan?
+[secondD7]Hmm is 7 bigger than my number Nathan?
+[secondD8]Hmm is 8 bigger than my number Nathan?
+[secondD9]Hmm is 9 bigger than my number Nathan?
+[secondD10]Hmm is 10 bigger than my number Nathan?
+[secondD11]Hmm is 11 bigger than my number Nathan?
+[secondD12]Hmm is 12 bigger than my number Nathan?
+[secondD13]Hmm is 13 bigger than my number Nathan?
+[secondD14]Hmm is 14 bigger than my number Nathan?
+[secondD15]Hmm is 15 bigger than my number Nathan?
+[secondD16]Hmm is 16 bigger than my number Nathan?
+[secondD17]Hmm is 17 bigger than my number Nathan?
+[secondD18]Hmm is 18 bigger than my number Nathan?
+[secondD19]Hmm is 19 bigger than my number Nathan?
+[secondD20]Hmm is 20 bigger than my number Nathan?
+[secondD21]Hmm is 21 bigger than my number Nathan?
+[secondD22]Hmm is 22 bigger than my number Nathan?
+[secondD23]Hmm is 23 bigger than my number Nathan?
+[secondD24]Hmm is 24 bigger than my number Nathan?
+[secondD25]Hmm is 25 bigger than my number Nathan?
+[secondD26]Hmm is 26 bigger than my number Nathan?
+[secondD27]Hmm is 27 bigger than my number Nathan?
+[secondD28]Hmm is 28 bigger than my number Nathan?
+[secondD29]Hmm is 29 bigger than my number Nathan?
+[secondD30]Hmm is 30 bigger than my number Nathan?
+[secondD31]Hmm is 31 bigger than my number Nathan?
+[secondD32]Hmm is 32 bigger than my number Nathan?
+[secondD33]Hmm is 33 bigger than my number Nathan?
+[secondD34]Hmm is 34 bigger than my number Nathan?
+[secondD35]Hmm is 35 bigger than my number Nathan?
+[secondD36]Hmm is 36 bigger than my number Nathan?
+[secondD37]Hmm is 37 bigger than my number Nathan?
+[secondD38]Hmm is 38 bigger than my number Nathan?
+[secondD39]Hmm is 39 bigger than my number Nathan?
+[secondD40]Hmm is 40 bigger than my number Nathan?
+[secondD41]Hmm is 41 bigger than my number Nathan?
+[secondD42]Hmm is 42 bigger than my number Nathan?
+[secondD43]Hmm is 43 bigger than my number Nathan?
+[secondD44]Hmm is 44 bigger than my number Nathan?
+[secondD45]Hmm is 45 bigger than my number Nathan?
+[secondD46]Hmm is 46 bigger than my number Nathan?
+[secondD47]Hmm is 47 bigger than my number Nathan?
+[secondD48]Hmm is 48 bigger than my number Nathan?
+[secondD49]Hmm is 49 bigger than my number Nathan?
+[secondD50]Hmm is 50 bigger than my number Nathan?
+[secondE0]Hey is your number higher than 0 Nathan? Show me yes or no.
+[secondE1]Hey is your number higher than 1 Nathan? Show me yes or no.
+[secondE2]Hey is your number higher than 2 Nathan? Show me yes or no.
+[secondE3]Hey is your number higher than 3 Nathan? Show me yes or no.
+[secondE4]Hey is your number higher than 4 Nathan? Show me yes or no.
+[secondE5]Hey is your number higher than 5 Nathan? Show me yes or no.
+[secondE6]Hey is your number higher than 6 Nathan? Show me yes or no.
+[secondE7]Hey is your number higher than 7 Nathan? Show me yes or no.
+[secondE8]Hey is your number higher than 8 Nathan? Show me yes or no.
+[secondE9]Hey is your number higher than 9 Nathan? Show me yes or no.
+[secondE10]Hey is your number higher than 10 Nathan? Show me yes or no.
+[secondE11]Hey is your number higher than 11 Nathan? Show me yes or no.
+[secondE12]Hey is your number higher than 12 Nathan? Show me yes or no.
+[secondE13]Hey is your number higher than 13 Nathan? Show me yes or no.
+[secondE14]Hey is your number higher than 14 Nathan? Show me yes or no.
+[secondE15]Hey is your number higher than 15 Nathan? Show me yes or no.
+[secondE16]Hey is your number higher than 16 Nathan? Show me yes or no.
+[secondE17]Hey is your number higher than 17 Nathan? Show me yes or no.
+[secondE18]Hey is your number higher than 18 Nathan? Show me yes or no.
+[secondE19]Hey is your number higher than 19 Nathan? Show me yes or no.
+[secondE20]Hey is your number higher than 20 Nathan? Show me yes or no.
+[secondE21]Hey is your number higher than 21 Nathan? Show me yes or no.
+[secondE22]Hey is your number higher than 22 Nathan? Show me yes or no.
+[secondE23]Hey is your number higher than 23 Nathan? Show me yes or no.
+[secondE24]Hey is your number higher than 24 Nathan? Show me yes or no.
+[secondE25]Hey is your number higher than 25 Nathan? Show me yes or no.
+[secondE26]Hey is your number higher than 26 Nathan? Show me yes or no.
+[secondE27]Hey is your number higher than 27 Nathan? Show me yes or no.
+[secondE28]Hey is your number higher than 28 Nathan? Show me yes or no.
+[secondE29]Hey is your number higher than 29 Nathan? Show me yes or no.
+[secondE30]Hey is your number higher than 30 Nathan? Show me yes or no.
+[secondE31]Hey is your number higher than 31 Nathan? Show me yes or no.
+[secondE32]Hey is your number higher than 32 Nathan? Show me yes or no.
+[secondE33]Hey is your number higher than 33 Nathan? Show me yes or no.
+[secondE34]Hey is your number higher than 34 Nathan? Show me yes or no.
+[secondE35]Hey is your number higher than 35 Nathan? Show me yes or no.
+[secondE36]Hey is your number higher than 36 Nathan? Show me yes or no.
+[secondE37]Hey is your number higher than 37 Nathan? Show me yes or no.
+[secondE38]Hey is your number higher than 38 Nathan? Show me yes or no.
+[secondE39]Hey is your number higher than 39 Nathan? Show me yes or no.
+[secondE40]Hey is your number higher than 40 Nathan? Show me yes or no.
+[secondE41]Hey is your number higher than 41 Nathan? Show me yes or no.
+[secondE42]Hey is your number higher than 42 Nathan? Show me yes or no.
+[secondE43]Hey is your number higher than 43 Nathan? Show me yes or no.
+[secondE44]Hey is your number higher than 44 Nathan? Show me yes or no.
+[secondE45]Hey is your number higher than 45 Nathan? Show me yes or no.
+[secondE46]Hey is your number higher than 46 Nathan? Show me yes or no.
+[secondE47]Hey is your number higher than 47 Nathan? Show me yes or no.
+[secondE48]Hey is your number higher than 48 Nathan? Show me yes or no.
+[secondE49]Hey is your number higher than 49 Nathan? Show me yes or no.
+[secondE50]Hey is your number higher than 50 Nathan? Show me yes or no.
+[secondF0]Oh no Nathan, I guessed 0. Did I guess bigger than your number?
+[secondF1]Oh no Nathan, I guessed 1. Did I guess bigger than your number?
+[secondF2]Oh no Nathan, I guessed 2. Did I guess bigger than your number?
+[secondF3]Oh no Nathan, I guessed 3. Did I guess bigger than your number?
+[secondF4]Oh no Nathan, I guessed 4. Did I guess bigger than your number?
+[secondF5]Oh no Nathan, I guessed 5. Did I guess bigger than your number?
+[secondF6]Oh no Nathan, I guessed 6. Did I guess bigger than your number?
+[secondF7]Oh no Nathan, I guessed 7. Did I guess bigger than your number?
+[secondF8]Oh no Nathan, I guessed 8. Did I guess bigger than your number?
+[secondF9]Oh no Nathan, I guessed 9. Did I guess bigger than your number?
+[secondF10]Oh no Nathan, I guessed 10. Did I guess bigger than your number?
+[secondF11]Oh no Nathan, I guessed 11. Did I guess bigger than your number?
+[secondF12]Oh no Nathan, I guessed 12. Did I guess bigger than your number?
+[secondF13]Oh no Nathan, I guessed 13. Did I guess bigger than your number?
+[secondF14]Oh no Nathan, I guessed 14. Did I guess bigger than your number?
+[secondF15]Oh no Nathan, I guessed 15. Did I guess bigger than your number?
+[secondF16]Oh no Nathan, I guessed 16. Did I guess bigger than your number?
+[secondF17]Oh no Nathan, I guessed 17. Did I guess bigger than your number?
+[secondF18]Oh no Nathan, I guessed 18. Did I guess bigger than your number?
+[secondF19]Oh no Nathan, I guessed 19. Did I guess bigger than your number?
+[secondF20]Oh no Nathan, I guessed 20. Did I guess bigger than your number?
+[secondF21]Oh no Nathan, I guessed 21. Did I guess bigger than your number?
+[secondF22]Oh no Nathan, I guessed 22. Did I guess bigger than your number?
+[secondF23]Oh no Nathan, I guessed 23. Did I guess bigger than your number?
+[secondF24]Oh no Nathan, I guessed 24. Did I guess bigger than your number?
+[secondF25]Oh no Nathan, I guessed 25. Did I guess bigger than your number?
+[secondF26]Oh no Nathan, I guessed 26. Did I guess bigger than your number?
+[secondF27]Oh no Nathan, I guessed 27. Did I guess bigger than your number?
+[secondF28]Oh no Nathan, I guessed 28. Did I guess bigger than your number?
+[secondF29]Oh no Nathan, I guessed 29. Did I guess bigger than your number?
+[secondF30]Oh no Nathan, I guessed 30. Did I guess bigger than your number?
+[secondF31]Oh no Nathan, I guessed 31. Did I guess bigger than your number?
+[secondF32]Oh no Nathan, I guessed 32. Did I guess bigger than your number?
+[secondF33]Oh no Nathan, I guessed 33. Did I guess bigger than your number?
+[secondF34]Oh no Nathan, I guessed 34. Did I guess bigger than your number?
+[secondF35]Oh no Nathan, I guessed 35. Did I guess bigger than your number?
+[secondF36]Oh no Nathan, I guessed 36. Did I guess bigger than your number?
+[secondF37]Oh no Nathan, I guessed 37. Did I guess bigger than your number?
+[secondF38]Oh no Nathan, I guessed 38. Did I guess bigger than your number?
+[secondF39]Oh no Nathan, I guessed 39. Did I guess bigger than your number?
+[secondF40]Oh no Nathan, I guessed 40. Did I guess bigger than your number?
+[secondF41]Oh no Nathan, I guessed 41. Did I guess bigger than your number?
+[secondF42]Oh no Nathan, I guessed 42. Did I guess bigger than your number?
+[secondF43]Oh no Nathan, I guessed 43. Did I guess bigger than your number?
+[secondF44]Oh no Nathan, I guessed 44. Did I guess bigger than your number?
+[secondF45]Oh no Nathan, I guessed 45. Did I guess bigger than your number?
+[secondF46]Oh no Nathan, I guessed 46. Did I guess bigger than your number?
+[secondF47]Oh no Nathan, I guessed 47. Did I guess bigger than your number?
+[secondF48]Oh no Nathan, I guessed 48. Did I guess bigger than your number?
+[secondF49]Oh no Nathan, I guessed 49. Did I guess bigger than your number?
+[secondF50]Oh no Nathan, I guessed 50. Did I guess bigger than your number?
+[secondG0]Hmm Nathan, is 0 bigger than my number?
+[secondG1]Hmm Nathan, is 1 bigger than my number?
+[secondG2]Hmm Nathan, is 2 bigger than my number?
+[secondG3]Hmm Nathan, is 3 bigger than my number?
+[secondG4]Hmm Nathan, is 4 bigger than my number?
+[secondG5]Hmm Nathan, is 5 bigger than my number?
+[secondG6]Hmm Nathan, is 6 bigger than my number?
+[secondG7]Hmm Nathan, is 7 bigger than my number?
+[secondG8]Hmm Nathan, is 8 bigger than my number?
+[secondG9]Hmm Nathan, is 9 bigger than my number?
+[secondG10]Hmm Nathan, is 10 bigger than my number?
+[secondG11]Hmm Nathan, is 11 bigger than my number?
+[secondG12]Hmm Nathan, is 12 bigger than my number?
+[secondG13]Hmm Nathan, is 13 bigger than my number?
+[secondG14]Hmm Nathan, is 14 bigger than my number?
+[secondG15]Hmm Nathan, is 15 bigger than my number?
+[secondG16]Hmm Nathan, is 16 bigger than my number?
+[secondG17]Hmm Nathan, is 17 bigger than my number?
+[secondG18]Hmm Nathan, is 18 bigger than my number?
+[secondG19]Hmm Nathan, is 19 bigger than my number?
+[secondG20]Hmm Nathan, is 20 bigger than my number?
+[secondG21]Hmm Nathan, is 21 bigger than my number?
+[secondG22]Hmm Nathan, is 22 bigger than my number?
+[secondG23]Hmm Nathan, is 23 bigger than my number?
+[secondG24]Hmm Nathan, is 24 bigger than my number?
+[secondG25]Hmm Nathan, is 25 bigger than my number?
+[secondG26]Hmm Nathan, is 26 bigger than my number?
+[secondG27]Hmm Nathan, is 27 bigger than my number?
+[secondG28]Hmm Nathan, is 28 bigger than my number?
+[secondG29]Hmm Nathan, is 29 bigger than my number?
+[secondG30]Hmm Nathan, is 30 bigger than my number?
+[secondG31]Hmm Nathan, is 31 bigger than my number?
+[secondG32]Hmm Nathan, is 32 bigger than my number?
+[secondG33]Hmm Nathan, is 33 bigger than my number?
+[secondG34]Hmm Nathan, is 34 bigger than my number?
+[secondG35]Hmm Nathan, is 35 bigger than my number?
+[secondG36]Hmm Nathan, is 36 bigger than my number?
+[secondG37]Hmm Nathan, is 37 bigger than my number?
+[secondG38]Hmm Nathan, is 38 bigger than my number?
+[secondG39]Hmm Nathan, is 39 bigger than my number?
+[secondG40]Hmm Nathan, is 40 bigger than my number?
+[secondG41]Hmm Nathan, is 41 bigger than my number?
+[secondG42]Hmm Nathan, is 42 bigger than my number?
+[secondG43]Hmm Nathan, is 43 bigger than my number?
+[secondG44]Hmm Nathan, is 44 bigger than my number?
+[secondG45]Hmm Nathan, is 45 bigger than my number?
+[secondG46]Hmm Nathan, is 46 bigger than my number?
+[secondG47]Hmm Nathan, is 47 bigger than my number?
+[secondG48]Hmm Nathan, is 48 bigger than my number?
+[secondG49]Hmm Nathan, is 49 bigger than my number?
+[secondG50]Hmm Nathan, is 50 bigger than my number?
+[secondH0]Hey is your number higher than 0? Show me yes or no please Nathan.
+[secondH1]Hey is your number higher than 1? Show me yes or no please Nathan.
+[secondH2]Hey is your number higher than 2? Show me yes or no please Nathan.
+[secondH3]Hey is your number higher than 3? Show me yes or no please Nathan.
+[secondH4]Hey is your number higher than 4? Show me yes or no please Nathan.
+[secondH5]Hey is your number higher than 5? Show me yes or no please Nathan.
+[secondH6]Hey is your number higher than 6? Show me yes or no please Nathan.
+[secondH7]Hey is your number higher than 7? Show me yes or no please Nathan.
+[secondH8]Hey is your number higher than 8? Show me yes or no please Nathan.
+[secondH9]Hey is your number higher than 9? Show me yes or no please Nathan.
+[secondH10]Hey is your number higher than 10? Show me yes or no please Nathan.
+[secondH11]Hey is your number higher than 11? Show me yes or no please Nathan.
+[secondH12]Hey is your number higher than 12? Show me yes or no please Nathan.
+[secondH13]Hey is your number higher than 13? Show me yes or no please Nathan.
+[secondH14]Hey is your number higher than 14? Show me yes or no please Nathan.
+[secondH15]Hey is your number higher than 15? Show me yes or no please Nathan.
+[secondH16]Hey is your number higher than 16? Show me yes or no please Nathan.
+[secondH17]Hey is your number higher than 17? Show me yes or no please Nathan.
+[secondH18]Hey is your number higher than 18? Show me yes or no please Nathan.
+[secondH19]Hey is your number higher than 19? Show me yes or no please Nathan.
+[secondH20]Hey is your number higher than 20? Show me yes or no please Nathan.
+[secondH21]Hey is your number higher than 21? Show me yes or no please Nathan.
+[secondH22]Hey is your number higher than 22? Show me yes or no please Nathan.
+[secondH23]Hey is your number higher than 23? Show me yes or no please Nathan.
+[secondH24]Hey is your number higher than 24? Show me yes or no please Nathan.
+[secondH25]Hey is your number higher than 25? Show me yes or no please Nathan.
+[secondH26]Hey is your number higher than 26? Show me yes or no please Nathan.
+[secondH27]Hey is your number higher than 27? Show me yes or no please Nathan.
+[secondH28]Hey is your number higher than 28? Show me yes or no please Nathan.
+[secondH29]Hey is your number higher than 29? Show me yes or no please Nathan.
+[secondH30]Hey is your number higher than 30? Show me yes or no please Nathan.
+[secondH31]Hey is your number higher than 31? Show me yes or no please Nathan.
+[secondH32]Hey is your number higher than 32? Show me yes or no please Nathan.
+[secondH33]Hey is your number higher than 33? Show me yes or no please Nathan.
+[secondH34]Hey is your number higher than 34? Show me yes or no please Nathan.
+[secondH35]Hey is your number higher than 35? Show me yes or no please Nathan.
+[secondH36]Hey is your number higher than 36? Show me yes or no please Nathan.
+[secondH37]Hey is your number higher than 37? Show me yes or no please Nathan.
+[secondH38]Hey is your number higher than 38? Show me yes or no please Nathan.
+[secondH39]Hey is your number higher than 39? Show me yes or no please Nathan.
+[secondH40]Hey is your number higher than 40? Show me yes or no please Nathan.
+[secondH41]Hey is your number higher than 41? Show me yes or no please Nathan.
+[secondH42]Hey is your number higher than 42? Show me yes or no please Nathan.
+[secondH43]Hey is your number higher than 43? Show me yes or no please Nathan.
+[secondH44]Hey is your number higher than 44? Show me yes or no please Nathan.
+[secondH45]Hey is your number higher than 45? Show me yes or no please Nathan.
+[secondH46]Hey is your number higher than 46? Show me yes or no please Nathan.
+[secondH47]Hey is your number higher than 47? Show me yes or no please Nathan.
+[secondH48]Hey is your number higher than 48? Show me yes or no please Nathan.
+[secondH49]Hey is your number higher than 49? Show me yes or no please Nathan.
+[secondH50]Hey is your number higher than 50? Show me yes or no please Nathan.
+[secondI0]Oh no, I guessed 0 Nathan! Did I guess bigger than your number?
+[secondI1]Oh no, I guessed 1 Nathan! Did I guess bigger than your number?
+[secondI2]Oh no, I guessed 2 Nathan! Did I guess bigger than your number?
+[secondI3]Oh no, I guessed 3 Nathan! Did I guess bigger than your number?
+[secondI4]Oh no, I guessed 4 Nathan! Did I guess bigger than your number?
+[secondI5]Oh no, I guessed 5 Nathan! Did I guess bigger than your number?
+[secondI6]Oh no, I guessed 6 Nathan! Did I guess bigger than your number?
+[secondI7]Oh no, I guessed 7 Nathan! Did I guess bigger than your number?
+[secondI8]Oh no, I guessed 8 Nathan! Did I guess bigger than your number?
+[secondI9]Oh no, I guessed 9 Nathan! Did I guess bigger than your number?
+[secondI10]Oh no, I guessed 10 Nathan! Did I guess bigger than your number?
+[secondI11]Oh no, I guessed 11 Nathan! Did I guess bigger than your number?
+[secondI12]Oh no, I guessed 12 Nathan! Did I guess bigger than your number?
+[secondI13]Oh no, I guessed 13 Nathan! Did I guess bigger than your number?
+[secondI14]Oh no, I guessed 14 Nathan! Did I guess bigger than your number?
+[secondI15]Oh no, I guessed 15 Nathan! Did I guess bigger than your number?
+[secondI16]Oh no, I guessed 16 Nathan! Did I guess bigger than your number?
+[secondI17]Oh no, I guessed 17 Nathan! Did I guess bigger than your number?
+[secondI18]Oh no, I guessed 18 Nathan! Did I guess bigger than your number?
+[secondI19]Oh no, I guessed 19 Nathan! Did I guess bigger than your number?
+[secondI20]Oh no, I guessed 20 Nathan! Did I guess bigger than your number?
+[secondI21]Oh no, I guessed 21 Nathan! Did I guess bigger than your number?
+[secondI22]Oh no, I guessed 22 Nathan! Did I guess bigger than your number?
+[secondI23]Oh no, I guessed 23 Nathan! Did I guess bigger than your number?
+[secondI24]Oh no, I guessed 24 Nathan! Did I guess bigger than your number?
+[secondI25]Oh no, I guessed 25 Nathan! Did I guess bigger than your number?
+[secondI26]Oh no, I guessed 26 Nathan! Did I guess bigger than your number?
+[secondI27]Oh no, I guessed 27 Nathan! Did I guess bigger than your number?
+[secondI28]Oh no, I guessed 28 Nathan! Did I guess bigger than your number?
+[secondI29]Oh no, I guessed 29 Nathan! Did I guess bigger than your number?
+[secondI30]Oh no, I guessed 30 Nathan! Did I guess bigger than your number?
+[secondI31]Oh no, I guessed 31 Nathan! Did I guess bigger than your number?
+[secondI32]Oh no, I guessed 32 Nathan! Did I guess bigger than your number?
+[secondI33]Oh no, I guessed 33 Nathan! Did I guess bigger than your number?
+[secondI34]Oh no, I guessed 34 Nathan! Did I guess bigger than your number?
+[secondI35]Oh no, I guessed 35 Nathan! Did I guess bigger than your number?
+[secondI36]Oh no, I guessed 36 Nathan! Did I guess bigger than your number?
+[secondI37]Oh no, I guessed 37 Nathan! Did I guess bigger than your number?
+[secondI38]Oh no, I guessed 38 Nathan! Did I guess bigger than your number?
+[secondI39]Oh no, I guessed 39 Nathan! Did I guess bigger than your number?
+[secondI40]Oh no, I guessed 40 Nathan! Did I guess bigger than your number?
+[secondI41]Oh no, I guessed 41 Nathan! Did I guess bigger than your number?
+[secondI42]Oh no, I guessed 42 Nathan! Did I guess bigger than your number?
+[secondI43]Oh no, I guessed 43 Nathan! Did I guess bigger than your number?
+[secondI44]Oh no, I guessed 44 Nathan! Did I guess bigger than your number?
+[secondI45]Oh no, I guessed 45 Nathan! Did I guess bigger than your number?
+[secondI46]Oh no, I guessed 46 Nathan! Did I guess bigger than your number?
+[secondI47]Oh no, I guessed 47 Nathan! Did I guess bigger than your number?
+[secondI48]Oh no, I guessed 48 Nathan! Did I guess bigger than your number?
+[secondI49]Oh no, I guessed 49 Nathan! Did I guess bigger than your number?
+[secondI50]Oh no, I guessed 50 Nathan! Did I guess bigger than your number?
+[secondJ0]Hmm tell me Nathan is 0 bigger than my number?
+[secondJ1]Hmm tell me Nathan is 1 bigger than my number?
+[secondJ2]Hmm tell me Nathan is 2 bigger than my number?
+[secondJ3]Hmm tell me Nathan is 3 bigger than my number?
+[secondJ4]Hmm tell me Nathan is 4 bigger than my number?
+[secondJ5]Hmm tell me Nathan is 5 bigger than my number?
+[secondJ6]Hmm tell me Nathan is 6 bigger than my number?
+[secondJ7]Hmm tell me Nathan is 7 bigger than my number?
+[secondJ8]Hmm tell me Nathan is 8 bigger than my number?
+[secondJ9]Hmm tell me Nathan is 9 bigger than my number?
+[secondJ10]Hmm tell me Nathan is 10 bigger than my number?
+[secondJ11]Hmm tell me Nathan is 11 bigger than my number?
+[secondJ12]Hmm tell me Nathan is 12 bigger than my number?
+[secondJ13]Hmm tell me Nathan is 13 bigger than my number?
+[secondJ14]Hmm tell me Nathan is 14 bigger than my number?
+[secondJ15]Hmm tell me Nathan is 15 bigger than my number?
+[secondJ16]Hmm tell me Nathan is 16 bigger than my number?
+[secondJ17]Hmm tell me Nathan is 17 bigger than my number?
+[secondJ18]Hmm tell me Nathan is 18 bigger than my number?
+[secondJ19]Hmm tell me Nathan is 19 bigger than my number?
+[secondJ20]Hmm tell me Nathan is 20 bigger than my number?
+[secondJ21]Hmm tell me Nathan is 21 bigger than my number?
+[secondJ22]Hmm tell me Nathan is 22 bigger than my number?
+[secondJ23]Hmm tell me Nathan is 23 bigger than my number?
+[secondJ24]Hmm tell me Nathan is 24 bigger than my number?
+[secondJ25]Hmm tell me Nathan is 25 bigger than my number?
+[secondJ26]Hmm tell me Nathan is 26 bigger than my number?
+[secondJ27]Hmm tell me Nathan is 27 bigger than my number?
+[secondJ28]Hmm tell me Nathan is 28 bigger than my number?
+[secondJ29]Hmm tell me Nathan is 29 bigger than my number?
+[secondJ30]Hmm tell me Nathan is 30 bigger than my number?
+[secondJ31]Hmm tell me Nathan is 31 bigger than my number?
+[secondJ32]Hmm tell me Nathan is 32 bigger than my number?
+[secondJ33]Hmm tell me Nathan is 33 bigger than my number?
+[secondJ34]Hmm tell me Nathan is 34 bigger than my number?
+[secondJ35]Hmm tell me Nathan is 35 bigger than my number?
+[secondJ36]Hmm tell me Nathan is 36 bigger than my number?
+[secondJ37]Hmm tell me Nathan is 37 bigger than my number?
+[secondJ38]Hmm tell me Nathan is 38 bigger than my number?
+[secondJ39]Hmm tell me Nathan is 39 bigger than my number?
+[secondJ40]Hmm tell me Nathan is 40 bigger than my number?
+[secondJ41]Hmm tell me Nathan is 41 bigger than my number?
+[secondJ42]Hmm tell me Nathan is 42 bigger than my number?
+[secondJ43]Hmm tell me Nathan is 43 bigger than my number?
+[secondJ44]Hmm tell me Nathan is 44 bigger than my number?
+[secondJ45]Hmm tell me Nathan is 45 bigger than my number?
+[secondJ46]Hmm tell me Nathan is 46 bigger than my number?
+[secondJ47]Hmm tell me Nathan is 47 bigger than my number?
+[secondJ48]Hmm tell me Nathan is 48 bigger than my number?
+[secondJ49]Hmm tell me Nathan is 49 bigger than my number?
+[secondJ50]Hmm tell me Nathan is 50 bigger than my number?
