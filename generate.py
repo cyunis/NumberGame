@@ -113,10 +113,10 @@ for i in range(11):
 
 for j in range(len(guess_dict)):
     for i in range(51):
-        f.writelines("[guess"+letters[j+1]+str(i)+"]"+guess_dict[j+1].format(i)+'\n')
+        f.writelines("[guess"+letters[j]+str(i)+"]"+guess_dict[j+1].format(i)+'\n')
 
 for j in range(len(second_dict)):
     for i in range(51):
-        f.writelines("[second"+letters[j+1]+str(i)+"]"+second_dict[j+1].format(name,i)+'\n')
+        f.writelines("[second"+letters[j]+str(i)+"]"+second_dict[j+1].format(name,i)+'\n')
 
 f.close()
