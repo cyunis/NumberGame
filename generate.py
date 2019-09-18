@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 name = 'Nathan'
+hand = 'right'
 letters = ['A','B','C','D','E','F','G','H','I','J','K','L']
 
 clarify_dict = {1: 'Sorry {} I didn’t see that, could you repeat that answer for me please?',
@@ -91,32 +92,42 @@ second_dict = {1: 'Hey {} is your number higher than {}? Show me yes or no.',
 
 f = open("script.txt",mode = 'w',encoding = 'utf-8')
 
-for i in range(11):
-    i+=1
+f.writelines('[intro1]'+'Hello, my name is QTRobot. What is your name?\n')
+f.writelines('[intro2]'+"Hi   "+name+""",      I would like to play a guessing game with you. 
+                In the game, I ask you questions, and you answer yes or no by using a 
+                thumbs up or a thumbs down with your     """ +hand+"""       hand. Let’s practice.  
+                Can you show me a thumbs up to say yes?\n""")
+f.writelines('[intro3]'+"Awesome! Now can you show me a thumbs down to say no?\n")
+f.writelines('[intro4]'+"""Thanks! During the game, please keep your hand flat on the 
+                        arm rest until I ask you a question. If your thumb 
+                        is going the wrong way, just push the green button. And just do your best. 
+                        Can you please show me yes if that’s ok?\n""")
+f.writelines('[startgame]'+"Let's play now! Please think of a number between 1 and 50.\n")
+f.writelines('[endgame1]'+"Hooray I got it! Thanks _____ for playing with me. Let’s play again!\n")
+f.writelines('[endgame2]'+"Yay I guessed right! Do you want to play again please?\n")
+f.writelines('[endgame3]'+"Woo hoo that was fun! Do you want to play one more game?\n")
+
+for i in clarify_dict.keys():
     f.writelines("[clarify" + letters[i-1] + "]" + clarify_dict[i].format(name)+'\n')
 
-for i in range(11):
-    i+=1
+for i in encourage_dict.keys():
     f.writelines("[encourage" + letters[i-1] + "]" + encourage_dict[i].format(name)+'\n')
 
-for i in range(11):
-    i+=1
+for i in encourageless_dict.keys():
     f.writelines("[encourageless" + letters[i-1] + "]" + encourageless_dict[i].format(name)+'\n')
 
-for i in range(11):
-    i+=1
+for i in rewardless_dict.keys():
     f.writelines("[rewardless" + letters[i-1] + "]" + rewardless_dict[i].format(name)+'\n')
 
-for i in range(11):
-    i+=1
+for i in reward_dict.keys():
     f.writelines("[reward" + letters[i-1] + "]" + reward_dict[i].format(name)+'\n')
 
-for j in range(len(guess_dict)):
+for j in guess_dict.keys():
     for i in range(51):
-        f.writelines("[guess"+letters[j+1]+str(i)+"]"+guess_dict[j+1].format(i)+'\n')
+        f.writelines("[guess"+letters[j-1]+str(i)+"]"+guess_dict[j].format(i)+'\n')
 
-for j in range(len(second_dict)):
+for j in second_dict.keys():
     for i in range(51):
-        f.writelines("[second"+letters[j+1]+str(i)+"]"+second_dict[j+1].format(name,i)+'\n')
+        f.writelines("[second"+letters[j-1]+str(i)+"]"+second_dict[j].format(name,i)+'\n')
 
 f.close()
