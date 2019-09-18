@@ -91,32 +91,27 @@ second_dict = {1: 'Hey {} is your number higher than {}? Show me yes or no.',
 
 f = open("script.txt",mode = 'a',encoding = 'utf-8')
 
-for i in range(11):
-    i+=1
+for i in clarify_dict.keys():
     f.writelines("[clarify" + letters[i-1] + "]" + clarify_dict[i].format(name)+'\n')
 
-for i in range(11):
-    i+=1
+for i in encourage_dict.keys():
     f.writelines("[encourage" + letters[i-1] + "]" + encourage_dict[i].format(name)+'\n')
 
-for i in range(11):
-    i+=1
+for i in encourageless_dict.keys():
     f.writelines("[encourageless" + letters[i-1] + "]" + encourageless_dict[i].format(name)+'\n')
 
-for i in range(11):
-    i+=1
+for i in rewardless_dict.keys():
     f.writelines("[rewardless" + letters[i-1] + "]" + rewardless_dict[i].format(name)+'\n')
 
-for i in range(11):
-    i+=1
+for i in reward_dict.keys():
     f.writelines("[reward" + letters[i-1] + "]" + reward_dict[i].format(name)+'\n')
 
-for j in range(len(guess_dict)):
+for j in guess_dict.keys():
     for i in range(51):
-        f.writelines("[guess"+letters[j]+str(i)+"]"+guess_dict[j+1].format(i)+'\n')
+        f.writelines("[guess"+letters[j-1]+str(i)+"]"+guess_dict[j].format(i)+'\n')
 
-for j in range(len(second_dict)):
+for j in second_dict.keys():
     for i in range(51):
-        f.writelines("[second"+letters[j]+str(i)+"]"+second_dict[j+1].format(name,i)+'\n')
+        f.writelines("[second"+letters[j-1]+str(i)+"]"+second_dict[j].format(name,i)+'\n')
 
 f.close()
