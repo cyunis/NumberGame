@@ -97,6 +97,15 @@ f.writelines('[intro2]'+"Hi   "+name+""",      I would like to play a guessing g
                 In the game, I ask you questions, and you answer yes or no by using a 
                 thumbs up or a thumbs down with your     """ +hand+"""       hand. Let’s practice.  
                 Can you show me a thumbs up to say yes?\n""")
+f.writelines('[intro3]'+"Awesome! Now can you show me a thumbs down to say no?\n")
+f.writelines('[intro4]'+"""Thanks! During the game, please keep your hand flat on the 
+                        arm rest until I ask you a question. If your thumb 
+                        is going the wrong way, just push the green button. And just do your best. 
+                        Can you please show me yes if that’s ok?\n""")
+f.writelines('[startgame]'+"Let's play now! Please think of a number between 1 and 50.\n")
+f.writelines('[endgame1]'+"Hooray I got it! Thanks _____ for playing with me. Let’s play again!\n")
+f.writelines('[endgame2]'+"Yay I guessed right! Do you want to play again please?\n")
+f.writelines('[endgame3]'+"Woo hoo that was fun! Do you want to play one more game?\n")
 
 for i in clarify_dict.keys():
     f.writelines("[clarify" + letters[i-1] + "]" + clarify_dict[i].format(name)+'\n')
