@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 name = 'Nathan'
+hand = 'right'
 letters = ['A','B','C','D','E','F','G','H','I','J','K','L']
 
 clarify_dict = {1: 'Sorry {} I didn’t see that, could you repeat that answer for me please?',
@@ -90,6 +91,12 @@ second_dict = {1: 'Hey {} is your number higher than {}? Show me yes or no.',
     9: 'Hmm tell me {} is {} bigger than my number?'} 
 
 f = open("script.txt",mode = 'a',encoding = 'utf-8')
+
+f.writelines('[intro1]'+'Hello, my name is QTRobot. What is your name?\n')
+f.writelines('[intro2]'+"Hi   "+name+""",      I would like to play a guessing game with you. 
+                In the game, I ask you questions, and you answer yes or no by using a 
+                thumbs up or a thumbs down with your     """ +hand+"""       hand. Let’s practice.  
+                Can you show me a thumbs up to say yes?\n""")
 
 for i in clarify_dict.keys():
     f.writelines("[clarify" + letters[i-1] + "]" + clarify_dict[i].format(name)+'\n')
