@@ -80,15 +80,15 @@ guess_dict = {1: 'Is {} right? Please show me a thumbs up or down.',
     8: 'I guess {} am I wrong?'}
 #make sure name and number are in the right spot for every phrase - use 0 or 1 in the brackets to call in order
 #higher or lower
-second_dict = {1: 'Hey {} is your number higher than {}? Show me yes or no.',
-    2: 'Oh no, I guessed {1}. Did I guess bigger than your number {0}?',
-    3: 'Hmm is {1} bigger than your number {0}?',
-    4: 'Hey is your number higher than {1} {0}? Show me yes or no.',
-    5: 'Oh no {}, I guessed {}. Did I guess bigger than your number?',
-    6: 'Hmm {}, is {} bigger than your number?',
-    7: 'Hey is your number higher than {1}? Show me yes or no please {0}.',
-    8: 'Oh no, I guessed {1} {0}! Did I guess bigger than your number?',
-    9: 'Hmm tell me {} is {} bigger than your number?'} 
+second_dict = {1: 'Hey {} is your number bigger than {}? Show me yes or no.',
+    2: 'Oh no, I guessed {1}. Did I guess smaller than your number {0}?',
+    3: 'Hmm is {1} smaller than your number {0}?',
+    4: 'Hey is your number bigger than {1} {0}? Show me yes or no.',
+    5: 'Oh no {}, I guessed {}. Did I guess smaller than your number?',
+    6: 'Hmm {}, is {} smaller than your number?',
+    7: 'Hey is your number bigger than {1}? Show me yes or no please {0}.',
+    8: 'Oh no, I guessed {1} {0}! Did I guess smaller than your number?',
+    9: 'Hmm tell me {} is {} smaller than your number?'} 
 
 f = open("script.txt",mode = 'a',encoding = 'utf-8')
 
