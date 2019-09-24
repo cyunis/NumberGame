@@ -6,7 +6,7 @@ class statementRandomizer:
     def __init__(self):
         self.supinateList = [999] #will hold the 10 most recent values for supination
         self.pronateList = [-999] #will hold the 10 most recent values for pronation
-        self.performedBehaviors = [[],[],[],[],[],[],[],[]]
+        self.performedBehaviors = [[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]
 
         self.guessStatements = {
             1: "guessA",
@@ -113,6 +113,49 @@ class statementRandomizer:
             12: "rewardL"
         }
 
+        self.small_gestures = {
+            1: "numbergame/small1",
+            2: "numbergame/small2",
+            3: "numbergame/small3",
+            4: "numbergame/together",
+            5: "numbergame/together1",
+            6: "numbergame/together2",
+            7: "numbergame/together3",
+            8: "numbergame/head2",
+            9: "numbergame/head3",
+            10: "numbergame/left1",
+            11: "numbergame/left2",
+            12: "numbergame/left3",
+            13: "numbergame/right2",
+            14: "numbergame/right3"
+        }
+
+        self.guessing_gestures = {
+            1: "numbergame/thinking1",
+            2: "numbergame/thinking2",
+            3: "numbergame/thinking3"
+        }
+
+        self.talking_gestures = {
+            1: "numbergame/talking1",
+            2: "numbergame/talking2",
+            3: "numbergame/talking3",
+            4: "numbergame/talking4",
+            5: "numbergame/talking5",
+            6: "numbergame/talking6",
+            7: "QT/challenge"
+        }
+        self.listening_gestures = {
+            1: "QT/bored",
+            # 2: "gestures_programmed(1)" #or call gestures_programmed(1)
+         } 
+        self.encouragement_gestures = {
+            1: "QT/surprise",
+            2: "QT/happy",
+            # 3: "gestures_programmed(2)",
+            # 4: "gestures_programmed(3)"
+         } #or call gestures_programmed(2,3)
+
     def chooseRandomStatement(self, statementType):
         mapping = {
             0: self.guessStatements,
@@ -122,8 +165,14 @@ class statementRandomizer:
             4: self.bucket4,
             5: self.bucket5,
             6: self.higher_lower_statements,
-            7: self.win_statements
+            7: self.win_statements,
+            8: self.small_gestures,
+            9: self.guessing_gestures,
+            10:self.talking_gestures,
+            11: self.listening_gestures,
+            12: self.encouragement_gestures
         }
+
         #convert statement type to actual dictionary
         behaviorDict = mapping[statementType]
         upperBound = len(behaviorDict.keys())

@@ -32,12 +32,12 @@ class NumberGameInteraction:
         self.right_pub = rospy.Publisher('/qt_robot/right_arm_position/command', Float64MultiArray, queue_size=1)
         self.left_pub = rospy.Publisher('/qt_robot/left_arm_position/command', Float64MultiArray, queue_size=1)
         self.head_pub = rospy.Publisher('/qt_robot/head_position/command', Float64MultiArray, queue_size=1)
+
+        self.gesture_pub = rospy.Publisher('/qt_robot/gesture/play', String, queue_size=10)
         
         #subscribers
         self.thumb_sub = rospy.Subscriber("/thumb_result", String, self.process_thumb_data)
         self.beaglebone_sub = rospy.Subscriber("/openwearable_new", String, self.process_beaglebone_data)
-
-
 
         #data to measure
         self.start_time = time.time()
@@ -56,6 +56,7 @@ class NumberGameInteraction:
         self.GAS3 = 30
         self.GAS4 = 40
         self.GAS5 = 50
+        self.thumb_time = 5 #seconds
 
         #data to make game run smoothly
         self.statementRandomizer = statementRandomizer()
@@ -69,8 +70,6 @@ class NumberGameInteraction:
         self.ready_to_move_on = True
         self.is_aborted = False
         
-
-
 
     #callback functions
     def process_thumb_data(self, msg):
@@ -91,6 +90,7 @@ class NumberGameInteraction:
 
         self.gesture_values.append({'time': time.time() - self.recording_start_time, 'angle': thumb_angle})
 
+
     def process_beaglebone_data(self, msg):
         print('Received on beaglebone: ' + str(msg.data))
 
@@ -98,7 +98,6 @@ class NumberGameInteraction:
             self.robotManager.stop_speech()
             self.is_aborted = True
             self.abort()
-        
 
 
     #helper functions to make sure that transitions are executed correctly
@@ -106,27 +105,45 @@ class NumberGameInteraction:
         #return whether or not the state machine can continue
         return self.ready_to_move_on
 
+
     def check_state_machine_status(self):
         if(self.is_aborted):
             raise ValueError('I should not be here')
 
+
     def reset_ready_to_move_on(self):
+        self.play_gesture(8)
         #called after every transition is completed
         self.ready_to_move_on = False
+
 
     def guess_equals_number(self):
         return self.guesses[-1] == self.number
 
+    def play_gesture(self, gesture_index):
+        if(self.use_robot):
+            gesture_name = self.statementRandomizer.chooseRandomStatement(gesture_index)
+            print('playing gesture: {}'.format(gesture_name))
+            if(gesture_name.startswith('gestures_programmed')):
+                self.gestures_programmed(int(gesture_name.split('(')[1].split(')')[0]))
+            else:
+                self.gesture_pub.publish(gesture_name)
+
+
     def give_feedback(self):
         if(self.use_robot):
+            self.play_gesture(12)
             self.robotManager.say(self.statementRandomizer.getResponseBehavior(self.average_thumb_value, self.gesture_time), wait=True)
+
 
     def get_guess_statement(self):
         print(self.statementRandomizer.chooseRandomStatement(0))
 
+
     def give_feedback_calculate_guess(self):
         self.give_feedback()
         self.calculate_guess()
+
 
     def get_thumb_data(self, duration):
         print('...................starting data collection..................')
@@ -141,6 +158,7 @@ class NumberGameInteraction:
         num_below_thresh = 0
         pronate_angle_sum = 0 #no
 
+        #check to see if the gesture passes the threshold for normal GAS score
         for value in values:
             if value['angle'] > self.GAS3:
                 supinate_angle_sum += value['angle']
@@ -173,43 +191,50 @@ class NumberGameInteraction:
         if(self.name == 'abort'):
             self.abort()
 
+
     def give_instruction(self):
         #give instruction to the game
         
         print('you will play a simple thumbs up/down game with me!')
+
 
     def on_enter_practice_thumb_up(self):
         self.check_state_machine_status()
         #ask to demonstrate a thumbs up
         self.robotManager.say('intro2', wait=True)
         print('practice thumb up')
-        self.get_thumb_data(5)
+        self.get_thumb_data(self.thumb_time)
         print(self.average_thumb_value, self.gesture_time)
         self.ready_to_move_on = self.average_thumb_value > 0
+
 
     def practice_doesnt_go_up(self):
         #ask to try thumbs up again
         self.robotManager.say(self.statementRandomizer.chooseRandomStatement(1), wait=True)  #should have a condition to check for yes/no with different feedback sentences
         print('try to put your thumb up again')
 
+
     def on_enter_practice_thumb_down(self):
         self.check_state_machine_status()
         #ask for a thumbs down
         self.robotManager.say('intro3', wait=True)
         print('practicing thumb down')
-        self.get_thumb_data(5)
+        self.get_thumb_data(self.thumb_time)
         self.ready_to_move_on = self.average_thumb_value < 0
+
 
     def practice_doesnt_go_down(self):
         #ask to try to put a thumbs down again
         self.robotManager.say(self.statementRandomizer.chooseRandomStatement(1), wait=True) #should have a condition to check for yes/no with different feedback sentences
         print('try to put your thumb down again')
 
+
     def on_enter_input_number(self):
         #secretly input the number
         self.robotManager.say('startgame', wait=True)
         self.check_state_machine_status()
         self.number = input('what is the number being guessed?')
+
 
     def calculate_guess(self):
         half_range = int((self.guess_upper_bound - self.guess_lower_bound)/2)
@@ -219,6 +244,7 @@ class NumberGameInteraction:
             guess = ideal_guess + random.randint(-half_range, half_range)
         self.guesses.append(guess)
 
+
     def on_enter_make_guess(self):
         self.check_state_machine_status()
 
@@ -227,14 +253,16 @@ class NumberGameInteraction:
         self.robotManager.say(statement_key+ '{}'.format(self.guesses[-1]), wait=True)
         modifier = 1 if statement_key[-1] in ['A', 'B', 'C', 'D'] else -1
         #get the angle measurements from the camera
-        self.get_thumb_data(5)
+        self.get_thumb_data(self.thumb_time)
 
         self.ready_to_move_on = modifier * self.average_thumb_value > 0
+
 
     def incorrect_guess_response(self):
         #try asking again
         self.robotManager.say(self.statementRandomizer.chooseRandomStatement(1), wait=True)  #should have a condition to check for yes/no with different feedback sentences
         print('actually, let me ask in a different way...')
+
 
     def on_enter_higher_or_lower(self):
         self.check_state_machine_status()
@@ -242,10 +270,9 @@ class NumberGameInteraction:
         statement_key = self.statementRandomizer.chooseRandomStatement(6)
         self.robotManager.say( statement_key + '{}'.format(self.guesses[-1]), wait=True)
 
-
         print('guess is {}, actual is {}'.format(self.guesses[-1], self.number))
         #get angle measures from the camera
-        self.get_thumb_data(5)
+        self.get_thumb_data(self.thumb_time)
 
         if(self.guesses[-1] < self.number and self.average_thumb_value > 0):
             self.ready_to_move_on = True
@@ -254,10 +281,12 @@ class NumberGameInteraction:
             self.ready_to_move_on = True
             self.guess_upper_bound = self.guesses[-1]
 
+
     def incorrect_higher_lower(self):
         #try asking again
         self.robotManager.say(self.statementRandomizer.chooseRandomStatement(1), wait=True)  #should have a condition to check for yes/no with different feedback sentences
         print('hmmmm are you sure?')
+
 
     def give_feedback(self):
         if(self.use_robot):
@@ -272,7 +301,7 @@ class NumberGameInteraction:
         self.robotManager.say(self.statementRandomizer.chooseRandomStatement(7), wait=True)
 
         print(self.statementRandomizer.performedBehaviors)
-        self.get_thumb_data(5)
+        self.get_thumb_data(self.thumb_time)
         # res = input('woohoo I won, want to play again?')
 
         self.number_of_completed_games += 1
@@ -281,11 +310,13 @@ class NumberGameInteraction:
         self.guess_upper_bound = 50
         self.ready_to_move_on = self.average_thumb_value < 0
 
+
     def on_enter_end(self):
         self.robotManager.say('statement14')
         print('thanks for playing!')
         print('stats: games played: {}\ntime played: {}'.format(self.number_of_completed_games, time.time()-self.start_time))
         sys.exit()
+
 
     def gestures_programmed(self, number):
         if(number == 1):
@@ -378,7 +409,6 @@ transitions = [
 
 game = NumberGameInteraction(True)
 machine = Machine(model=game, states=states, transitions=transitions, initial='get_name', before_state_change='reset_ready_to_move_on', show_state_attributes=True, show_conditions=True)
-
 game.get_graph().draw('TommyThumbDiagram.png', prog='dot')
 
 while(1):
