@@ -80,32 +80,28 @@ guess_dict = {1: 'Is {} right? Please show me a thumbs up or down.',
     8: 'I guess {} am I wrong?'}
 #make sure name and number are in the right spot for every phrase - use 0 or 1 in the brackets to call in order
 #higher or lower
-second_dict = {1: 'Hey {} is your number higher than {}? Show me yes or no.',
-    2: 'Oh no, I guessed {1}. Did I guess bigger than your number {0}?',
-    3: 'Hmm is {1} bigger than my number {0}?',
-    4: 'Hey is your number higher than {1} {0}? Show me yes or no.',
-    5: 'Oh no {}, I guessed {}. Did I guess bigger than your number?',
-    6: 'Hmm {}, is {} bigger than my number?',
-    7: 'Hey is your number higher than {1}? Show me yes or no please {0}.',
-    8: 'Oh no, I guessed {1} {0}! Did I guess bigger than your number?',
-    9: 'Hmm tell me {} is {} bigger than my number?'} 
+second_dict = {1: 'Hey {} is your number bigger than {}? Show me yes or no.',
+    2: 'Oh no, I guessed {1}. Did I guess smaller than your number {0}?',
+    3: 'Hmm is {1} smaller than your number {0}?',
+    4: 'Hey is your number bigger than {1} {0}? Show me yes or no.',
+    5: 'Oh no {}, I guessed {}. Did I guess smaller than your number?',
+    6: 'Hmm {}, is {} smaller than your number?',
+    7: 'Hey is your number bigger than {1}? Show me yes or no please {0}.',
+    8: 'Oh no, I guessed {1} {0}! Did I guess smaller than your number?',
+    9: 'Hmm tell me {} is {} smaller than your number?'} 
 
 f = open("script.txt",mode = 'w',encoding = 'utf-8')
 
 f.writelines('[intro1]'+'Hello, my name is QTRobot. What is your name?\n')
-f.writelines('[intro2]'+"Hi   "+name+""",      I would like to play a guessing game with you. 
-                In the game, I ask you questions, and you answer yes or no by using a 
-                thumbs up or a thumbs down with your     """ +hand+"""       hand. Let’s practice.  
-                Can you show me a thumbs up to say yes?\n""")
-f.writelines('[intro3]'+"Awesome! Now can you show me a thumbs down to say no?\n")
-f.writelines('[intro4]'+"""Thanks! During the game, please keep your hand flat on the 
-                        arm rest until I ask you a question. If your thumb 
-                        is going the wrong way, just push the green button. And just do your best. 
-                        Can you please show me yes if that’s ok?\n""")
+f.writelines('[intro2]'+"Hi {} I would like to play a guessing game with you. In the game, I ask you questions, and you answer yes or no by using a thumbs up or a thumbs down with your {} hand.\n".format(name,hand)) 
+f.writelines('[intro3]'+"Let’s practice.  Can you show me a thumbs up to say yes?\n")
+f.writelines('[intro4]'+"Awesome! Now can you show me a thumbs down to say no?\n")
+f.writelines('[intro5]'+"Thanks! During the game, please keep your hand flat on the arm rest until I ask you a question. If your thumb is going the wrong way, just push the green button. And just do your best. Can you please show me yes if that’s ok?\n")
 f.writelines('[startgame]'+"Let's play now! Please think of a number between 1 and 50.\n")
-f.writelines('[endgame1]'+"Hooray I got it! Thanks _____ for playing with me. Let’s play again!\n")
-f.writelines('[endgame2]'+"Yay I guessed right! Do you want to play again please?\n")
-f.writelines('[endgame3]'+"Woo hoo that was fun! Do you want to play one more game?\n")
+f.writelines('[another1]'+"Hooray I got it! Thanks {} for playing with me. Let’s play again!\n".format(name))
+f.writelines('[another2]'+"Yay I guessed right! Do you want to play again please?\n")
+f.writelines('[another3]'+"Woo hoo that was fun! Do you want to play one more game?\n")
+f.writelines('[endgame]'+'Thanks for playing with me {}! Bye-bye!\n'.format(name))
 
 for i in clarify_dict.keys():
     f.writelines("[clarify" + letters[i-1] + "]" + clarify_dict[i].format(name)+'\n')
