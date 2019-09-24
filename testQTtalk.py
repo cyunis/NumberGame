@@ -1,34 +1,50 @@
 import sys
 import rospy
+from cordial_core import RobotManager
 from std_msgs.msg import String
+
+letters = ['A','B','C','D','E','F','G','H','I','J','K','L']
+
 rospy.init_node('QTexNode')
 #Talk1 = rospy.Publisher('/qt_robot/behavior/talkText', String, queue_size = 10)
 #Talk1.publish("Guess a number between 1 and 100!") #QT says this
 
+rm = RobotManager("DB1")
 
-wtime_begin = rospy.get_time()
-rospy.loginfo("ready...")
-speechSay_pub = rospy.Publisher('/qt_robot/speech/say', String, queue_size=10)
-speechSay_pub.publish("Hello! I am QT!")
+for i in range(4):
+    rm.say("intro"+str(i+1))
 
-# #introduction and explain rules
-# random_phrase = random.randrange(0,len(intro_dict))
-# #speechSay_pub.publish(intro_dict[random_phrase]) #QT says this
-# rospy.sleep(1) #allow QT to finish sentence
-# speechSay_pub.publish(encourage_dict[random_phrase]) #QT says this
-# rospy.sleep(1) #allow QT to finish sentence
+rm.say("startgame")
 
-# speechSay_pub.publish(intro_dict[random_phrase]) #QT says this
-# rospy.sleep(3) #allow QT to finish sentence
-# speechSay_pub.publish(encourage_dict[random_phrase]) #QT says this
-# rospy.sleep(3) #allow QT to finish sentence
+for i in range(3):
+    rm.say("endgame"+str(i+1))
 
-# speechSay_pub.publish(intro_dict[random_phrase]) #QT says this
-# rospy.sleep(10) #allow QT to finish sentence
-# speechSay_pub.publish(encourage_dict[random_phrase]) #QT says this
-# rospy.sleep(10) #allow QT to finish sentence
+for i in range(12):
+    rm.say("clarify"+letters[i])
 
+for i in range(12):
+    rm.say("encourage"+letters[i])
 
-print(speechSay_pub.get_num_connections())
-rospy.wait_for_service('/qt_robot/behavior/talkText')
-#rospy.spin()
+for i in range(12):
+    rm.say("encourageless"+letters[i])
+
+for i in range(12):
+    rm.say("rewardless"+letters[i])
+
+for i in range(12):
+    rm.say("reward"+letters[i])
+
+for i in range(8):
+    for j in range(3):
+        k = i*3 #which part of 50 set 
+        rm.say("guess"+letters[i]+str(j+k)) 
+
+for i in range(9):
+    for j in range(3):
+        k = i*3 #which part of 50 set 
+        rm.say("second"+letters[i]+str(j+k+20))
+
+rm.say("secondB47")
+rm.say("guessH48")
+rm.say("guessD49")
+rm.say("secondI50")

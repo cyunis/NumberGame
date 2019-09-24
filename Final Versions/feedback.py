@@ -6,30 +6,35 @@ class statementRandomizer:
     def __init__(self):
         self.supinateList = [999] #will hold the 10 most recent values for supination
         self.pronateList = [-999] #will hold the 10 most recent values for pronation
-        self.performedBehaviors = [[],[],[],[],[],[],[]]
+        self.performedBehaviors = [[],[],[],[],[],[],[],[]]
 
         self.guessStatements = {
-            1: "guessB",
-            2: "guessC",
-            3: "guessD",
-            4: "guessE",
-            5: "guessF",
-            6: "guessG",
-            7: "guessH",
-            8: "guessI"
+            1: "guessA",
+            2: "guessB",
+            3: "guessC",
+            4: "guessD",
+            5: "guessE",
+            6: "guessF",
+            7: "guessG",
+            8: "guessH"
         }
         
         self.higher_lower_statements = {
-            1: "secondB",
-            2: "secondC",
-            3: "secondD",
-            4: "secondE",
-            5: "secondF",
-            6: "secondG",
-            7: "secondH",
-            8: "secondI",
-            9: "secondJ",
+            1: "secondA",
+            2: "secondB",
+            3: "secondC",
+            4: "secondD",
+            5: "secondE",
+            6: "secondF",
+            7: "secondG",
+            8: "secondH",
+            9: "secondI",
+        }
 
+        self.win_statements = {
+            1: "endgame1",
+            2: "endgame2",
+            3: "endgame3"
         }
 
         self.bucket1 = {
@@ -43,7 +48,8 @@ class statementRandomizer:
             8: "clarifyH",
             9: "clarifyI",
             10: "clarifyJ",
-            11: "clarifyK"
+            11: "clarifyK",
+            12: "clarifyL"
         }
 
 
@@ -58,7 +64,8 @@ class statementRandomizer:
             8: "encourageH",
             9: "encourageI",
             10: "encourageJ",
-            11: "encourageK"
+            11: "encourageK",
+            12: "encourageL"
         }
 
         self.bucket3 = {
@@ -72,7 +79,8 @@ class statementRandomizer:
             8: "encouragelessH",
             9: "encouragelessI",
             10: "encouragelessJ",
-            11: "encouragelessK"
+            11: "encouragelessK",
+            12: "encouragelessL"
         }
 
         self.bucket4 = {
@@ -86,7 +94,8 @@ class statementRandomizer:
             8: "rewardlessH",
             9: "rewardlessI",
             10: "rewardlessJ",
-            11: "rewardlessK"
+            11: "rewardlessK",
+            12: "rewardlessL"
         }
 
         self.bucket5 = {
@@ -100,7 +109,8 @@ class statementRandomizer:
             8: "rewardH",
             9: "rewardI",
             10: "rewardJ",
-            11: "rewardK"
+            11: "rewardK",
+            12: "rewardL"
         }
 
     def chooseRandomStatement(self, statementType):
@@ -111,7 +121,8 @@ class statementRandomizer:
             3: self.bucket3,
             4: self.bucket4,
             5: self.bucket5,
-            6: self.higher_lower_statements
+            6: self.higher_lower_statements,
+            7: self.win_statements
         }
         #convert statement type to actual dictionary
         behaviorDict = mapping[statementType]
@@ -197,6 +208,94 @@ def determine_time_GAS_bucket(gesture_time):
             return index
     #if we get here, the thumb angle is higher than the highest GAS score
     return len(GAS_time_scores)
+
+# def gestures_programmed(number):
+#     if(number == 1):
+#         #listening, nod:4s
+#         head = Float64MultiArray()
+#         head.data = [0,-10]
+#         head_pub.publish(head)
+#         time.sleep(1)
+#         head.data = [0,10]
+#         head_pub.publish(head)
+#         time.sleep(1)
+#         head.data = [0,0]
+#         head_pub.publish(head)
+#         time.sleep(2)
+#     elif(number == 2):
+#         #encouragement, hug:6s
+#         left_arm = Float64MultiArray()
+#         right_arm = Float64MultiArray()
+#         left_arm.data = [-20, -10, -15]
+#         left_pub.publish(left_arm)
+#         right_arm.data = [20, -10, -15]
+#         right_pub.publish(right_arm)
+#         time.sleep(3)
+#         left_arm.data = [90, -60, -30]
+#         left_pub.publish(left_arm)
+#         right_arm.data = [-90, -60, -30]
+#         right_pub.publish(right_arm)
+#         time.sleep(3)
+#     elif(number == 3):
+#         #encouragement, hand clap:8.8s
+#         left_arm = Float64MultiArray()
+#         right_arm = Float64MultiArray()       
+#         left_arm.data = [10, -90, -30]
+#         left_pub.publish(left_arm)
+#         right_arm.data = [-10, -90, -30]
+#         right_pub.publish(right_arm)
+#         time.sleep(1.8)
+#         left_arm.data = [10, -90, -90]
+#         left_pub.publish(left_arm)
+#         right_arm.data = [-10, -90, -90]
+#         right_pub.publish(right_arm)
+#         time.sleep(1)
+#         left_arm.data = [10, -90, -30]
+#         left_pub.publish(left_arm)
+#         right_arm.data = [-10, -90, -30]
+#         right_pub.publish(right_arm)
+#         time.sleep(1)
+#         left_arm.data = [10, -90, -90]
+#         left_pub.publish(left_arm)
+#         right_arm.data = [-10, -90, -90]
+#         right_pub.publish(right_arm)
+#         time.sleep(1)
+#         left_arm.data = [10, -90, -30]
+#         left_pub.publish(left_arm)
+#         right_arm.data = [-10, -90, -30]
+#         right_pub.publish(right_arm)
+#         time.sleep(1)
+#         left_arm.data = [90, -60, -30]
+#         left_pub.publish(left_arm)
+#         right_arm.data = [-90, -60, -30]
+#         right_pub.publish(righ0t_arm)
+#         time.sleep(3)
+
+
+# def play_gesture(num):
+#     small_gestures = ["numbergame/small1","numbergame/small2","numbergame/small3","numbergame/together","numbergame/together1","numbergame/together2","numbergame/together3","numbergame/head2","numbergame/head3","numbergame/left1","numbergame/left2","numbergame/left3","numbergame/right2","numbergame/right3"]
+#     guessing_gestures = ["numbergame/thinking1","numbergame/thinking2","numbergame/thinking3"]
+#     talking_gestures = ["numbergame/talking1","numbergame/talking2","numbergame/talking3","numbergame/talking4","numbergame/talking5","numbergame/talking6","QT/challenge"]
+#     listening_gestures = ["QT/bored"] #or call gestures_programmed(1)
+#     encouragement_gestures = ["QT/surprise","QT/happy"] #or call gestures_programmed(2,3)
+
+#     start = time.time()
+#     previous = []
+#     b = small_gestures #pick the gesture set you want to play from
+#     while i <= num:
+#         a = random.randint(1, 1+b)
+#         if i>1 and a == previous[i-2] and a != (1+b):
+#             previous.append(a+1)
+#             a+=1 #increment the value so it doesn't repeat
+#         else:
+#             previous.append(a)
+#         return b[a]
+#         #use the publisher for gestures to call the gesture to be played: gesture_pub(b[a])
+#         #self.gesturePlay_pub = rospy.Publisher('/qt_robot/gesture/play', String, queue_size=10)
+#         if time.time() > start + num:
+#             break
+#         i = i + 1
+#     print("Just did "+str(num)+str(b))
 
 #
 # sr = statementRandomizer()
