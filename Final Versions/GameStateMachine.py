@@ -113,7 +113,7 @@ class NumberGameInteraction:
 
 
     def reset_ready_to_move_on(self):
-        self.play_gesture(8)
+        self.play_gesture(8) #do small gestures at each transition ~= all the time
         #called after every transition is completed
         self.ready_to_move_on = False
 
@@ -151,6 +151,8 @@ class NumberGameInteraction:
         self.start_recording = True
         rospy.sleep(duration)
         values = copy.copy(self.gesture_values)
+        
+        self.play_gesture(11) #do gestures while waiting for answer
         
         print(values)
 
@@ -202,6 +204,7 @@ class NumberGameInteraction:
     def on_enter_practice_thumb_up(self):
         self.check_state_machine_status()
         #ask to demonstrate a thumbs up
+        self.play_gesture(10)
         self.robotManager.say('intro2', wait=True)
         print('practice thumb up')
         self.get_thumb_data(self.thumb_time)
@@ -211,6 +214,7 @@ class NumberGameInteraction:
 
     def practice_doesnt_go_up(self):
         #ask to try thumbs up again
+        self.play_gesture(8) #small gestures for clarify
         self.robotManager.say(self.statementRandomizer.chooseRandomStatement(1,self.average_thumb_value), wait=True)  #should have a condition to check for yes/no with different feedback sentences
         print('try to put your thumb up again')
 
@@ -218,6 +222,7 @@ class NumberGameInteraction:
     def on_enter_practice_thumb_down(self):
         self.check_state_machine_status()
         #ask for a thumbs down
+        self.play_gesture(10)
         self.robotManager.say('intro3', wait=True)
         print('practicing thumb down')
         self.get_thumb_data(self.thumb_time)
@@ -226,12 +231,14 @@ class NumberGameInteraction:
 
     def practice_doesnt_go_down(self):
         #ask to try to put a thumbs down again
+        self.play_gesture(8) #small gestures for clarify
         self.robotManager.say(self.statementRandomizer.chooseRandomStatement(1,self.average_thumb_value), wait=True) #should have a condition to check for yes/no with different feedback sentences
         print('try to put your thumb down again')
 
 
     def on_enter_input_number(self):
         #secretly input the number
+        self.play_gesture(10)
         self.robotManager.say('startgame', wait=True)
         self.check_state_machine_status()
         self.number = input('what is the number being guessed?')
@@ -250,6 +257,7 @@ class NumberGameInteraction:
         self.check_state_machine_status()
 
         #ask if the guessed number is correct
+        self.play_gesture(9)
         statement_key = self.statementRandomizer.chooseRandomStatement(0)
         self.robotManager.say(statement_key+ '{}'.format(self.guesses[-1]), wait=True)
         modifier = 1 if statement_key[-1] in ['A', 'B', 'C', 'D'] else -1
@@ -261,6 +269,7 @@ class NumberGameInteraction:
 
     def incorrect_guess_response(self):
         #try asking again
+        self.play_gesture(8) #small gestures for clarify
         self.robotManager.say(self.statementRandomizer.chooseRandomStatement(1, self.average_thumb_value), wait=True)  #should have a condition to check for yes/no with different feedback sentences
         print('actually, let me ask in a different way...')
 
@@ -268,6 +277,7 @@ class NumberGameInteraction:
     def on_enter_higher_or_lower(self):
         self.check_state_machine_status()
         #ask if number is higher than the guess
+        self.play_gesture(9)
         statement_key = self.statementRandomizer.chooseRandomStatement(6)
         self.robotManager.say( statement_key + '{}'.format(self.guesses[-1]), wait=True)
 
@@ -285,6 +295,7 @@ class NumberGameInteraction:
 
     def incorrect_higher_lower(self):
         #try asking again
+        self.play_gesture(10)
         self.robotManager.say(self.statementRandomizer.chooseRandomStatement(1,self.average_thumb_value), wait=True)  #should have a condition to check for yes/no with different feedback sentences
         print('hmmmm are you sure?')
 
@@ -292,6 +303,7 @@ class NumberGameInteraction:
     def give_feedback(self):
         if(self.use_robot):
             #say a random feedback statement
+            self.play_gesture(12) #should be different gestures for different levels of feedback - or different faces on cordial?
             self.robotManager.say(self.statementRandomizer.getResponseBehavior(self.average_thumb_value, self.gesture_time), wait=True)
 
 
@@ -299,6 +311,7 @@ class NumberGameInteraction:
         self.check_state_machine_status()
 
         #say that QT won
+        self.play_gesture(12)
         self.robotManager.say(self.statementRandomizer.chooseRandomStatement(7), wait=True)
 
         print(self.statementRandomizer.performedBehaviors)
@@ -313,6 +326,7 @@ class NumberGameInteraction:
 
 
     def on_enter_end(self):
+        #add the gesture for bye bye
         self.robotManager.say('statement14')
         print('thanks for playing!')
         print('stats: games played: {}\ntime played: {}'.format(self.number_of_completed_games, time.time()-self.start_time))
