@@ -2,6 +2,7 @@ import transitions
 import time
 from transitions.extensions import GraphMachine as Machine
 from feedback import statementRandomizer
+from logger import Logger
 import random
 import pygraphviz
 import sys
@@ -210,7 +211,7 @@ class NumberGameInteraction:
 
     def practice_doesnt_go_up(self):
         #ask to try thumbs up again
-        self.robotManager.say(self.statementRandomizer.chooseRandomStatement(1), wait=True)  #should have a condition to check for yes/no with different feedback sentences
+        self.robotManager.say(self.statementRandomizer.chooseRandomStatement(1,self.average_thumb_value), wait=True)  #should have a condition to check for yes/no with different feedback sentences
         print('try to put your thumb up again')
 
 
@@ -225,7 +226,7 @@ class NumberGameInteraction:
 
     def practice_doesnt_go_down(self):
         #ask to try to put a thumbs down again
-        self.robotManager.say(self.statementRandomizer.chooseRandomStatement(1), wait=True) #should have a condition to check for yes/no with different feedback sentences
+        self.robotManager.say(self.statementRandomizer.chooseRandomStatement(1,self.average_thumb_value), wait=True) #should have a condition to check for yes/no with different feedback sentences
         print('try to put your thumb down again')
 
 
@@ -260,7 +261,7 @@ class NumberGameInteraction:
 
     def incorrect_guess_response(self):
         #try asking again
-        self.robotManager.say(self.statementRandomizer.chooseRandomStatement(1), wait=True)  #should have a condition to check for yes/no with different feedback sentences
+        self.robotManager.say(self.statementRandomizer.chooseRandomStatement(1, self.average_thumb_value), wait=True)  #should have a condition to check for yes/no with different feedback sentences
         print('actually, let me ask in a different way...')
 
 
@@ -284,7 +285,7 @@ class NumberGameInteraction:
 
     def incorrect_higher_lower(self):
         #try asking again
-        self.robotManager.say(self.statementRandomizer.chooseRandomStatement(1), wait=True)  #should have a condition to check for yes/no with different feedback sentences
+        self.robotManager.say(self.statementRandomizer.chooseRandomStatement(1,self.average_thumb_value), wait=True)  #should have a condition to check for yes/no with different feedback sentences
         print('hmmmm are you sure?')
 
 

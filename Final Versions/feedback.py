@@ -156,7 +156,7 @@ class statementRandomizer:
             # 4: "gestures_programmed(3)"
          } #or call gestures_programmed(2,3)
 
-    def chooseRandomStatement(self, statementType):
+    def chooseRandomStatement(self, statementType, angle=0):
         mapping = {
             0: self.guessStatements,
             1: self.bucket1,
@@ -185,7 +185,9 @@ class statementRandomizer:
         #determine the number of the behavior to play, and
         #choose a new behavior if the desired number has already been played
         behaviorNumber = random.randint(1,upperBound)
-        while(behaviorNumber in self.performedBehaviors[statementType]):
+        while(behaviorNumber in self.performedBehaviors[statementType] || 
+        (behaviorDict[behaviorNumber] == "clarifyI" && angle < 0) ||
+        (behaviorDict[behaviorNumber] == "clarifyJ" && angle > 0)):
             behaviorNumber = random.randint(1,upperBound)
 
         #once the number is found, return the key value for the CoRDial statement

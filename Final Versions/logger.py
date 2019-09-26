@@ -1,4 +1,6 @@
 import time
+import os
+import csv
 from feedback import statementRandomizer
 from std_msgs.msg import String
 from qt_robot_interface.srv import *
@@ -11,20 +13,47 @@ import rospy
 from cordial_core import RobotManager
 
 class Logger:
-    def __init__(self, ):
+    def __init__(self, ID):
 
         rospy.init_node('logger_node')
 
-        self.gesture_sub = rospy.Subscriber('/qt_robot/gesture/play', String, self.callback)
-        self.audio_play_sub = rospy.Subscriber('/qt_robot/audio/play', String, self.callback2)
+        path = '~/Documents'
+        try:
+            os.mkdir(path + '/' + ID)
+        except Error as e:
+            print(e)
 
-    def callback(self, msg):
+        self.game_data_file = csv.writer(open(ID + '/game_data.csv', 'w'))
+        self.game_data_file.writerow(['start time', 'time', 'current state', 'next state', 'ready_to_move_on', 'game aborted?', 'orthosis malfunction?'])
+
+        self.game_metadata_file = csv.writer(open(ID + '/game_metadata.csv', 'w'))
+        self.game_metadata_file.writerow(['start time', 'time', 'total supinations', 'total pronations', 'length', 'bucket angle definitions', 'bucket time definitions'])
+
+        self.thumb_data_file = csv.writer(open(ID + '/thumb_data.csv', 'w'))
+        self.thumb_data_file.writerow(['start time', 'time', 'thumb data', 'GAS bucket for angle', 'GAS bucket for time'])
+
+        self.robot_data_file = csv.writer(open(ID + '/robot_data.csv', 'w'))
+        self.robot_data_file.writerow(['start time', 'time', 'history of angle performance', 'history of time performance', 'gesture key', 'statement key'])
+
+        self.gamedata_sub = rospy.Subscriber('/logging/gamedata', String, self.log_game_data)
+        self.gamemetadata_sub = rospy.Subscriber('/logging/gamemetadata', String, self.log_game_metadata)
+        self.thumbdata_sub = rospy.Subscriber('/logging/thumbdata', String, self.log_thumb_data)
+        self.robotdata_sub = rospy.Subscriber('/logging/robotdata', String, self.log_robot_data)
+
+    def log_game_data(self, msg):
         print('time: {}, command: {}'.format(datetime.utcnow(), msg.data))
 
-    def callback2(self, msg):
+    def log_game_metadata(self, msg):
+        print('time: {}, command: {}'.format(datetime.utcnow(), msg.data))
+
+    def log_game_metadata(self, msg):
+        print('time: {}, command: {}'.format(datetime.utcnow(), msg.data))
+
+    def log_game_metadata(self, msg):
         print('time: {}, command: {}'.format(datetime.utcnow(), msg.data))
 
 logger = Logger()
+
 while(1):
     pass
 # rospy.spin()
