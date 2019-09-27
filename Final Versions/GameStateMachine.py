@@ -2,7 +2,7 @@ import transitions
 import time
 from transitions.extensions import GraphMachine as Machine
 from feedback import statementRandomizer
-from logger import Logger
+#from logger import Logger
 import random
 import pygraphviz
 import sys
@@ -59,6 +59,11 @@ class NumberGameInteraction:
         self.GAS5 = 50
         self.thumb_time = 5 #seconds
 
+        self.orthosis_mistake = 0
+        self.yescounter = 0
+        self.nocounter = 0
+        self.wrongcounter = 0
+
         #data to make game run smoothly
         self.statementRandomizer = statementRandomizer()
         self.robotManager = RobotManager('DB1')
@@ -88,14 +93,52 @@ class NumberGameInteraction:
         
         if(self.isLeftHanded == True):
             thumb_angle = -(thumb_angle - 180)
-
+#read the button values to see if the green button is pressed -> orthosis_mistake += 1
         self.gesture_values.append({'time': time.time() - self.recording_start_time, 'angle': thumb_angle})
 
 
     def process_beaglebone_data(self, msg):
-        print('Received on beaglebone: ' + str(msg.data))
+        i = 1
+        syncpin = 0
+        time_sync = 0
+        button_value = 0
+        startgame = False
+        o_error = 0
+        while(i<30):
+            data = rospy.wait_for_message("/openwearable_new",String)
 
-        if(str(msg.data) == 'abort'):
+            strdata = str(data)
+            # hacky split
+            val = strdata.split(':')
+            val = val[1].split('\\t')
+            temp = val[0].split('"')
+            
+            time_bb = int(temp[1])
+            sync = int(val[1])
+            button = int(val[2])
+
+            if button == -1: #abort
+                button_value = -1
+                break
+            if sync == 0 and button == 0: #keep recording
+                i += 1
+            if sync == 1: #start the game
+                startgame = True
+                break
+            if button == 1: #orthosis error
+                o_error = 1
+                break
+            if i == 30: #stop recording, start signal not received
+                print("Sync pin did nothing for 30 signals")
+                syncpin = 0
+                break
+            else: #??
+                print("I don't know how I ended up here")
+                break
+        # print('Received on beaglebone: ' + str(msg.data))
+
+#the code below should be a separate function for aborting
+        if(button_value == -1):
             self.robotManager.stop_speech()
             self.is_aborted = True
             self.abort()
@@ -189,6 +232,7 @@ class NumberGameInteraction:
 
     #logic for each state transition
     def get_name(self):
+        self.play_gesture(10)
         self.robotManager.say('intro1', wait=True)
         self.name = raw_input('what is their name?')
         if(self.name == 'abort'):

@@ -185,9 +185,9 @@ class statementRandomizer:
         #determine the number of the behavior to play, and
         #choose a new behavior if the desired number has already been played
         behaviorNumber = random.randint(1,upperBound)
-        while(behaviorNumber in self.performedBehaviors[statementType] || 
-        (behaviorDict[behaviorNumber] == "clarifyI" && angle < 0) ||
-        (behaviorDict[behaviorNumber] == "clarifyJ" && angle > 0)):
+        while(behaviorNumber in self.performedBehaviors[statementType] or 
+        (behaviorDict[behaviorNumber] == "clarifyI" and angle < 0) or
+        (behaviorDict[behaviorNumber] == "clarifyJ" and angle > 0)):
             behaviorNumber = random.randint(1,upperBound)
 
         #once the number is found, return the key value for the CoRDial statement
