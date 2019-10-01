@@ -48,6 +48,8 @@ Next we need to send the audio files to the head computer. Connect to QT's wifi,
 ```
 Now the speech files are available for playback in the game.
 
+https://docs.aws.amazon.com/polly/latest/dg/supportedtags.html
+
 ## Instructions
 
 ## Playing the Game
