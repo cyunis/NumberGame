@@ -12,6 +12,10 @@ from std_msgs.msg import Float64MultiArray
 from thumb.msg import Res
 from heapq import nlargest
 #from logger import Logger
+import numpy as np 
+# curve-fit() function imported from scipy 
+from scipy.optimize import curve_fit 
+from matplotlib import pyplot as plt 
 
 angles = []
 status = []
@@ -40,6 +44,7 @@ def sync_beaglebone():
             print("Sync pin did nothing for 30 signals")
             return [0,time_bb] #if 30 signals were sent without syncing, break
 
+
 def angle_measures():
     start = time.time()
     global angles
@@ -66,6 +71,22 @@ def angle_measures():
     
     print("Finishing 5 second recording at "+str(time.time()))
 
+    #create x vector for curve fitting
+    x_a = np.linspace(0,len(angles), len(angles))
+    z = np.polyfit(x_a,angles,5)
+    f = np.poly1d(z)
+    # za = np.polyfit(x_a,angles,4)
+    # zb = np.polyfit(x_a,angles,5)
+    #plot angle data
+    plt.plot(x_a,angles, 'o', color = 'red')
+    plt.plot(x_a,f(x_a),'--',color = 'blue')
+    # plt.plot(x_a,za,'--',color = 'red')
+    # plt.plot(x_a,zb,'--',color = 'green')
+
+    plt.show()
+
+    
+
     #calculating velocity and jerk
     for a in range(len(angles)-1):
         v = (angles[a+1]-angles[a])*timestep*rrad #m/sec
@@ -79,6 +100,7 @@ def angle_measures():
 
     # return sum(angles)/len(angles)
     return([max(angles), max(velocities), max(jerk)])
+
 
 def time_measures():
     global angles

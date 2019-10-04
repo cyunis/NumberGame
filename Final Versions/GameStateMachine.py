@@ -1,5 +1,6 @@
 import transitions
 import time
+import re
 from transitions.extensions import GraphMachine as Machine
 from feedback import statementRandomizer
 #from logger import Logger
@@ -36,12 +37,18 @@ class NumberGameInteraction:
 
         self.gesture_pub = rospy.Publisher('/qt_robot/gesture/play', String, queue_size=10)
         
+        self.gamedata_pub = rospy.Publisher('/logging/gamedata', String, queue_size=5)
+        self.gamemetadata_pub = rospy.Publisher('/logging/gamemetadata', String, queue_size=5)
+        self.thumbdata_pub = rospy.Publisher('/logging/thumbdata', String, queue_size=5)
+        self.robotdata_pub = rospy.Publisher('/logging/robotdata', String, queue_size=5)
+        
         #subscribers
         self.thumb_sub = rospy.Subscriber("/thumb_result", String, self.process_thumb_data)
         self.beaglebone_sub = rospy.Subscriber("/openwearable_new", String, self.process_beaglebone_data)
 
         #data to measure
         self.start_time = time.time()
+        self.bb_time = -1
         self.number_of_completed_games = 0
         self.number_of_supinations = 0 #yes
         self.number_of_pronations = 0 #no
@@ -58,7 +65,8 @@ class NumberGameInteraction:
         self.GAS4 = 40
         self.GAS5 = 50
         self.thumb_time = 5 #seconds
-
+        
+        self.incorrect_orthosis_behavior = False
         self.orthosis_mistake = 0
         self.yescounter = 0
         self.nocounter = 0
@@ -67,21 +75,25 @@ class NumberGameInteraction:
         #data to make game run smoothly
         self.statementRandomizer = statementRandomizer()
         self.robotManager = RobotManager('DB1')
-
+        
         self.use_robot = use_qt_robot
+        self.ready_to_begin = False
         self.guess_lower_bound = 1
         self.guess_upper_bound = 50
         self.guesses = []
         self.number = 0
         self.ready_to_move_on = True
         self.is_aborted = False
+        self.prev_state = None
         
 
     #callback functions
     def process_thumb_data(self, msg):
-        
+    
         if(self.start_recording == True):
             #save the previous recording
+            data = '{}\t{}\t{}\t{}\t{}'.format(self.recording_start_time, time.time(), self.bb_time, self.gesture_values,'resting values')
+            self.thumbdata_pub.publish(data)
             self.gesture_values = []
             self.start_recording = False
             self.recording_start_time = time.time()
@@ -93,55 +105,36 @@ class NumberGameInteraction:
         
         if(self.isLeftHanded == True):
             thumb_angle = -(thumb_angle - 180)
-#read the button values to see if the green button is pressed -> orthosis_mistake += 1
+        #read the button values to see if the green button is pressed -> orthosis_mistake += 1
         self.gesture_values.append({'time': time.time() - self.recording_start_time, 'angle': thumb_angle})
 
 
-    def process_beaglebone_data(self, msg):
-        i = 1
-        syncpin = 0
-        time_sync = 0
-        button_value = 0
-        startgame = False
-        o_error = 0
-        while(i<30):
-            data = rospy.wait_for_message("/openwearable_new",String)
+    def process_beaglebone_data(self, msg): 
+        
+        strdata = str(msg.data)
+        vals = re.split(r'\t+', strdata)
+        # split data into useful parts
+        #val = strdata.split('\\t')
+        #val = val[0].split('\\t')
+        #temp = val[0].split('\\t')
+        
+        time_bb = int(vals[0])
+        sync = int(vals[1])
+        button_value = int(vals[2])
 
-            strdata = str(data)
-            # hacky split
-            val = strdata.split(':')
-            val = val[1].split('\\t')
-            temp = val[0].split('"')
-            
-            time_bb = int(temp[1])
-            sync = int(val[1])
-            button = int(val[2])
-
-            if button == -1: #abort
-                button_value = -1
-                break
-            if sync == 0 and button == 0: #keep recording
-                i += 1
-            if sync == 1: #start the game
-                startgame = True
-                break
-            if button == 1: #orthosis error
-                o_error = 1
-                break
-            if i == 30: #stop recording, start signal not received
-                print("Sync pin did nothing for 30 signals")
-                syncpin = 0
-                break
-            else: #??
-                print("I don't know how I ended up here")
-                break
-        # print('Received on beaglebone: ' + str(msg.data))
-
-#the code below should be a separate function for aborting
+        #the code below should be a separate function for aborting
         if(button_value == -1):
             self.robotManager.stop_speech()
             self.is_aborted = True
             self.abort()
+            
+        if(button_value == 1):
+            self.incorrect_orthosis_behavior = True
+            
+        if(sync == 1):
+            self.ready_to_begin = True
+            
+        self.bb_time = time_bb
 
 
     #helper functions to make sure that transitions are executed correctly
@@ -158,7 +151,10 @@ class NumberGameInteraction:
     def reset_ready_to_move_on(self):
         self.play_gesture(8) #do small gestures at each transition ~= all the time
         #called after every transition is completed
+        
         self.ready_to_move_on = False
+        self.prev_state = self.state
+        
 
 
     def guess_equals_number(self):
@@ -195,6 +191,12 @@ class NumberGameInteraction:
         rospy.sleep(duration)
         values = copy.copy(self.gesture_values)
         
+        data = '{}\t{}\t{}\t{}\t{}'.format(self.recording_start_time, time.time(), self.bb_time, self.gesture_values,'measured trial')
+        self.thumbdata_pub.publish(data)
+        self.gesture_values = []
+        self.start_recording = False
+        self.recording_start_time = time.time()
+        
         self.play_gesture(11) #do gestures while waiting for answer
         
         print(values)
@@ -206,25 +208,25 @@ class NumberGameInteraction:
 
         #check to see if the gesture passes the threshold for normal GAS score
         for value in values:
-            if value['angle'] > self.GAS3:
+            if value['angle'] > self.GAS1:
                 supinate_angle_sum += value['angle']
                 num_above_thresh += 1
-            elif value['angle'] < -self.GAS3:
+            elif value['angle'] < -self.GAS1:
                 pronate_angle_sum += value['angle']
                 num_below_thresh += 1
 
         if(num_below_thresh == 0 and num_above_thresh == 0):
             angle = 0
-            time = 1
+            timeontask = 1
         elif( num_below_thresh < num_above_thresh):
             angle = supinate_angle_sum / num_above_thresh
-            time = (num_above_thresh * duration) / len(values)
+            timeontask = (num_above_thresh * duration) / len(values)
         else:
             angle = pronate_angle_sum / num_below_thresh
-            time = (num_below_thresh * duration) / len(values)
+            timeontask = (num_below_thresh * duration) / len(values)
 
         self.average_thumb_value = angle
-        self.gesture_time = time
+        self.gesture_time = timeontask
 
         print('angle: {}, time: {}'.format(self.average_thumb_value, self.gesture_time))
 
@@ -235,13 +237,11 @@ class NumberGameInteraction:
         self.play_gesture(10)
         self.robotManager.say('intro1', wait=True)
         self.name = raw_input('what is their name?')
-        if(self.name == 'abort'):
-            self.abort()
 
 
     def give_instruction(self):
         #give instruction to the game
-        
+        self.robotManager.say('intro2', wait=True)
         print('you will play a simple thumbs up/down game with me!')
 
 
@@ -249,7 +249,7 @@ class NumberGameInteraction:
         self.check_state_machine_status()
         #ask to demonstrate a thumbs up
         self.play_gesture(10)
-        self.robotManager.say('intro2', wait=True)
+        self.robotManager.say('intro3', wait=True)
         print('practice thumb up')
         self.get_thumb_data(self.thumb_time)
         print(self.average_thumb_value, self.gesture_time)
@@ -267,7 +267,7 @@ class NumberGameInteraction:
         self.check_state_machine_status()
         #ask for a thumbs down
         self.play_gesture(10)
-        self.robotManager.say('intro3', wait=True)
+        self.robotManager.say('intro4', wait=True)
         print('practicing thumb down')
         self.get_thumb_data(self.thumb_time)
         self.ready_to_move_on = self.average_thumb_value < 0
@@ -281,7 +281,7 @@ class NumberGameInteraction:
 
 
     def on_enter_input_number(self):
-        #secretly input the number
+        #"secretly" input the number
         self.play_gesture(10)
         self.robotManager.say('startgame', wait=True)
         self.check_state_machine_status()
@@ -361,20 +361,33 @@ class NumberGameInteraction:
         print(self.statementRandomizer.performedBehaviors)
         self.get_thumb_data(self.thumb_time)
         # res = input('woohoo I won, want to play again?')
+        
+        data = "{},{},{},{},{},{},{}".format(self.start_time, time.time(), self.bb_time, self.yescounter, self.nocounter, self.wrongcounter, self.orthosis_mistake)
+        self.gamemetadata_pub.publish(data)
 
         self.number_of_completed_games += 1
         self.guesses = []
         self.guess_lower_bound = 1
         self.guess_upper_bound = 50
+        self.start_time = time.time()
         self.ready_to_move_on = self.average_thumb_value < 0
 
 
     def on_enter_end(self):
         #add the gesture for bye bye
-        self.robotManager.say('statement14')
+        
+        self.robotManager.say('endgame')
         print('thanks for playing!')
         print('stats: games played: {}\ntime played: {}'.format(self.number_of_completed_games, time.time()-self.start_time))
         sys.exit()
+        
+    def log_game_data(self):
+        data = "{},{},{},{},{}".format(time.time(), self.bb_time, self.state, self.prev_state, self.incorrect_orthosis_behavior)
+        self.gamedata_pub.publish(data) 
+        
+        if(self.incorrect_orthosis_behavior):
+            self.orthosis_mistake += 1
+            self.incorrect_orthosis_behavior = False
 
 
     def gestures_programmed(self, number):
@@ -467,8 +480,12 @@ transitions = [
             ]
 
 game = NumberGameInteraction(True)
-machine = Machine(model=game, states=states, transitions=transitions, initial='get_name', before_state_change='reset_ready_to_move_on', show_state_attributes=True, show_conditions=True)
+machine = Machine(model=game, states=states, transitions=transitions, initial='get_name', before_state_change='reset_ready_to_move_on', after_state_change='log_game_data', show_state_attributes=True, show_conditions=True)
 game.get_graph().draw('TommyThumbDiagram.png', prog='dot')
+
+while(not game.ready_to_begin):
+    print(game.ready_to_begin)
+    rospy.sleep(0.1)
 
 while(1):
     print(game.state)

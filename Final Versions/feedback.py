@@ -32,9 +32,9 @@ class statementRandomizer:
         }
 
         self.win_statements = {
-            1: "endgame1",
-            2: "endgame2",
-            3: "endgame3"
+            1: "another1",
+            2: "another2",
+            3: "another3"
         }
 
         self.bucket1 = {
