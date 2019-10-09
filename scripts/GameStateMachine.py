@@ -52,6 +52,9 @@ class NumberGameInteraction:
         self.number_of_completed_games = 0
         self.number_of_supinations = 0 #yes
         self.number_of_pronations = 0 #no
+        self.incorrect_orthosis_behavior = False
+        self.wrong_counter = 0
+        self.orthosis_mistake = 0
         self.isLeftHanded = False
 
         self.recording_start_time = self.start_time
@@ -59,19 +62,11 @@ class NumberGameInteraction:
 
         self.average_thumb_value = 0
         self.gesture_time = 0
-        self.GAS1 = 10 #degrees
-        self.GAS2 = 20
-        self.GAS3 = 30
-        self.GAS4 = 40
-        self.GAS5 = 50
+        self.GAS1 = 54.3 #degrees
+        #need to add pronation angle variable
+        self.GAStot1 = 4.2 #seconds
         self.thumb_time = 5 #seconds
         
-        self.incorrect_orthosis_behavior = False
-        self.orthosis_mistake = 0
-        self.yescounter = 0
-        self.nocounter = 0
-        self.wrongcounter = 0
-
         #data to make game run smoothly
         self.statementRandomizer = statementRandomizer()
         self.robotManager = RobotManager('DB1')
@@ -92,7 +87,7 @@ class NumberGameInteraction:
     
         if(self.start_recording == True):
             #save the previous recording
-            data = '{}\t{}\t{}\t{}\t{}'.format(self.recording_start_time, time.time(), self.bb_time, self.gesture_values,'resting values')
+            data = '{}\t{}\t{}\t{}\t{}\t{}'.format(self.start_time, self.recording_start_time, time.time(), self.bb_time, self.gesture_values,'resting values')
             self.thumbdata_pub.publish(data)
             self.gesture_values = []
             self.start_recording = False
@@ -160,9 +155,12 @@ class NumberGameInteraction:
     def guess_equals_number(self):
         return self.guesses[-1] == self.number
 
-    def play_gesture(self, gesture_index):
+    def play_gesture(self, gesture_index, params='None'):
         if(self.use_robot):
             gesture_name = self.statementRandomizer.chooseRandomStatement(gesture_index)
+            gesture_data='{}\t{}\t{}\t{}\t{}\t{}'.format(self.start_time, time.time(), self.bb_time, 'gesture', gesture_name, params)
+            self.robotdata_pub.publish(gesture_data)
+            
             print('playing gesture: {}'.format(gesture_name))
             if(gesture_name.startswith('gestures_programmed')):
                 self.gestures_programmed(int(gesture_name.split('(')[1].split(')')[0]))
@@ -172,8 +170,17 @@ class NumberGameInteraction:
 
     def give_feedback(self):
         if(self.use_robot):
+            tag = self.statementRandomizer.getResponseBehavior(self.average_thumb_value, self.gesture_time)
+            performance_parameters = {'supinate_history': self.statementRandomizer.supinateList, 'pronate_history': self.statementRandomizer.pronateList, 'angle_value':self.average_thumb_value, 'time_value':self.gesture_time }
+            print(tag)
             self.play_gesture(12)
-            self.robotManager.say(self.statementRandomizer.getResponseBehavior(self.average_thumb_value, self.gesture_time), wait=True)
+            self.cordial_say(tag, wait=True, params=performance_parameters)
+
+    def cordial_say(self, tag, wait=False, params='None'):
+        speech_data='{}\t{}\t{}\t{}\t{}\t{}'.format(self.start_time, time.time(), self.bb_time, 'speech', tag, params)
+        self.robotdata_pub.publish(speech_data)
+
+        self.robotManager.say(tag, wait=wait)
 
 
     def get_guess_statement(self):
@@ -191,7 +198,7 @@ class NumberGameInteraction:
         rospy.sleep(duration)
         values = copy.copy(self.gesture_values)
         
-        data = '{}\t{}\t{}\t{}\t{}'.format(self.recording_start_time, time.time(), self.bb_time, self.gesture_values,'measured trial')
+        data = '{}\t{}\t{}\t{}\t{}\t{}'.format(self.start_time, self.recording_start_time, time.time(), self.bb_time, self.gesture_values,'measured trial')
         self.thumbdata_pub.publish(data)
         self.gesture_values = []
         self.start_recording = False
@@ -228,20 +235,28 @@ class NumberGameInteraction:
         self.average_thumb_value = angle
         self.gesture_time = timeontask
 
+        if(self.average_thumb_value > self.GAS1 and self.incorrect_orthosis_behavior == False):
+            self.number_of_supinations += 1
+        if(self.average_thumb_value < -self.GAS1 and self.incorrect_orthosis_behavior == False):
+            self.number_of_pronations += 1
+
         print('angle: {}, time: {}'.format(self.average_thumb_value, self.gesture_time))
 
-
+    def more_instruction(self):
+        print('giving more instructions')
+        self.play_gesture(10)
+        self.cordial_say('intro5', wait=True)
 
     #logic for each state transition
     def get_name(self):
         self.play_gesture(10)
-        self.robotManager.say('intro1', wait=True)
-        self.name = raw_input('what is their name?')
+        self.cordial_say('intro1', wait=True)
+        self.name = raw_input('What is their name?')
 
 
     def give_instruction(self):
         #give instruction to the game
-        self.robotManager.say('intro2', wait=True)
+        self.cordial_say('intro2', wait=True)
         print('you will play a simple thumbs up/down game with me!')
 
 
@@ -249,7 +264,7 @@ class NumberGameInteraction:
         self.check_state_machine_status()
         #ask to demonstrate a thumbs up
         self.play_gesture(10)
-        self.robotManager.say('intro3', wait=True)
+        self.cordial_say('intro3', wait=True)
         print('practice thumb up')
         self.get_thumb_data(self.thumb_time)
         print(self.average_thumb_value, self.gesture_time)
@@ -259,7 +274,8 @@ class NumberGameInteraction:
     def practice_doesnt_go_up(self):
         #ask to try thumbs up again
         self.play_gesture(8) #small gestures for clarify
-        self.robotManager.say(self.statementRandomizer.chooseRandomStatement(1,self.average_thumb_value), wait=True)  #should have a condition to check for yes/no with different feedback sentences
+        self.cordial_say(self.statementRandomizer.chooseRandomStatement(1,self.average_thumb_value), wait=True)  #should have a condition to check for yes/no with different feedback sentences
+        self.wrong_counter += 1
         print('try to put your thumb up again')
 
 
@@ -267,7 +283,7 @@ class NumberGameInteraction:
         self.check_state_machine_status()
         #ask for a thumbs down
         self.play_gesture(10)
-        self.robotManager.say('intro4', wait=True)
+        self.cordial_say('intro4', wait=True)
         print('practicing thumb down')
         self.get_thumb_data(self.thumb_time)
         self.ready_to_move_on = self.average_thumb_value < 0
@@ -276,16 +292,18 @@ class NumberGameInteraction:
     def practice_doesnt_go_down(self):
         #ask to try to put a thumbs down again
         self.play_gesture(8) #small gestures for clarify
-        self.robotManager.say(self.statementRandomizer.chooseRandomStatement(1,self.average_thumb_value), wait=True) #should have a condition to check for yes/no with different feedback sentences
+        self.cordial_say(self.statementRandomizer.chooseRandomStatement(1,self.average_thumb_value), wait=True) #should have a condition to check for yes/no with different feedback sentences
+        self.wrong_counter += 1
         print('try to put your thumb down again')
 
 
     def on_enter_input_number(self):
         #"secretly" input the number
         self.play_gesture(10)
-        self.robotManager.say('startgame', wait=True)
+        
+        self.cordial_say('startgame', wait=True)
         self.check_state_machine_status()
-        self.number = input('what is the number being guessed?')
+        self.number = input('What is the number being guessed?')
 
 
     def calculate_guess(self):
@@ -303,7 +321,7 @@ class NumberGameInteraction:
         #ask if the guessed number is correct
         self.play_gesture(9)
         statement_key = self.statementRandomizer.chooseRandomStatement(0)
-        self.robotManager.say(statement_key+ '{}'.format(self.guesses[-1]), wait=True)
+        self.cordial_say(statement_key+ '{}'.format(self.guesses[-1]), wait=True)
         modifier = 1 if statement_key[-1] in ['A', 'B', 'C', 'D'] else -1
         #get the angle measurements from the camera
         self.get_thumb_data(self.thumb_time)
@@ -314,7 +332,8 @@ class NumberGameInteraction:
     def incorrect_guess_response(self):
         #try asking again
         self.play_gesture(8) #small gestures for clarify
-        self.robotManager.say(self.statementRandomizer.chooseRandomStatement(1, self.average_thumb_value), wait=True)  #should have a condition to check for yes/no with different feedback sentences
+        self.cordial_say(self.statementRandomizer.chooseRandomStatement(1, self.average_thumb_value), wait=True)  #should have a condition to check for yes/no with different feedback sentences
+        self.wrong_counter += 1
         print('actually, let me ask in a different way...')
 
 
@@ -323,7 +342,7 @@ class NumberGameInteraction:
         #ask if number is higher than the guess
         self.play_gesture(9)
         statement_key = self.statementRandomizer.chooseRandomStatement(6)
-        self.robotManager.say( statement_key + '{}'.format(self.guesses[-1]), wait=True)
+        self.cordial_say( statement_key + '{}'.format(self.guesses[-1]), wait=True)
 
         print('guess is {}, actual is {}'.format(self.guesses[-1], self.number))
         #get angle measures from the camera
@@ -340,15 +359,16 @@ class NumberGameInteraction:
     def incorrect_higher_lower(self):
         #try asking again
         self.play_gesture(10)
-        self.robotManager.say(self.statementRandomizer.chooseRandomStatement(1,self.average_thumb_value), wait=True)  #should have a condition to check for yes/no with different feedback sentences
+        self.wrong_counter += 1
+        self.cordial_say(self.statementRandomizer.chooseRandomStatement(1,self.average_thumb_value), wait=True)  #should have a condition to check for yes/no with different feedback sentences
         print('hmmmm are you sure?')
 
 
-    def give_feedback(self):
-        if(self.use_robot):
-            #say a random feedback statement
-            self.play_gesture(12) #should be different gestures for different levels of feedback - or different faces on cordial?
-            self.robotManager.say(self.statementRandomizer.getResponseBehavior(self.average_thumb_value, self.gesture_time), wait=True)
+    # def give_feedback(self):
+    #     if(self.use_robot):
+    #         #say a random feedback statement
+    #         self.play_gesture(12) #should be different gestures for different levels of feedback - or different faces on cordial?
+    #         self.cordial_say(self.statementRandomizer.getResponseBehavior(self.average_thumb_value, self.gesture_time), wait=True)
 
 
     def on_enter_play_again(self):
@@ -356,13 +376,13 @@ class NumberGameInteraction:
 
         #say that QT won
         self.play_gesture(12)
-        self.robotManager.say(self.statementRandomizer.chooseRandomStatement(7), wait=True)
+        self.cordial_say(self.statementRandomizer.chooseRandomStatement(7), wait=True)
 
         print(self.statementRandomizer.performedBehaviors)
         self.get_thumb_data(self.thumb_time)
         # res = input('woohoo I won, want to play again?')
         
-        data = "{},{},{},{},{},{},{}".format(self.start_time, time.time(), self.bb_time, self.yescounter, self.nocounter, self.wrongcounter, self.orthosis_mistake)
+        data = "{}\t{}\t{}\t{}\t{}\t{}\t{}".format(self.start_time, time.time(), self.bb_time, self.number_of_supinations, self.number_of_pronations, self.wrong_counter, self.orthosis_mistake)
         self.gamemetadata_pub.publish(data)
 
         self.number_of_completed_games += 1
@@ -375,14 +395,16 @@ class NumberGameInteraction:
 
     def on_enter_end(self):
         #add the gesture for bye bye
-        
-        self.robotManager.say('endgame')
+        data = "{}\t{}\t{}\t{}\t{}\t{}\t{}".format(self.start_time, time.time(), self.bb_time, self.number_of_supinations, self.number_of_pronations, self.wrong_counter, self.orthosis_mistake)
+        self.gamemetadata_pub.publish(data)
+
+        self.cordial_say('endgame')
         print('thanks for playing!')
         print('stats: games played: {}\ntime played: {}'.format(self.number_of_completed_games, time.time()-self.start_time))
         sys.exit()
         
     def log_game_data(self):
-        data = "{},{},{},{},{}".format(time.time(), self.bb_time, self.state, self.prev_state, self.incorrect_orthosis_behavior)
+        data = "{}\t{}\t{}\t{}\t{}\t{}\t{}".format(self.start_time, time.time(), self.bb_time, self.prev_state, self.state, self.is_aborted, self.incorrect_orthosis_behavior)
         self.gamedata_pub.publish(data) 
         
         if(self.incorrect_orthosis_behavior):
@@ -462,7 +484,7 @@ transitions = [
                 { 'trigger': 'advance', 'source': 'practice_thumb_up', 'dest': 'practice_thumb_down', 'conditions':'is_ready_to_move_on' },
                 { 'trigger': 'advance', 'source': 'practice_thumb_up', 'dest': 'practice_thumb_up', 'unless':'is_ready_to_move_on', 'before':'practice_doesnt_go_up'},
 
-                { 'trigger': 'advance', 'source': 'practice_thumb_down', 'dest': 'input_number', 'conditions':'is_ready_to_move_on' },
+                { 'trigger': 'advance', 'source': 'practice_thumb_down', 'dest': 'input_number', 'conditions':'is_ready_to_move_on', 'before':'more_instruction' },
                 { 'trigger': 'advance', 'source': 'practice_thumb_down', 'dest': 'practice_thumb_down', 'unless':'is_ready_to_move_on', 'before':'practice_doesnt_go_down'},
 
                 { 'trigger': 'advance', 'source': 'input_number', 'dest': 'make_guess', 'before':'calculate_guess' },

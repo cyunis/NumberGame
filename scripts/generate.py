@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-name = 'Aprille'
+name = 'Jonathan'
 hand = 'right'
 letters = ['A','B','C','D','E','F','G','H','I','J','K','L']
 
@@ -70,60 +70,60 @@ reward_dict = {1: "Let’s party!",
     11: 'You must be a superhero you’re so strong.',
     12: '{} I love playing with you!'} 
 
-guess_dict = {1: '<prosody rate="x-slow">Is {} right? Please show me a thumbs up or down.',
-    2: '<prosody rate="x-slow">Ok I think I know your number. Is it {}?',
-    3: '<prosody rate="x-slow">Is your number {}? Please show me yes or no.',
-    4: '<prosody rate="x-slow">I guess {}. Did I guess your number?',
-    5: '<prosody rate="x-slow">Am I wrong if I guess {}?',
-    6: '<prosody rate="x-slow">Is {} the wrong guess?',
-    7: '<prosody rate="x-slow">Is {} wrong? Please show me yes or no.',
-    8: '<prosody rate="x-slow">I guess {}, am I wrong?'}
+guess_dict = {1: 'Is {} right? Please show me a thumbs up or down.',
+    2: 'Ok I think I know your number. Is it {}?',
+    3: 'Is your number {}? Please show me yes or no.',
+    4: 'I guess {}. Did I guess your number?',
+    5: 'Am I wrong if I guess {}?',
+    6: 'Is {} the wrong guess?',
+    7: 'Is {} wrong? Please show me yes or no.',
+    8: 'I guess {}, am I wrong?'}
 #make sure name and number are in the right spot for every phrase - use 0 or 1 in the brackets to call in order
 #higher or lower
-second_dict = {1: '<prosody rate="x-slow">Hey {} is your number bigger than {}? Show me yes or no.',
-    2: '<prosody rate="x-slow">Oh no, I guessed {1}. Did I guess smaller than your number {0}?',
-    3: '<prosody rate="x-slow">Hmm is {1} smaller than your number {0}?',
-    4: '<prosody rate="x-slow">Hey is your number bigger than {1}, {0}? Show me yes or no.',
-    5: '<prosody rate="x-slow">Aw man {}, I guessed {}. Did I guess smaller than your number?',
-    6: '<prosody rate="x-slow">Hmm {}, is {} smaller than your number?',
-    7: '<prosody rate="x-slow">Hey is your number bigger than {1}? Show me yes or no please {0}.',
-    8: '<prosody rate="x-slow">Oh no, I guessed {1} {0}! Did I guess smaller than your number?',
-    9: '<prosody rate="x-slow">Hmm tell me {} is {} smaller than your number?'} 
+second_dict = {1: 'Hey {} is your number bigger than {}? Show me yes or no.',
+    2: 'Oh no, I guessed {1}. Did I guess smaller than your number {0}?',
+    3: 'Hmm is {1} smaller than your number {0}?',
+    4: 'Hey is your number bigger than {1}, {0}? Show me yes or no.',
+    5: 'Aw man {}, I guessed {}. Did I guess smaller than your number?',
+    6: 'Hmm {}, is {} smaller than your number?',
+    7: 'Hey is your number bigger than {1}? Show me yes or no please {0}.',
+    8: 'Oh no, I guessed {1} {0}! Did I guess smaller than your number?',
+    9: 'Hmm tell me {} is {} smaller than your number?'} 
 
 f = open("script.txt",mode = 'w',encoding = 'utf-8')
 
-f.writelines('[intro1]'+'<prosody rate="x-slow">Hello, my name is QT Robot. What is your name?\n')
-f.writelines('[intro2]'+'<prosody rate="x-slow">Hi {} I would like to play a guessing game with you. In the game, I ask you questions, and you answer yes or no by using a thumbs up or a thumbs down with your {} hand.\n'.format(name,hand)) 
-f.writelines('[intro3]'+"Let’s practice.  Can you show me a thumbs up to say yes?\n")
-f.writelines('[intro4]'+"Awesome! Now can you show me a thumbs down to say no?\n")
-f.writelines('[intro5]'+"Thanks! During the game, please keep your hand flat on the arm rest until I ask you a question. If your thumb is going the wrong way, just push the green button. And just do your best. Can you please show me yes if that’s ok?\n")
-f.writelines('[startgame]'+"Let's play now! Please think of a number between 1 and 50.\n")
-f.writelines('[another1]'+"Hooray I got it! Thanks {} for playing with me. Let’s play again!\n".format(name))
-f.writelines('[another2]'+"Hooray I guessed right! Do you want to play again please?\n")
-f.writelines('[another3]'+"Woo hoo that was fun! Do you want to play one more game?\n")
-f.writelines('[endgame]'+'Thanks for playing with me {}! Bye-bye!\n'.format(name))
+f.writelines('[intro1]'+'<prosody rate="slow">Hello, my name is QT Robot. What is your name?</prosody>\n')
+f.writelines('[intro2]'+'<prosody rate="slow">Hi {} I would like to play a guessing game with you. In the game, I ask you questions, and you answer yes or no by using a thumbs up or a thumbs down with your {} hand.</prosody>\n'.format(name,hand)) 
+f.writelines('[intro3]'+'<prosody rate="slow">Let’s practice.  Can you show me a thumbs up to say yes?</prosody>\n')
+f.writelines('[intro4]'+'<prosody rate="slow">Awesome! Now can you show me a thumbs down to say no?</prosody>\n')
+f.writelines('[intro5]'+'<prosody rate="slow">Thanks! During the game, please keep your hand flat on the arm rest until I ask you a question. If your thumb is going the wrong way, just push the green button. And just do your best.</prosody>\n')
+f.writelines('[startgame]'+'<prosody rate="slow">Let\'s play now! Please think of a number between 1 and 50.</prosody>\n')
+f.writelines('[another1]'+'<prosody rate="slow">Hooray I got it! Thanks {} for playing with me. Let’s play again!</prosody>\n'.format(name))
+f.writelines('[another2]'+'<prosody rate="slow">Hooray I guessed right! Do you want to play again please?</prosody>\n')
+f.writelines('[another3]'+'<prosody rate="slow">Woo hoo that was fun! Do you want to play one more game?</prosody>\n')
+f.writelines('[endgame]'+'<prosody rate="slow">Thanks for playing with me {}! Bye-bye!</prosody>\n'.format(name))
 
 for i in clarify_dict.keys():
-    f.writelines("[clarify" + letters[i-1] + "]" + clarify_dict[i].format(name)+'\n')
+    f.writelines("[clarify" + letters[i-1] + "]" + "<prosody rate='slow'>" + clarify_dict[i].format(name) + "</prosody>" +'\n')
 
 for i in encourage_dict.keys():
-    f.writelines("[encourage" + letters[i-1] + "]" + encourage_dict[i].format(name)+'\n')
+    f.writelines("[encourage" + letters[i-1] + "]" + "<prosody rate='slow'>" + encourage_dict[i].format(name) + "</prosody>" +'\n')
 
 for i in encourageless_dict.keys():
-    f.writelines("[encourageless" + letters[i-1] + "]" + encourageless_dict[i].format(name)+'\n')
+    f.writelines("[encourageless" + letters[i-1] + "]" + "<prosody rate='slow'>" + encourageless_dict[i].format(name) + "</prosody>" +'\n')
 
 for i in rewardless_dict.keys():
-    f.writelines("[rewardless" + letters[i-1] + "]" + rewardless_dict[i].format(name)+'\n')
+    f.writelines("[rewardless" + letters[i-1] + "]" + "<prosody rate='slow'>" + rewardless_dict[i].format(name) + "</prosody>" +'\n')
 
 for i in reward_dict.keys():
-    f.writelines("[reward" + letters[i-1] + "]" + reward_dict[i].format(name)+'\n')
+    f.writelines("[reward" + letters[i-1] + "]" + "<prosody rate='slow'>" + reward_dict[i].format(name) + "</prosody>" +'\n')
 
 for j in guess_dict.keys():
     for i in range(51):
-        f.writelines("[guess"+letters[j-1]+str(i)+"]"+guess_dict[j].format(i)+'\n')
+        f.writelines("[guess"+letters[j-1]+str(i)+"]"+ "<prosody rate='slow'>" + guess_dict[j].format(i) + "</prosody>" +'\n')
 
 for j in second_dict.keys():
     for i in range(51):
-        f.writelines("[second"+letters[j-1]+str(i)+"]"+second_dict[j].format(name,i)+'\n')
+        f.writelines("[second"+letters[j-1]+str(i)+"]"+ "<prosody rate='slow'>" + second_dict[j].format(name,i) + "</prosody>" + '\n')
 
 f.close()

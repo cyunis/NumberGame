@@ -12,39 +12,40 @@ rospy.init_node('QTexNode')
 rm = RobotManager("DB1")
 
 for i in range(4):
-    rm.say("intro"+str(i+1))
+    rm.say("intro"+str(i+1), wait=True)
 
 rm.say("startgame")
 
 for i in range(3):
-    rm.say("endgame"+str(i+1))
+    rm.say("another"+str(i+1) , wait=True)
 
 for i in range(12):
-    rm.say("clarify"+letters[i])
+    rm.say("clarify"+letters[i], wait=True)
 
 for i in range(12):
-    rm.say("encourage"+letters[i])
+    rm.say("encourage"+letters[i], wait=True)
 
 for i in range(12):
-    rm.say("encourageless"+letters[i])
+    rm.say("encourageless"+letters[i], wait=True)
 
 for i in range(12):
-    rm.say("rewardless"+letters[i])
+    rm.say("rewardless"+letters[i], wait=True)
 
 for i in range(12):
-    rm.say("reward"+letters[i])
+    rm.say("reward"+letters[i], wait=True)
 
 for i in range(8):
     for j in range(3):
         k = i*3 #which part of 50 set 
-        rm.say("guess"+letters[i]+str(j+k)) 
+        rm.say("guess"+letters[i]+str(j+k), wait=True) 
 
 for i in range(9):
     for j in range(3):
         k = i*3 #which part of 50 set 
-        rm.say("second"+letters[i]+str(j+k+20))
+        rm.say("second"+letters[i]+str(j+k+20), wait=True)
 
 rm.say("secondB47")
 rm.say("guessH48")
 rm.say("guessD49")
 rm.say("secondI50")
+rm.say("endgame")

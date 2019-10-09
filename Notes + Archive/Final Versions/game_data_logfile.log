@@ -39,3 +39,6 @@ hello, I, Want, Data!
 hello, I, Want, Data!
 hello, I, Want, Data!
 hello, I, Want, Data!
+%(message)s
+%(message)s
+hello, I, Want, Data!

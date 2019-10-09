@@ -37,20 +37,20 @@ class Logger:
         try:
             os.mkdir(path + ID)
         except Exception as e:
-            print(e)
+            pass #print(e) (the exception occurs if the file has already been created)
         
 
         self.game_data_file = setup_logger('game_data_logger', path + ID + '/' + 'game_data_logfile.csv') #csv.writer(open('game_data.csv', 'w'))
-        self.game_data_file.info('start time, time, beaglebone time, previous state, current state, game aborted?, orthosis malfunction?')
+        self.game_data_file.info('start time\t time\t beaglebone time\t previous state\t current state\t game aborted?\t orthosis malfunction?')
 
-        self.game_metadata_file = setup_logger('game_meta_data_logger',  path + ID + '/' + 'game_meta_data.csv') #csv.writer(open('game_metadata.csv', 'w'))
-        self.game_metadata_file.info('start time, time, beaglebone time, total yes, total no, total incorrect answers, total orthosis mistakes, <BUCKETS FILL IN HERE>')
+        self.game_metadata_file = setup_logger('game_meta_data_logger',  path + ID + '/' + 'game_meta_data_logfile.csv') #csv.writer(open('game_metadata.csv', 'w'))
+        self.game_metadata_file.info('start time\t time\t beaglebone time\t total yes\t total no\t total incorrect answers\t total orthosis mistakes\t <BUCKETS FILL IN HERE>')
 
-        self.thumb_data_file = setup_logger('game_data_logger', path + ID + '/' + 'thumb_data_logfile.csv')
-        self.thumb_data_file.info('start time\ttime\tbeaglebone time\tthumb data\tcollection conditions')#GAS bucket for angle, GAS bucket for time')
+        self.thumb_data_file = setup_logger('thumb_data_logger', path + ID + '/' + 'thumb_data_logfile.csv')
+        self.thumb_data_file.info('start time\t recording start time\t time\t beaglebone time\t thumb data\t collection conditions')#GAS bucket for angle, GAS bucket for time')
 
-        self.robot_data_file = setup_logger('game_data_logger', path + ID + '/' + 'robot_data_logfile.csv')
-        self.robot_data_file.info('start time, time, beaglebone time, history of angle performance, history of time performance, gesture key, statement key')
+        self.robot_data_file = setup_logger('robot_data_logger', path + ID + '/' + 'robot_data_logfile.csv')
+        self.robot_data_file.info('start time\t time\t beaglebone time\t behavior type\t behavior key\t behavior parameters') #history of angle performance\t history of time performance\t gesture key\t statement key')
 
         self.gamedata_sub = rospy.Subscriber('/logging/gamedata', String, self.log_game_data)
         self.gamemetadata_sub = rospy.Subscriber('/logging/gamemetadata', String, self.log_game_metadata)

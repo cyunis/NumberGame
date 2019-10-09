@@ -196,20 +196,20 @@ class statementRandomizer:
 
 
     def getResponseBehavior(self, thumb_angle, gesture_time):
-        supinate = False
-        pronate = True
+        supinate = True if thumb_angle > 0 else False #thumbs up
+        pronate = True if thumb_angle < 0 else False #thumbs down
         rewardOverride = False
 
         #current angle is the best seen so far
-        if(pronate and max(self.pronateList) < thumb_angle) or (supinate and min(self.supinateList) > thumb_angle):
+        if(pronate and min(self.pronateList) > thumb_angle) or (supinate and max(self.supinateList) < thumb_angle):
             print('that was the current best in the past  10 runs!')
             rewardOverride = True
 
-        if(pronate and len(self.pronateList) > 3 and self.pronateList[-1] < thumb_angle and self.pronateList[-2] < self.pronateList[-1] and self.pronateList[-3] < self.pronateList[-2]):
+        if(pronate and len(self.pronateList) > 3 and self.pronateList[-1] > thumb_angle and self.pronateList[-2] > self.pronateList[-1] and self.pronateList[-3] > self.pronateList[-2]):
             print('that showed improvement over the past three trials')
             rewardOverride = True
 
-        if(supinate and len(self.supinateList) > 3 and self.supinateList[-1] > thumb_angle and self.supinateList[-2] > self.supinateList[-1] and self.supinateList[-3] > self.supinateList[-2]):
+        if(supinate and len(self.supinateList) > 3 and self.supinateList[-1] < thumb_angle and self.supinateList[-2] < self.supinateList[-1] and self.supinateList[-3] < self.supinateList[-2]):
             print('that showed improvement over the past three trials')
             rewardOverride = True
 
