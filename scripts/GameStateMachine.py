@@ -62,9 +62,9 @@ class NumberGameInteraction:
 
         self.average_thumb_value = 0
         self.gesture_time = 0
-        self.GAS1 = 54.3 #degrees
-        #need to add pronation angle variable
-        self.GAStot1 = 4.2 #seconds
+        self.supinate_angle = 54.3 #degrees
+        self.pronate_angle = -30 #degrees
+        self.tot = 4.2 #seconds
         self.thumb_time = 5 #seconds
         
         #data to make game run smoothly
@@ -215,10 +215,10 @@ class NumberGameInteraction:
 
         #check to see if the gesture passes the threshold for normal GAS score
         for value in values:
-            if value['angle'] > self.GAS1:
+            if value['angle'] > self.supinate_angle:
                 supinate_angle_sum += value['angle']
                 num_above_thresh += 1
-            elif value['angle'] < -self.GAS1:
+            elif value['angle'] < self.pronate_angle:
                 pronate_angle_sum += value['angle']
                 num_below_thresh += 1
 
@@ -235,9 +235,9 @@ class NumberGameInteraction:
         self.average_thumb_value = angle
         self.gesture_time = timeontask
 
-        if(self.average_thumb_value > self.GAS1 and self.incorrect_orthosis_behavior == False):
+        if(self.average_thumb_value > self.supinate_angle and self.incorrect_orthosis_behavior == False):
             self.number_of_supinations += 1
-        if(self.average_thumb_value < -self.GAS1 and self.incorrect_orthosis_behavior == False):
+        if(self.average_thumb_value < self.pronate_angle and self.incorrect_orthosis_behavior == False):
             self.number_of_pronations += 1
 
         print('angle: {}, time: {}'.format(self.average_thumb_value, self.gesture_time))
