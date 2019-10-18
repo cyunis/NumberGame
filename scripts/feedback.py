@@ -7,6 +7,9 @@ class statementRandomizer:
         self.supinateList = [999] #will hold the 10 most recent values for supination
         self.pronateList = [-999] #will hold the 10 most recent values for pronation
         self.performedBehaviors = [[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]
+        self.supinate = False
+        self.pronate = False
+
 
         self.guessStatements = {
             1: "guessA",
@@ -196,26 +199,26 @@ class statementRandomizer:
 
 
     def getResponseBehavior(self, thumb_angle, gesture_time):
-        supinate = True if thumb_angle > 0 else False #thumbs up
-        pronate = True if thumb_angle < 0 else False #thumbs down
+        self.supinate = True if thumb_angle > 0 else False #thumbs up
+        self.pronate = True if thumb_angle < 0 else False #thumbs down
         rewardOverride = False
 
         #current angle is the best seen so far
-        if(pronate and min(self.pronateList) > thumb_angle) or (supinate and max(self.supinateList) < thumb_angle):
+        if(self.pronate and min(self.pronateList) > thumb_angle) or (self.supinate and max(self.supinateList) < thumb_angle):
             print('that was the current best in the past  10 runs!')
             rewardOverride = True
 
-        if(pronate and len(self.pronateList) > 3 and self.pronateList[-1] > thumb_angle and self.pronateList[-2] > self.pronateList[-1] and self.pronateList[-3] > self.pronateList[-2]):
+        if(self.pronate and len(self.pronateList) > 3 and self.pronateList[-1] > thumb_angle and self.pronateList[-2] > self.pronateList[-1] and self.pronateList[-3] > self.pronateList[-2]):
             print('that showed improvement over the past three trials')
             rewardOverride = True
 
-        if(supinate and len(self.supinateList) > 3 and self.supinateList[-1] < thumb_angle and self.supinateList[-2] < self.supinateList[-1] and self.supinateList[-3] < self.supinateList[-2]):
+        if(self.supinate and len(self.supinateList) > 3 and self.supinateList[-1] < thumb_angle and self.supinateList[-2] < self.supinateList[-1] and self.supinateList[-3] < self.supinateList[-2]):
             print('that showed improvement over the past three trials')
             rewardOverride = True
 
-        if(supinate):
+        if(self.supinate):
             appendValue(self.supinateList, thumb_angle)
-        elif(pronate):
+        elif(self.pronate):
             appendValue(self.pronateList, thumb_angle)
         else:
             print('Uh-Oh, that is neither supinate nor pronate')
@@ -227,7 +230,7 @@ class statementRandomizer:
         angle_bucket = determine_angle_GAS_bucket(thumb_angle)
         time_bucket = determine_time_GAS_bucket(gesture_time)
         print('angle bucket is {}, time bucket is {}'.format(angle_bucket, time_bucket))
-        bucket = int(math.ceil((angle_bucket + time_bucket) / 2))
+        bucket = int(math.ceil((angle_bucket + time_bucket) / 2.0))
 
         #return the behavior key
         return self.chooseRandomStatement(bucket)
@@ -242,20 +245,28 @@ def appendValue(listToAppend, valueToAppend):
 
 def determine_angle_GAS_bucket(thumb_angle):
     #TODO: get these from a file!!!
-    GAS_angle_scores = [10, 20, 30, 40, 50] # are these upper bounds on the ranges?? (also get these from the global values)
+    supinate_scores = [44.991836, 66.8658155, 78.739795, 90.6137745, 102.48775400000002]
+ # are these upper bounds on the ranges?? (also get these from the global values)
+    pronate_scores = [-36.93614000000001, -46.5531575, -56.170175, -65.7871925, -75.40421000000002]
+    GAS_angle_scores = []
+
+    if(thumb_angle<0):
+        GAS_angle_scores = pronate_scores
+    if(thumb_angle>0):
+        GAS_angle_scores = supinate_scores
 
     for index in range(len(GAS_angle_scores)):
         if thumb_angle < GAS_angle_scores[index]:
-            return index
+            return index + 1
     #if we get here, the thumb angle is higher than the highest GAS score
     return len(GAS_angle_scores)
 
 def determine_time_GAS_bucket(gesture_time):
     #TODO: get these from a file!!!
-    GAS_time_scores = [1, 2, 3, 4, 5] # are these upper bounds on the ranges?? (also get these from the global values)
+    GAS_time_scores = [3.2, 3.6, 4.0, 4.4, 4.800000000000001] # are these upper bounds on the ranges?? (also get these from the global values)
 
     for index in range(len(GAS_time_scores)):
         if gesture_time < GAS_time_scores[index]:
-            return index
+            return index + 1
     #if we get here, the thumb angle is higher than the highest GAS score
     return len(GAS_time_scores)

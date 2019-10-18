@@ -88,7 +88,12 @@ def angle_measures():
 
     plt.show()
 
-    
+    #find the average highest(sup) and lowest(pro) values 
+    max20a = sorted(angles)[-20:]
+    max_a = sum(max20a)/len(max20a)
+    min20a = sorted(angles)[:20]
+    min_a = sum(min20a)/len(min20a)
+    print(sorted(angles))
 
     #calculating velocity and jerk
     for a in range(len(angles)-1):
@@ -102,7 +107,7 @@ def angle_measures():
         jerk.append(j)
 
     # return sum(angles)/len(angles)
-    return([max(angles), max(velocities), max(jerk)])
+    return([max_a, min_a, max(velocities), max(jerk)])
 
 
 def time_measures():
@@ -160,13 +165,14 @@ if __name__=="__main__":
     # synctime = sync_time[1]
     # print(syncpin,synctime)
 
-    [a,v,j] = angle_measures()
+    [a,a_min,v,j] = angle_measures()
     [ot_up,ot_down,tot_up,tot_down] = time_measures()
 
     # [a,v,j] = [50,2,0.001]
     # [ot_up,ot_down,tot_up,tot_down] = [1,1,2,3]
 
     angle_scores = []
+    angle_min_scores = []
     velocity_scores = []
     jerk_scores = []
     onsettime_scores = []
@@ -183,13 +189,15 @@ if __name__=="__main__":
 
     for x in range(1,6):
         angle_scores.append(per*a)
+        angle_min_scores.append(per*a_min)
         velocity_scores.append(per*v)
         jerk_scores.append(per*j)
         onsettime_scores.append(per*ot)
         timeontask_scores.append(per*tot)
         per+=.1
         
-    print("Angle scores are: "+str(angle_scores))
+    print("Max angle scores are: "+str(angle_scores))
+    print("Min angle scores are: "+str(angle_min_scores))
     print("Velocity scores are: "+str(velocity_scores))
     print("Jerk scores are: "+str(jerk_scores))
     print("Onset time scores are: "+str(onsettime_scores))

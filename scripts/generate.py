@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-name = 'Jonathan'
+name = 'Briana'
 hand = 'right'
 letters = ['A','B','C','D','E','F','G','H','I','J','K','L']
 
@@ -92,6 +92,27 @@ second_dict = {1: 'Hey {} is your number bigger than {}? Show me yes or no.',
 
 f = open("script.txt",mode = 'w',encoding = 'utf-8')
 
+f.writelines('[wiggins]'+'<prosody rate="slow">In front of you is a list of words. *question1* Please tell me if these words describe you, using a number 1, 2, 3, 4 or 5. If the word does not describe you at all pick 1, if the word describes you a lot pick 5. If its something in between pick 2, 3 or 4.</prosody>\n')
+f.writelines('[wigginsorthosis]'+'<prosody rate="slow">In front of you is a list of words. *question1* Please tell me if these words describe the robot on your arm, using a number 1, 2, 3, 4 or 5. If the word does not describe you at all pick 1, if the word describes you a lot pick 5. If its something in between pick 2, 3 or 4.</prosody>\n')
+f.writelines('[bad]'+'<prosody rate="slow">The *loud* first word is bad.</prosody>\n')
+f.writelines('[good]'+'<prosody rate="slow">The *loud* second word is good.</prosody>\n')
+f.writelines('[notfriendly]'+'<prosody rate="slow">The *loud* third word is not friendly.</prosody>\n')
+f.writelines('[friendly]'+'<prosody rate="slow">The *loud* fourth word is friendly.</prosody>\n')
+f.writelines('[cold]'+'<prosody rate="slow">The *loud* fifth word is cold.</prosody>\n')
+f.writelines('[warm]'+'<prosody rate="slow">The *loud* sixth word is warm.</prosody>\n')
+f.writelines('[unpleasant]'+'<prosody rate="slow">The *loud* seventh word is unpleasant.</prosody>\n')
+f.writelines('[pleasant]'+'<prosody rate="slow">The *loud* eighth word is pleasant.</prosody>\n')
+f.writelines('[cruel]'+'<prosody rate="slow">The *loud* ninth word is cruel.</prosody>\n')
+f.writelines('[kind]'+'<prosody rate="slow">The *loud* tenth word is kind.</prosody>\n')
+f.writelines('[harsh]'+'<prosody rate="slow">The *loud* eleventh word is harsh.</prosody>\n')
+f.writelines('[sweet]'+'<prosody rate="slow">The *loud* twelfth word is sweet.</prosody>\n')
+f.writelines('[useful]'+'<prosody rate="slow">The *loud* thirteenth word is useful.</prosody>\n')
+f.writelines('[valuable]'+'<prosody rate="slow">The *loud* fourteenth word is valuable.</prosody>\n')
+f.writelines('[helpful]'+'<prosody rate="slow">The *loud* fifteenth word is helpful.</prosody>\n')
+f.writelines('[skillful]'+'<prosody rate="slow">The *loud* sixteenth word is skillful.</prosody>\n')
+f.writelines('[clever]'+'<prosody rate="slow">The *loud* seventeenth word is clever.</prosody>\n')
+f.writelines('[intelligent]'+'<prosody rate="slow">The *loud* eighteenth word is intelligent.</prosody>\n')
+f.writelines('[smart]'+'<prosody rate="slow">The *loud* nineteenth word is smart.</prosody>\n')
 f.writelines('[intro1]'+'<prosody rate="slow">Hello, my name is QT Robot. What is your name?</prosody>\n')
 f.writelines('[intro2]'+'<prosody rate="slow">Hi {} I would like to play a guessing game with you. In the game, I ask you questions, and you answer yes or no by using a thumbs up or a thumbs down with your {} hand.</prosody>\n'.format(name,hand)) 
 f.writelines('[intro3]'+'<prosody rate="slow">Let’s practice.  Can you show me a thumbs up to say yes?</prosody>\n')

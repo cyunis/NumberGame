@@ -20,6 +20,20 @@ from message_filters import ApproximateTimeSynchronizer, Subscriber
 import roslib; roslib.load_manifest('cordial_example')
 import rospy
 from cordial_core import RobotManager
+import signal
+
+def signal_handler(sig, frame):
+        print('You pressed Ctrl+C!')
+        data = "{}\t{}\t{}\t{}\t{}\t{}\t{}".format(game.start_time, time.time(), game.bb_time, game.number_of_supinations, game.number_of_pronations, game.wrong_counter, game.orthosis_mistake)
+        game.gamemetadata_pub.publish(data)
+        print(data)
+        print('The game metadata have been logged and now the game will terminate :3')
+
+        sys.exit(0)
+
+signal.signal(signal.SIGINT, signal_handler)
+
+
 
 class NumberGameInteraction:
     def __init__(self, use_qt_robot, leftHanded=False):
@@ -60,11 +74,10 @@ class NumberGameInteraction:
         self.recording_start_time = self.start_time
         self.gesture_values = []
 
-        self.average_thumb_value = 0
-        self.gesture_time = 0
-        self.supinate_angle = 54.3 #degrees
-        self.pronate_angle = -30 #degrees
-        self.tot = 4.2 #seconds
+        self.average_thumb_value = 1
+        self.gesture_time = 3.2 #seconds, use GAS1 value
+        self.supinate_angle = 54.991836 #degrees, use GAS1 value
+        self.pronate_angle = -36.93614000000001 #degrees, use GAS1 value
         self.thumb_time = 5 #seconds
         
         #data to make game run smoothly
@@ -80,6 +93,7 @@ class NumberGameInteraction:
         self.ready_to_move_on = True
         self.is_aborted = False
         self.prev_state = None
+        self.nointro = False
         
 
     #callback functions
@@ -87,7 +101,7 @@ class NumberGameInteraction:
     
         if(self.start_recording == True):
             #save the previous recording
-            data = '{}\t{}\t{}\t{}\t{}\t{}'.format(self.start_time, self.recording_start_time, time.time(), self.bb_time, self.gesture_values,'resting values')
+            data = '{}\t{}\t{}\t{}\t{}\t{}\t{}'.format(self.start_time, self.recording_start_time, time.time(), self.bb_time, self.gesture_time, self.gesture_values,'resting values')
             self.thumbdata_pub.publish(data)
             self.gesture_values = []
             self.start_recording = False
@@ -136,6 +150,10 @@ class NumberGameInteraction:
     def is_ready_to_move_on(self):
         #return whether or not the state machine can continue
         return self.ready_to_move_on
+
+    def skip_intro(self):
+        #return if there should be no intro
+        return self.nointro
 
 
     def check_state_machine_status(self):
@@ -205,9 +223,7 @@ class NumberGameInteraction:
         self.recording_start_time = time.time()
         
         self.play_gesture(11) #do gestures while waiting for answer
-        
-        print(values)
-
+    
         num_above_thresh = 0
         supinate_angle_sum = 0 #yes
         num_below_thresh = 0
@@ -313,6 +329,7 @@ class NumberGameInteraction:
         while(guess in self.guesses):
             guess = ideal_guess + random.randint(-half_range, half_range)
         self.guesses.append(guess)
+        print('guess list is: '+str(self.guesses))
 
 
     def on_enter_make_guess(self):
@@ -362,13 +379,6 @@ class NumberGameInteraction:
         self.wrong_counter += 1
         self.cordial_say(self.statementRandomizer.chooseRandomStatement(1,self.average_thumb_value), wait=True)  #should have a condition to check for yes/no with different feedback sentences
         print('hmmmm are you sure?')
-
-
-    # def give_feedback(self):
-    #     if(self.use_robot):
-    #         #say a random feedback statement
-    #         self.play_gesture(12) #should be different gestures for different levels of feedback - or different faces on cordial?
-    #         self.cordial_say(self.statementRandomizer.getResponseBehavior(self.average_thumb_value, self.gesture_time), wait=True)
 
 
     def on_enter_play_again(self):
@@ -475,10 +485,10 @@ class NumberGameInteraction:
             time.sleep(3)
 
 
-states = ['get_name', 'practice_thumb_up', 'practice_thumb_down', 'input_number', 'make_guess', 'higher_or_lower', 'play_again', 'end']
+states = ['get_name', 'practice_thumb_up', 'practice_thumb_down', 'input_number', 'make_guess', 'higher_or_lower', 'play_again', 'end', 'skip_intro']
 transitions = [
                 { 'trigger':'abort', 'source':'*', 'dest':'end'}, #all states go to the end if the button is pressed
-
+                
                 { 'trigger': 'advance', 'source': 'get_name', 'dest': 'practice_thumb_up', 'prepare':'get_name', 'before':'give_instruction'},
 
                 { 'trigger': 'advance', 'source': 'practice_thumb_up', 'dest': 'practice_thumb_down', 'conditions':'is_ready_to_move_on' },
@@ -499,10 +509,13 @@ transitions = [
 
                 { 'trigger': 'advance', 'source': 'play_again', 'dest': 'end', 'conditions':'is_ready_to_move_on'},
                 { 'trigger': 'advance', 'source': 'play_again', 'dest': 'input_number', 'unless':'is_ready_to_move_on'},
+
+                { 'trigger': 'advance', 'source': 'skip_intro', 'dest': 'input_number'},
             ]
 
 game = NumberGameInteraction(True)
-machine = Machine(model=game, states=states, transitions=transitions, initial='get_name', before_state_change='reset_ready_to_move_on', after_state_change='log_game_data', show_state_attributes=True, show_conditions=True)
+start_state = 'skip_intro' if game.nointro == True else 'get_name'
+machine = Machine(model=game, states=states, transitions=transitions, initial=start_state, before_state_change='reset_ready_to_move_on', after_state_change='log_game_data', show_state_attributes=True, show_conditions=True)
 game.get_graph().draw('TommyThumbDiagram.png', prog='dot')
 
 while(not game.ready_to_begin):
