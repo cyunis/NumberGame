@@ -245,9 +245,13 @@ def appendValue(listToAppend, valueToAppend):
 
 def determine_angle_GAS_bucket(thumb_angle):
     #TODO: get these from a file!!!
-    supinate_scores = [44.991836, 66.8658155, 78.739795, 90.6137745, 102.48775400000002]
+    supinate_scores = [53.196346639999994, 59.84588996999999, 66.49543329999999, 73.14497662999999, 79.79451996]
+
  # are these upper bounds on the ranges?? (also get these from the global values)
-    pronate_scores = [-36.93614000000001, -46.5531575, -56.170175, -65.7871925, -75.40421000000002]
+    pronate_scores = [-50.654178159999994, -56.985950429999995, -63.31772269999999, -69.64949496999999, -75.98126724]
+
+
+
     GAS_angle_scores = []
 
     if(thumb_angle<0):

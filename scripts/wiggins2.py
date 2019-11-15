@@ -13,7 +13,7 @@ rm = RobotManager("DB1")
 rospy.sleep(2)
 
 #rm.say("wiggins", wait=True)
-rm.say("wiggins", wait=True)
+rm.say("wigginsorthosis", wait=True)
 rm.say("bad", wait=True)
 raw_input('next')
 rm.say("good", wait=True)
@@ -51,8 +51,4 @@ raw_input('next')
 rm.say("intelligent", wait=True)
 raw_input('next')
 rm.say("smart", wait=True)
-
-
-
-
 

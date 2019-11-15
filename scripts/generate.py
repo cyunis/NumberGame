@@ -1,34 +1,33 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-name = 'Briana'
+name = 'Zoey'
 hand = 'right'
 letters = ['A','B','C','D','E','F','G','H','I','J','K','L']
 
-clarify_dict = {1: 'Sorry {} I didn’t see that, could you repeat that answer for me please?',
-    2: "I think that was a yes {}. Could you make a thumbs up again for me please?",
-    3: "I think that was a no {}. Could you make a thumbs down again for me please?",
+clarify_dict = {1: 'Sorry I didn’t see that, could you repeat that answer for me please?',
+    2: "I think that was a yes. Could you make a thumbs up again for me please?",
+    3: "I think that was a no. Could you make a thumbs down again for me please?",
     4: "Could you please show me that answer again {}?",
     5: "Sorry I didn’t see that {}, could you repeat that answer for me please?",
-    6: "Hey {} could you please show me that answer again?",
-    7: 'I didn’t understand {} I need you to show me again please!',
-    8: '{} I didn’t see that can you please show me again!',
-    9: 'Was that a thumbs up? Can you show me again please?',
-    10: 'Was that a thumbs down? Can you show me again please?',
-    11: '{} please show me what you did again I missed it.',
-    12: 'Can you show me what you did again please?'} 
+    6: "Hey could you please show me that answer again?",
+    7: 'I didn’t understand I need you to show me again please!',
+    8: 'I didn’t see that can you please show me again!',
+    9: 'Was that a thumbs up or down? Can you show me again please?',
+    10: '{} please show me what you did again I missed it.',
+    11: 'Can you show me what you did again please?'} 
 #2/3 and 9/10 should be used depending on what the gesture was supposed to be
 
 encourage_dict = {1: 'Good job {}!',
-    2: 'That was your best one so far! Keep up the good work {}!',
+    2: 'That was your best one so far! Keep up the good work!',
     3: 'I can tell you are trying really hard {}, nice job!',
     4: 'You are getting better at this {}, wow!',
     5: 'I know this is hard {}, keep trying!',
     6: 'Hooray! Let’s play again {}!',
-    7: 'Hey {}, good job!',
+    7: 'Hey, good job!',
     8: 'That was your best one so far {}! Keep up the good work!',
-    9: 'Hey {} I can tell you are trying really hard, nice job!',
+    9: 'I can tell you are trying really hard, nice job!',
     10: 'Everyone, {} is getting better at this!',
-    11: 'Keep trying, I know this is hard {} but you got it!',
+    11: 'Keep trying, I know this is hard but you got it!',
     12: 'Hooray you did great {}!'} 
 
 encourageless_dict = {1: 'That was good {}.',
@@ -47,14 +46,14 @@ encourageless_dict = {1: 'That was good {}.',
 rewardless_dict = {1: 'You’re good at this {}!',
     2: 'I think {} is great at this game.',
     3: 'You must work your thumbs out {} you’re good!',
-    4: 'Hooray keep it up {}!',
+    4: 'Hooray keep it up!',
     5: '{} you made me smile.',
     6: 'I think that {} made one of the best gestures I’ve ever seen!',
     7: 'That was a good gesture!',
     8: '{} is very good at this game.',
     9: 'Keep showing me what you got!',
-    10: 'This game is fun to play with you {}.',
-    11: 'You are playing well {}!',
+    10: 'This game is fun to play with you!',
+    11: 'You are playing well!',
     12: 'I want to keep playing with you {}!'}
 
 reward_dict = {1: "Let’s party!",
@@ -81,13 +80,13 @@ guess_dict = {1: 'Is {} right? Please show me a thumbs up or down.',
 #make sure name and number are in the right spot for every phrase - use 0 or 1 in the brackets to call in order
 #higher or lower
 second_dict = {1: 'Hey {} is your number bigger than {}? Show me yes or no.',
-    2: 'Oh no, I guessed {1}. Did I guess smaller than your number {0}?',
-    3: 'Hmm is {1} smaller than your number {0}?',
-    4: 'Hey is your number bigger than {1}, {0}? Show me yes or no.',
+    2: 'Oh no, I guessed {1}. Did I guess smaller than your number?',
+    3: 'Hmm is {1} smaller than your number?',
+    4: 'Hey is your number bigger than {1}? Show me yes or no.',
     5: 'Aw man {}, I guessed {}. Did I guess smaller than your number?',
     6: 'Hmm {}, is {} smaller than your number?',
-    7: 'Hey is your number bigger than {1}? Show me yes or no please {0}.',
-    8: 'Oh no, I guessed {1} {0}! Did I guess smaller than your number?',
+    7: 'Hey is your number bigger than {1}? Show me yes or no please.',
+    8: 'Oh no, I guessed {1}! Did I guess smaller than your number?',
     9: 'Hmm tell me {} is {} smaller than your number?'} 
 
 f = open("script.txt",mode = 'w',encoding = 'utf-8')
@@ -117,9 +116,9 @@ f.writelines('[intro1]'+'<prosody rate="slow">Hello, my name is QT Robot. What i
 f.writelines('[intro2]'+'<prosody rate="slow">Hi {} I would like to play a guessing game with you. In the game, I ask you questions, and you answer yes or no by using a thumbs up or a thumbs down with your {} hand.</prosody>\n'.format(name,hand)) 
 f.writelines('[intro3]'+'<prosody rate="slow">Let’s practice.  Can you show me a thumbs up to say yes?</prosody>\n')
 f.writelines('[intro4]'+'<prosody rate="slow">Awesome! Now can you show me a thumbs down to say no?</prosody>\n')
-f.writelines('[intro5]'+'<prosody rate="slow">Thanks! During the game, please keep your hand flat on the arm rest until I ask you a question. If your thumb is going the wrong way, just push the green button. And just do your best.</prosody>\n')
+f.writelines('[intro5]'+'<prosody rate="slow">Thanks! During the game, please keep your hand flat and your arm on the arm rest until I ask you a question. If your thumb is going the wrong way, tell Catherine to push the green button. And just do your best.</prosody>\n')
 f.writelines('[startgame]'+'<prosody rate="slow">Let\'s play now! Please think of a number between 1 and 50.</prosody>\n')
-f.writelines('[another1]'+'<prosody rate="slow">Hooray I got it! Thanks {} for playing with me. Let’s play again!</prosody>\n'.format(name))
+f.writelines('[another1]'+'<prosody rate="slow">Hooray I got it! Thanks {} for playing with me. Do you want to play again?</prosody>\n'.format(name))
 f.writelines('[another2]'+'<prosody rate="slow">Hooray I guessed right! Do you want to play again please?</prosody>\n')
 f.writelines('[another3]'+'<prosody rate="slow">Woo hoo that was fun! Do you want to play one more game?</prosody>\n')
 f.writelines('[endgame]'+'<prosody rate="slow">Thanks for playing with me {}! Bye-bye!</prosody>\n'.format(name))

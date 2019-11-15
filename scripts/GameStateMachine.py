@@ -76,8 +76,8 @@ class NumberGameInteraction:
 
         self.average_thumb_value = 1
         self.gesture_time = 3.2 #seconds, use GAS1 value
-        self.supinate_angle = 54.991836 #degrees, use GAS1 value
-        self.pronate_angle = -36.93614000000001 #degrees, use GAS1 value
+        self.supinate_angle = 66.5 #degrees, use GAS1 value
+        self.pronate_angle = -63.3 #degrees, use GAS1 value
         self.thumb_time = 5 #seconds
         
         #data to make game run smoothly
@@ -90,10 +90,11 @@ class NumberGameInteraction:
         self.guess_upper_bound = 50
         self.guesses = []
         self.number = 0
-        self.ready_to_move_on = True
+        self.ready_to_move_on = False
         self.is_aborted = False
         self.prev_state = None
         self.nointro = False
+       
         
 
     #callback functions
@@ -101,7 +102,7 @@ class NumberGameInteraction:
     
         if(self.start_recording == True):
             #save the previous recording
-            data = '{}\t{}\t{}\t{}\t{}\t{}\t{}'.format(self.start_time, self.recording_start_time, time.time(), self.bb_time, self.gesture_time, self.gesture_values,'resting values')
+            data = '{}\t{}\t{}\t{}\t{}\t{}'.format(self.start_time, self.recording_start_time, time.time(), self.bb_time, self.gesture_values,'resting values')
             self.thumbdata_pub.publish(data)
             self.gesture_values = []
             self.start_recording = False

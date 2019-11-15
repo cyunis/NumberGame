@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # encoding=utf8
 
+
 import time
 import rospy
 import os
@@ -205,4 +206,11 @@ if __name__=="__main__":
     # logger.debug('This message should appear on the console')
     # logger.info('So should "this", and it\'s using quoting...')
     # logger.warning('And this, too')
+    
+    f = open("acclimation.txt",mode = 'w',encoding = 'utf-8')
+
+    max_print = "Max angle scores are: "+str(angle_scores)
+    min_print = "Min angle scores are: "+str(angle_min_scores)
+    f.writelines(max_print)
+    f.writelines(min_print)
 
