@@ -10,6 +10,15 @@ class statementRandomizer:
         self.supinate = False
         self.pronate = False
 
+        with open("/home/qtrobot/calibration.txt",'r') as calib_file:
+            line = calib_file.readline()
+            self.avg_a = float(line.split('~')[1])
+            self.avg_down_a = float(line.split('~')[3])
+            line = calib_file.readline()
+            line = calib_file.readline()
+            self.tot_up = float(line.split('~')[1])
+            self.tot_down = float(line.split('~')[3])
+
 
         self.guessStatements = {
             1: "guessA",
@@ -31,13 +40,13 @@ class statementRandomizer:
             6: "secondF",
             7: "secondG",
             8: "secondH",
-            9: "secondI",
+            9: "secondI"
         }
 
         self.win_statements = {
             1: "another1",
             2: "another2",
-            3: "another3"
+            3: "another3",     
         }
 
         self.bucket1 = {
@@ -51,8 +60,7 @@ class statementRandomizer:
             8: "clarifyH",
             9: "clarifyI",
             10: "clarifyJ",
-            11: "clarifyK",
-            12: "clarifyL"
+            11: "clarifyK"
         }
 
 
@@ -159,6 +167,29 @@ class statementRandomizer:
             # 4: "gestures_programmed(3)"
          } #or call gestures_programmed(2,3)
 
+        self.wig_ok = {
+            1: "fillerA",
+            2: "fillerB",
+            3: "fillerC",
+            4: "fillerD",
+            5: "fillerE",
+            6: "fillerF",
+            7: "fillerG",
+            8: "fillerH",
+            9: "fillerI",
+            10: "fillerJ",
+            11: "fillerK",
+            12: "fillerL",
+            13: "fillerM",
+            14: "fillerN",
+            15: "fillerO",
+            16: "fillerP",
+            17: "fillerQ",
+            18: "fillerR",
+            19: "fillerS",
+            20: "fillerT"
+        }
+
     def chooseRandomStatement(self, statementType, angle=0):
         mapping = {
             0: self.guessStatements,
@@ -171,9 +202,10 @@ class statementRandomizer:
             7: self.win_statements,
             8: self.small_gestures,
             9: self.guessing_gestures,
-            10:self.talking_gestures,
+            10: self.talking_gestures,
             11: self.listening_gestures,
-            12: self.encouragement_gestures
+            12: self.encouragement_gestures,
+            13: self.wig_ok
         }
 
         #convert statement type to actual dictionary
@@ -227,13 +259,52 @@ class statementRandomizer:
             return self.chooseRandomStatement(5) #maybe we want a seperate set of improved behaviors?
 
         #make the buckets based on the GAS variables
-        angle_bucket = determine_angle_GAS_bucket(thumb_angle)
-        time_bucket = determine_time_GAS_bucket(gesture_time)
+        angle_bucket = self.determine_angle_GAS_bucket(thumb_angle)
+        time_bucket = self.determine_time_GAS_bucket(gesture_time, thumb_angle > 0)
         print('angle bucket is {}, time bucket is {}'.format(angle_bucket, time_bucket))
         bucket = int(math.ceil((angle_bucket + time_bucket) / 2.0))
 
         #return the behavior key
         return self.chooseRandomStatement(bucket)
+
+    def determine_angle_GAS_bucket(self, thumb_angle):
+        #TODO: get these from a file!!!
+        supinate_scores = [.8*self.avg_a, .9*self.avg_a, self.avg_a, 1.1*self.avg_a, 1.2*self.avg_a]
+
+    # are these upper bounds on the ranges?? (also get these from the global values)
+        #import avg_down_a -> multiply by .8, .9, 1, 1.1, 1.2
+        pronate_scores = [.8*self.avg_down_a, .9*self.avg_down_a, self.avg_down_a, 1.1*self.avg_down_a, 1.2*self.avg_down_a]
+
+
+
+        GAS_angle_scores = []
+
+        if(thumb_angle<0):
+            GAS_angle_scores = pronate_scores
+        if(thumb_angle>0):
+            GAS_angle_scores = supinate_scores
+
+        for index in range(len(GAS_angle_scores)):
+            if thumb_angle < GAS_angle_scores[index]:
+                return index + 1
+        #if we get here, the thumb angle is higher than the highest GAS score
+        return len(GAS_angle_scores)
+
+    def determine_time_GAS_bucket(self, gesture_time, supinate):
+        #TODO: get these from a file!!!
+        
+        if supinate:
+            tot = self.tot_up
+        else:
+            tot = self.tot_down
+
+        GAS_time_scores = [.8*tot, .9*tot, tot, 1.1*tot, 1.2*tot] # are these upper bounds on the ranges?? (also get these from the global values)
+
+        for index in range(len(GAS_time_scores)):
+            if gesture_time < GAS_time_scores[index]:
+                return index + 1
+        #if we get here, the thumb angle is higher than the highest GAS score
+        return len(GAS_time_scores)
 
 
 def appendValue(listToAppend, valueToAppend):
@@ -242,35 +313,3 @@ def appendValue(listToAppend, valueToAppend):
     if len(listToAppend) > maxLength:
         listToAppend.pop(0)
 
-
-def determine_angle_GAS_bucket(thumb_angle):
-    #TODO: get these from a file!!!
-    supinate_scores = [53.196346639999994, 59.84588996999999, 66.49543329999999, 73.14497662999999, 79.79451996]
-
- # are these upper bounds on the ranges?? (also get these from the global values)
-    pronate_scores = [-50.654178159999994, -56.985950429999995, -63.31772269999999, -69.64949496999999, -75.98126724]
-
-
-
-    GAS_angle_scores = []
-
-    if(thumb_angle<0):
-        GAS_angle_scores = pronate_scores
-    if(thumb_angle>0):
-        GAS_angle_scores = supinate_scores
-
-    for index in range(len(GAS_angle_scores)):
-        if thumb_angle < GAS_angle_scores[index]:
-            return index + 1
-    #if we get here, the thumb angle is higher than the highest GAS score
-    return len(GAS_angle_scores)
-
-def determine_time_GAS_bucket(gesture_time):
-    #TODO: get these from a file!!!
-    GAS_time_scores = [3.2, 3.6, 4.0, 4.4, 4.800000000000001] # are these upper bounds on the ranges?? (also get these from the global values)
-
-    for index in range(len(GAS_time_scores)):
-        if gesture_time < GAS_time_scores[index]:
-            return index + 1
-    #if we get here, the thumb angle is higher than the highest GAS score
-    return len(GAS_time_scores)

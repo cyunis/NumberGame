@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-name = 'Zoey'
+name = 'NAME'
 hand = 'right'
-letters = ['A','B','C','D','E','F','G','H','I','J','K','L']
+letters = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T']
 
 clarify_dict = {1: 'Sorry I didn’t see that, could you repeat that answer for me please?',
     2: "I think that was a yes. Could you make a thumbs up again for me please?",
@@ -89,6 +89,28 @@ second_dict = {1: 'Hey {} is your number bigger than {}? Show me yes or no.',
     8: 'Oh no, I guessed {1}! Did I guess smaller than your number?',
     9: 'Hmm tell me {} is {} smaller than your number?'} 
 
+filler_dict = {1: 'I see that.',
+    2: 'I am here to play this game with you, thanks for playing with me.',
+    3: 'I can tell you like playing games.',
+    4: '{} is a cool name I like it.',
+    5: 'I think that this game is hard.',
+    6: 'Hooray! I am so excited to guess what you’re thinking.',
+    7: 'Hey {}, thanks for playing!',
+    8: 'This is my favorite game to play with you!',
+    9: 'Hey {} I like being part of a science experiment, this is fun.',
+    10: 'Everyone, I am playing a game with {}!',
+    11: 'Keep showing me what you’re doing so I can play with you.',
+    12: 'Hooray I like this!',
+    13: 'Lets keep playing this game!',
+    14: 'Cool I saw that.',
+    15: 'I’m thinking really hard!',
+    16: 'I think I’m going to win this game.',
+    17: 'I am going to guess another number until I get it.',
+    18: 'Yay this is fun to play.',
+    19: 'I am smiling a lot.',
+    20: 'I play a lot of games like this.'}
+
+
 f = open("script.txt",mode = 'w',encoding = 'utf-8')
 
 f.writelines('[wiggins]'+'<prosody rate="slow">In front of you is a list of words. *question1* Please tell me if these words describe you, using a number 1, 2, 3, 4 or 5. If the word does not describe you at all pick 1, if the word describes you a lot pick 5. If its something in between pick 2, 3 or 4.</prosody>\n')
@@ -121,6 +143,7 @@ f.writelines('[startgame]'+'<prosody rate="slow">Let\'s play now! Please think o
 f.writelines('[another1]'+'<prosody rate="slow">Hooray I got it! Thanks {} for playing with me. Do you want to play again?</prosody>\n'.format(name))
 f.writelines('[another2]'+'<prosody rate="slow">Hooray I guessed right! Do you want to play again please?</prosody>\n')
 f.writelines('[another3]'+'<prosody rate="slow">Woo hoo that was fun! Do you want to play one more game?</prosody>\n')
+f.writelines('[anotherchoice]'+'<prosody rate="slow">So fun! Do you want to play another game with the robot, play a game with the computer or stop playing?</prosody>\n')
 f.writelines('[endgame]'+'<prosody rate="slow">Thanks for playing with me {}! Bye-bye!</prosody>\n'.format(name))
 
 for i in clarify_dict.keys():
@@ -137,6 +160,9 @@ for i in rewardless_dict.keys():
 
 for i in reward_dict.keys():
     f.writelines("[reward" + letters[i-1] + "]" + "<prosody rate='slow'>" + reward_dict[i].format(name) + "</prosody>" +'\n')
+
+for i in filler_dict.keys():
+    f.writelines("[filler" + letters[i-1] + "]" + "<prosody rate='slow'>" + filler_dict[i].format(name) + "</prosody>" +'\n')
 
 for j in guess_dict.keys():
     for i in range(51):

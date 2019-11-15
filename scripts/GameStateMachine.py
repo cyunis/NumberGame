@@ -34,7 +34,6 @@ def signal_handler(sig, frame):
 signal.signal(signal.SIGINT, signal_handler)
 
 
-
 class NumberGameInteraction:
     def __init__(self, use_qt_robot, leftHanded=False):
         self.start_recording = False
@@ -76,8 +75,13 @@ class NumberGameInteraction:
 
         self.average_thumb_value = 1
         self.gesture_time = 3.2 #seconds, use GAS1 value
-        self.supinate_angle = 66.5 #degrees, use GAS1 value
-        self.pronate_angle = -63.3 #degrees, use GAS1 value
+
+        with open("/home/qtrobot/calibration.txt",'r') as calib_file:
+            line = calib_file.readline()
+            self.avg_a = float(line.split('~')[1])
+            self.avg_down_a = float(line.split('~')[3])
+        self.supinate_angle = .8*self.avg_a #degrees, use GAS1 value
+        self.pronate_angle = .8*self.avg_down_a #degrees, use GAS1 value
         self.thumb_time = 5 #seconds
         
         #data to make game run smoothly
@@ -93,7 +97,9 @@ class NumberGameInteraction:
         self.ready_to_move_on = False
         self.is_aborted = False
         self.prev_state = None
+        
         self.nointro = False
+        self.choice_condition = False 
        
         
 
@@ -193,6 +199,11 @@ class NumberGameInteraction:
             performance_parameters = {'supinate_history': self.statementRandomizer.supinateList, 'pronate_history': self.statementRandomizer.pronateList, 'angle_value':self.average_thumb_value, 'time_value':self.gesture_time }
             print(tag)
             self.play_gesture(12)
+            self.cordial_say(tag, wait=True, params=performance_parameters)
+        else:
+            #say the computer screen thingy
+            tag = self.statementRandomizer.chooseRandomStatement(13)
+            performance_parameters = {'supinate_history': self.statementRandomizer.supinateList, 'pronate_history': self.statementRandomizer.pronateList, 'angle_value':self.average_thumb_value, 'time_value':self.gesture_time }
             self.cordial_say(tag, wait=True, params=performance_parameters)
 
     def cordial_say(self, tag, wait=False, params='None'):
@@ -386,22 +397,30 @@ class NumberGameInteraction:
         self.check_state_machine_status()
 
         #say that QT won
-        self.play_gesture(12)
-        self.cordial_say(self.statementRandomizer.chooseRandomStatement(7), wait=True)
+        if(self.choice_condition):
+            self.cordial_say('anotherchoice', wait=True)
+            data = "{}\t{}\t{}\t{}\t{}\t{}\t{}".format(self.start_time, time.time(), self.bb_time, self.number_of_supinations, self.number_of_pronations, self.wrong_counter, self.orthosis_mistake)
+            self.gamemetadata_pub.publish(data)
+            sys.exit()
+            
 
-        print(self.statementRandomizer.performedBehaviors)
-        self.get_thumb_data(self.thumb_time)
-        # res = input('woohoo I won, want to play again?')
-        
-        data = "{}\t{}\t{}\t{}\t{}\t{}\t{}".format(self.start_time, time.time(), self.bb_time, self.number_of_supinations, self.number_of_pronations, self.wrong_counter, self.orthosis_mistake)
-        self.gamemetadata_pub.publish(data)
+        else:    
+            self.play_gesture(12)
+            self.cordial_say(self.statementRandomizer.chooseRandomStatement(7), wait=True)
 
-        self.number_of_completed_games += 1
-        self.guesses = []
-        self.guess_lower_bound = 1
-        self.guess_upper_bound = 50
-        self.start_time = time.time()
-        self.ready_to_move_on = self.average_thumb_value < 0
+            print(self.statementRandomizer.performedBehaviors)
+            self.get_thumb_data(self.thumb_time)
+            # res = input('woohoo I won, want to play again?')
+            
+            data = "{}\t{}\t{}\t{}\t{}\t{}\t{}".format(self.start_time, time.time(), self.bb_time, self.number_of_supinations, self.number_of_pronations, self.wrong_counter, self.orthosis_mistake)
+            self.gamemetadata_pub.publish(data)
+
+            self.number_of_completed_games += 1
+            self.guesses = []
+            self.guess_lower_bound = 1
+            self.guess_upper_bound = 50
+            self.start_time = time.time()
+            self.ready_to_move_on = self.average_thumb_value < 0
 
 
     def on_enter_end(self):
@@ -514,7 +533,7 @@ transitions = [
                 { 'trigger': 'advance', 'source': 'skip_intro', 'dest': 'input_number'},
             ]
 
-game = NumberGameInteraction(True)
+game = NumberGameInteraction(False)
 start_state = 'skip_intro' if game.nointro == True else 'get_name'
 machine = Machine(model=game, states=states, transitions=transitions, initial=start_state, before_state_change='reset_ready_to_move_on', after_state_change='log_game_data', show_state_attributes=True, show_conditions=True)
 game.get_graph().draw('TommyThumbDiagram.png', prog='dot')

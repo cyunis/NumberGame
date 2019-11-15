@@ -36,6 +36,7 @@ class Logger:
         path = '/home/qtrobot/Documents/'
         try:
             os.mkdir(path + ID)
+            os.mkdir(path + ID + '/ThumbPictures')
         except Exception as e:
             pass #print(e) (the exception occurs if the file has already been created)
         
@@ -56,6 +57,8 @@ class Logger:
         self.gamemetadata_sub = rospy.Subscriber('/logging/gamemetadata', String, self.log_game_metadata)
         self.thumbdata_sub = rospy.Subscriber('/logging/thumbdata', String, self.log_thumb_data)
         self.robotdata_sub = rospy.Subscriber('/logging/robotdata', String, self.log_robot_data)
+        
+        self.thumb_rgb_picture_sub = rospy.Subscriber('/logging/robotdata', String, self.log_robot_data)
 
     def log_game_data(self, msg):
         print(str(msg.data))
@@ -72,7 +75,7 @@ class Logger:
         
     #def exit(self):
         
-logger_node = Logger('Participant24')
+logger_node = Logger('Participant02')
 
 while(1):
     rospy.spin()
