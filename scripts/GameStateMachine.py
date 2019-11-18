@@ -100,6 +100,7 @@ class NumberGameInteraction:
         
         self.nointro = False
         self.choice_condition = False 
+        self.computer_true = False
        
         
 
@@ -278,7 +279,10 @@ class NumberGameInteraction:
     #logic for each state transition
     def get_name(self):
         self.play_gesture(10)
-        self.cordial_say('intro1', wait=True)
+        if(self.computer_true):
+            self.cordial_say('intro1comp', wait=True)
+        else:
+            self.cordial_say('intro1qt', wait=True)
         self.name = raw_input('What is their name?')
 
 
