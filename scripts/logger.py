@@ -45,7 +45,7 @@ class Logger:
         self.game_data_file.info('start time\t time\t beaglebone time\t previous state\t current state\t game aborted?\t orthosis malfunction?')
 
         self.game_metadata_file = setup_logger('game_meta_data_logger',  path + ID + '/' + 'game_meta_data_logfile.csv') #csv.writer(open('game_metadata.csv', 'w'))
-        self.game_metadata_file.info('start time\t time\t beaglebone time\t total yes\t total no\t total incorrect answers\t total orthosis mistakes\t <BUCKETS FILL IN HERE>')
+        self.game_metadata_file.info('start time\t time\t beaglebone time\t total yes\t total no\t total incorrect answers\t total orthosis mistakes\t computer condition\t')
 
         self.thumb_data_file = setup_logger('thumb_data_logger', path + ID + '/' + 'thumb_data_logfile.csv')
         self.thumb_data_file.info('start time\t recording start time\t time\t beaglebone time\t thumb data\t collection conditions')#GAS bucket for angle, GAS bucket for time')
@@ -75,7 +75,7 @@ class Logger:
         
     #def exit(self):
         
-logger_node = Logger('Participant02')
+logger_node = Logger('Participant9')
 
 while(1):
     rospy.spin()

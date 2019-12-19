@@ -24,7 +24,7 @@ import signal
 
 def signal_handler(sig, frame):
         print('You pressed Ctrl+C!')
-        data = "{}\t{}\t{}\t{}\t{}\t{}\t{}".format(game.start_time, time.time(), game.bb_time, game.number_of_supinations, game.number_of_pronations, game.wrong_counter, game.orthosis_mistake)
+        data = "{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}".format(game.start_time, time.time(), game.bb_time, game.number_of_supinations, game.number_of_pronations, game.wrong_counter, game.orthosis_mistake, game.computer_true)
         game.gamemetadata_pub.publish(data)
         print(data)
         print('The game metadata have been logged and now the game will terminate :3')
@@ -89,7 +89,6 @@ class NumberGameInteraction:
         self.robotManager = RobotManager('DB1')
         
         self.use_robot = use_qt_robot
-        self.ready_to_begin = False
         self.guess_lower_bound = 1
         self.guess_upper_bound = 50
         self.guesses = []
@@ -98,9 +97,10 @@ class NumberGameInteraction:
         self.is_aborted = False
         self.prev_state = None
         
-        self.nointro = False
-        self.choice_condition = False 
-        self.computer_true = False
+        self.ready_to_begin = False
+        self.nointro = True
+        self.choice_condition = True 
+        self.computer_true = True
        
         
 
@@ -342,8 +342,15 @@ class NumberGameInteraction:
         half_range = int((self.guess_upper_bound - self.guess_lower_bound)/2)
         ideal_guess = half_range+ self.guess_lower_bound
         guess = ideal_guess + random.randint(-half_range, half_range)
+
+        tries = 0
         while(guess in self.guesses):
             guess = ideal_guess + random.randint(-half_range, half_range)
+            tries += 1
+            if tries > 100:
+                print('infinite loop on 351 in GameStateMachine.py')
+
+        
         self.guesses.append(guess)
         print('guess list is: '+str(self.guesses))
 
@@ -403,7 +410,7 @@ class NumberGameInteraction:
         #say that QT won
         if(self.choice_condition):
             self.cordial_say('anotherchoice', wait=True)
-            data = "{}\t{}\t{}\t{}\t{}\t{}\t{}".format(self.start_time, time.time(), self.bb_time, self.number_of_supinations, self.number_of_pronations, self.wrong_counter, self.orthosis_mistake)
+            data = "{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}".format(self.start_time, time.time(), self.bb_time, self.number_of_supinations, self.number_of_pronations, self.wrong_counter, self.orthosis_mistake, self.computer_true)
             self.gamemetadata_pub.publish(data)
             sys.exit()
             
@@ -416,7 +423,7 @@ class NumberGameInteraction:
             self.get_thumb_data(self.thumb_time)
             # res = input('woohoo I won, want to play again?')
             
-            data = "{}\t{}\t{}\t{}\t{}\t{}\t{}".format(self.start_time, time.time(), self.bb_time, self.number_of_supinations, self.number_of_pronations, self.wrong_counter, self.orthosis_mistake)
+            data = "{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}".format(self.start_time, time.time(), self.bb_time, self.number_of_supinations, self.number_of_pronations, self.wrong_counter, self.orthosis_mistake, self.computer_true)
             self.gamemetadata_pub.publish(data)
 
             self.number_of_completed_games += 1
@@ -429,10 +436,11 @@ class NumberGameInteraction:
 
     def on_enter_end(self):
         #add the gesture for bye bye
-        data = "{}\t{}\t{}\t{}\t{}\t{}\t{}".format(self.start_time, time.time(), self.bb_time, self.number_of_supinations, self.number_of_pronations, self.wrong_counter, self.orthosis_mistake)
+        data = "{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}".format(self.start_time, time.time(), self.bb_time, self.number_of_supinations, self.number_of_pronations, self.wrong_counter, self.orthosis_mistake, self.computer_true)
         self.gamemetadata_pub.publish(data)
-
-        self.cordial_say('endgame')
+        if not hasattr(self, 'has_entered_end'):
+            self.has_entered_end = True
+            self.cordial_say('endgame')
         print('thanks for playing!')
         print('stats: games played: {}\ntime played: {}'.format(self.number_of_completed_games, time.time()-self.start_time))
         sys.exit()
@@ -537,7 +545,7 @@ transitions = [
                 { 'trigger': 'advance', 'source': 'skip_intro', 'dest': 'input_number'},
             ]
 
-game = NumberGameInteraction(False)
+game = NumberGameInteraction(True)
 start_state = 'skip_intro' if game.nointro == True else 'get_name'
 machine = Machine(model=game, states=states, transitions=transitions, initial=start_state, before_state_change='reset_ready_to_move_on', after_state_change='log_game_data', show_state_attributes=True, show_conditions=True)
 game.get_graph().draw('TommyThumbDiagram.png', prog='dot')

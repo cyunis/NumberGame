@@ -158,11 +158,15 @@ class statementRandomizer:
         }
         self.listening_gestures = {
             1: "QT/bored",
+            2: "QT/bored",
+            3: "QT/bored",
             # 2: "gestures_programmed(1)" #or call gestures_programmed(1)
          } 
         self.encouragement_gestures = {
             1: "QT/surprise",
             2: "QT/happy",
+            3: "QT/surprise",
+            4: "QT/happy"
             # 3: "gestures_programmed(2)",
             # 4: "gestures_programmed(3)"
          } #or call gestures_programmed(2,3)
@@ -211,18 +215,23 @@ class statementRandomizer:
         #convert statement type to actual dictionary
         behaviorDict = mapping[statementType]
         upperBound = len(behaviorDict.keys())
+        tries = 0
 
         #clear half of the oldest values from the list of played animations if they have all been played
         if(upperBound == len(self.performedBehaviors[statementType])):
             while len(self.performedBehaviors[statementType]) > upperBound/2:
+                tries += 1
+                if tries > 100:
+                    print('infinite loop on 225 in feeedback.py')
                 self.performedBehaviors[statementType].pop(0)
 
         #determine the number of the behavior to play, and
         #choose a new behavior if the desired number has already been played
         behaviorNumber = random.randint(1,upperBound)
-        while(behaviorNumber in self.performedBehaviors[statementType] or 
-        (behaviorDict[behaviorNumber] == "clarifyI" and angle < 0) or
-        (behaviorDict[behaviorNumber] == "clarifyJ" and angle > 0)):
+        while(behaviorNumber in self.performedBehaviors[statementType]):
+            tries += 1
+            if tries > 100:
+                    print('infinite loop on 234 in feedback.py')
             behaviorNumber = random.randint(1,upperBound)
 
         #once the number is found, return the key value for the CoRDial statement
