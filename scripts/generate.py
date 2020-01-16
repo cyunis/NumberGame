@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-name = 'Catherine'
+name = 'Sharlene'
 hand = 'right'
 letters = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T']
 
@@ -139,7 +139,7 @@ f.writelines('[intro1comp]'+'<prosody rate="slow">Hello, my name is TQ Computer.
 f.writelines('[intro2]'+'<prosody rate="slow">Hi {} I would like to play a guessing game with you. In the game, I ask you questions, and you answer yes or no by using a thumbs up or a thumbs down with your {} hand.</prosody>\n'.format(name,hand)) 
 f.writelines('[intro3]'+'<prosody rate="slow">Let’s practice.  Can you show me a thumbs up to say yes?</prosody>\n')
 f.writelines('[intro4]'+'<prosody rate="slow">Awesome! Now can you show me a thumbs down to say no?</prosody>\n')
-f.writelines('[intro5]'+'<prosody rate="slow">Thanks! During the game, please keep your hand flat and your arm on the arm rest until I ask you a question. If your thumb is going the wrong way, tell Catherine to push the green button. And just do your best.</prosody>\n')
+f.writelines('[intro5]'+'<prosody rate="slow">Thanks! During the game, please keep your hand flat and your arm on the arm rest until I ask you a question. If your thumb is going the wrong way, tell Nathan to push the green button. And just do your best.</prosody>\n')
 f.writelines('[startgame]'+'<prosody rate="slow">Let\'s play now! Please think of a number between 1 and 50.</prosody>\n')
 f.writelines('[another1]'+'<prosody rate="slow">Hooray I got it! Thanks {} for playing with me. Do you want to play again?</prosody>\n'.format(name))
 f.writelines('[another2]'+'<prosody rate="slow">Hooray I guessed right! Do you want to play again please?</prosody>\n')

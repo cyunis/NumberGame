@@ -1,0 +1,24 @@
+to shutdown the qtrobot camera:
+sudo su -c 'echo "0" > /sys/bus/usb/devices/2-2/bConfigurationValue'
+to go back:
+sudo su -c 'echo "1" > /sys/bus/usb/devices/2-2/bConfigurationValue'
+
+
+
+lsusb can see the idVendor(before ':') and idProduct
+we can go to /sys/bus/usb/devices to find the number
+
+
+
+#only do this
+to run the camera:
+roslaunch astra_launch astra.launch
+rosrun thumb get_image
+
+
+rostopic pub /qtobot/speech/say std_msgs/String "data: 'Hello'" 
+(ssh to head) roslaunch qt_robot_interface qt_robot_interface.launch
+
+192.168.100.1:8080
+view-source:http://192.168.100.1:8080/advance/Autostart
+

@@ -75,7 +75,7 @@ class Logger:
         
     #def exit(self):
         
-logger_node = Logger('Participant9')
+logger_node = Logger('Participant401')
 
 while(1):
     rospy.spin()

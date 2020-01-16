@@ -99,7 +99,7 @@ class NumberGameInteraction:
         
         self.ready_to_begin = False
         self.nointro = True
-        self.choice_condition = True 
+        self.choice_condition = True
         self.computer_true = True
        
         
