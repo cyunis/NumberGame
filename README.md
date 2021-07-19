@@ -50,7 +50,7 @@ Next, launch the face on QTRobot (connected to the belly computer)
 roscd cordial_face/web
 http-server
 ```
-Then launch the browser (still ssh'd into the belly computer)
+Then launch the browser (ssh'd into the head computer)
 mayyyybe, I still have to verify this....
 
 ```
