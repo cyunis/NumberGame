@@ -100,7 +100,7 @@ class NumberGameInteraction:
         self.prev_state = None
         
         self.ready_to_begin = False
-        self.nointro = True
+        self.nointro = False
         self.choice_condition = False
         self.computer_true = False
 
@@ -228,6 +228,10 @@ class NumberGameInteraction:
     def cordial_say(self, tag, wait=False, params='None'):
         speech_data='{}\t{}\t{}\t{}\t{}\t{}'.format(self.start_time, time.time(), self.bb_time, 'speech', tag, params)
         self.robotdata_pub.publish(speech_data)
+
+        if not self.computer_true:
+            print('tag is: ' + tag)
+            self.audio_play_pub.publish('QT/' + tag)
 
         self.robotManager.say(tag, wait=wait)
 
