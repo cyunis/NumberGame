@@ -10,14 +10,19 @@ class statementRandomizer:
         self.supinate = False
         self.pronate = False
 
-        with open("/home/qtrobot/calibration.txt",'r') as calib_file:
-            line = calib_file.readline()
-            self.avg_a = float(line.split('~')[1])
-            self.avg_down_a = float(line.split('~')[3])
-            line = calib_file.readline()
-            line = calib_file.readline()
-            self.tot_up = float(line.split('~')[1])
-            self.tot_down = float(line.split('~')[3])
+        # with open("/home/qtrobot/calibration.txt",'r') as calib_file:
+        #     line = calib_file.readline()
+        #     self.avg_a = float(line.split('~')[1])
+        #     self.avg_down_a = float(line.split('~')[3])
+        #     line = calib_file.readline()
+        #     line = calib_file.readline()
+        #     self.tot_up = float(line.split('~')[1])
+        #     self.tot_down = float(line.split('~')[3])
+
+        self.avg_a = 45
+        self.avg_down_a = -45
+        self.tot_up = 2
+        self.tot_down = 2
 
 
         self.guessStatements = {

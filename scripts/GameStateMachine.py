@@ -8,15 +8,15 @@ import random
 import pygraphviz
 import sys
 from std_msgs.msg import String
-from qt_robot_interface.srv import *
-from qt_gesture_controller.srv import *
-from std_msgs.msg import Float64MultiArray
-from sensor_msgs.msg import JointState
-from thumb.msg import Res
-from heapq import nlargest
+# from qt_robot_interface.srv import *
+# from qt_gesture_controller.srv import *
+from std_msgs.msg import Float64MultiArray, Float64
+# from sensor_msgs.msg import JointState
+# from thumb.msg import Res
+# from heapq import nlargest
 import copy
 
-from message_filters import ApproximateTimeSynchronizer, Subscriber
+# from message_filters import ApproximateTimeSynchronizer, Subscriber
 import roslib; roslib.load_manifest('cordial_example')
 import rospy
 from cordial_core import RobotManager
@@ -58,6 +58,7 @@ class NumberGameInteraction:
         #subscribers
         self.thumb_sub = rospy.Subscriber("/thumb_result", String, self.process_thumb_data)
         self.beaglebone_sub = rospy.Subscriber("/openwearable_new", String, self.process_beaglebone_data)
+        self.webcam_sub=  rospy.Subscriber('/thumb_angle', Float64, self.process_webcam_thumb_data)
 
         #data to measure
         self.start_time = time.time()
@@ -76,12 +77,13 @@ class NumberGameInteraction:
         self.average_thumb_value = 1
         self.gesture_time = 3.2 #seconds, use GAS1 value
 
-        with open("/home/qtrobot/calibration.txt",'r') as calib_file:
-            line = calib_file.readline()
-            self.avg_a = float(line.split('~')[1])
-            self.avg_down_a = float(line.split('~')[3])
-        self.supinate_angle = .8*self.avg_a #degrees, use GAS1 value
-        self.pronate_angle = .8*self.avg_down_a #degrees, use GAS1 value
+        # with open("/home/qtrobot/calibration.txt",'r') as calib_file:
+        #     line = calib_file.readline()
+        #     self.avg_a = float(line.split('~')[1])
+        #     self.avg_down_a = float(line.split('~')[3])
+
+        self.supinate_angle = 45#.8*self.avg_a #degrees, use GAS1 value
+        self.pronate_angle = 45#.8*self.avg_down_a #degrees, use GAS1 value
         self.thumb_time = 5 #seconds
         
         #data to make game run smoothly
@@ -99,10 +101,25 @@ class NumberGameInteraction:
         
         self.ready_to_begin = False
         self.nointro = True
-        self.choice_condition = True
-        self.computer_true = True
-       
-        
+        self.choice_condition = False
+        self.computer_true = False
+
+    #callback functions
+    def process_webcam_thumb_data(self, msg):
+    
+        if(self.start_recording == True):
+            #save the previous recording
+            data = '{}\t{}\t{}\t{}\t{}\t{}'.format(self.start_time, self.recording_start_time, time.time(), self.bb_time, self.gesture_values,'resting values')
+            self.thumbdata_pub.publish(data)
+            self.gesture_values = []
+            self.start_recording = False
+            self.recording_start_time = time.time()
+
+        thumb_angle = msg.data 
+
+        #read the button values to see if the green button is pressed -> orthosis_mistake += 1
+        self.gesture_values.append({'time': time.time() - self.recording_start_time, 'angle': thumb_angle})
+        self.ready_to_begin = True
 
     #callback functions
     def process_thumb_data(self, msg):
@@ -122,6 +139,7 @@ class NumberGameInteraction:
         
         if(self.isLeftHanded == True):
             thumb_angle = -(thumb_angle - 180)
+
         #read the button values to see if the green button is pressed -> orthosis_mistake += 1
         self.gesture_values.append({'time': time.time() - self.recording_start_time, 'angle': thumb_angle})
 

@@ -11,13 +11,13 @@ rospy.init_node('QTexNode')
 
 rm = RobotManager("DB1")
 
-for i in range(4):
-    rm.say("intro"+str(i+1), wait=True)
+# for i in range(4):
+#     rm.say("intro"+str(i+1), wait=True)
 
-rm.say("startgame")
+# rm.say("startgame")
 
-for i in range(3):
-    rm.say("another"+str(i+1) , wait=True)
+# for i in range(3):
+#     rm.say("another"+str(i+1) , wait=True)
 
 for i in range(12):
     rm.say("clarify"+letters[i], wait=True)
