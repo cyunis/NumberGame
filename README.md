@@ -24,7 +24,7 @@ To generate the script, first make sure you know the name of the participant and
 roscd number_game/scripts
 python3 generate.py
 # copy the produced script.txt to cordial-public/cordial_example/speech/script.txt
-roscd cordial-public/cordial_example/speech
+roscd cordial_example/speech
 ./gen_audio.sh
 ```
 
